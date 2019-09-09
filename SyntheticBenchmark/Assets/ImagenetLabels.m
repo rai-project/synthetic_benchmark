@@ -1,4 +1,11 @@
-{
+
+BeginPackage["SyntheticBenchmark`Assets`ImagenetLabels`"]
+
+$ImagenetLabels
+
+Begin["`Private`"]
+
+$ImagenetLabels = {
 Entity["Concept", "Tench::q9r2d"],
 Entity["Concept", "CarassiusAuratus::f73xs"],
 Entity["Concept", "CarcharodonCarcharias::st7pj"],
@@ -1000,3 +1007,7 @@ Entity["Concept", "Bolete::9g3s2"],
 Entity["Concept", "Capitulum::834z6"],
 Entity["Concept", "BathroomTissue::ts4sr"]
 }
+
+End[]
+
+EndPackage[]
