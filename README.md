@@ -3,6 +3,15 @@
 
 ## Tools
 
+### Wolfram Script
+
+- https://reference.wolfram.com/language/tutorial/WolframLanguageScripts.html
+
+
+### Docker
+
+- https://github.com/arnoudbuzing/wolfram-engine-docker
+
 ### General
 - https://github.com/b3m2a1/mathematica-tools
 - https://github.com/b3m2a1/DataStructures
