@@ -11,6 +11,7 @@
 ### Docker
 
 - https://github.com/arnoudbuzing/wolfram-engine-docker
+- https://mathematica.stackexchange.com/questions/134637/running-mathematica-on-docker
 
 ### General
 - https://github.com/b3m2a1/mathematica-tools
