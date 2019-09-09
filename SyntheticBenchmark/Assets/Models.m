@@ -6,12 +6,13 @@ $Models
 $ModelNames
 
 DeleteModelWeights
+DumpSaveModelWeights
 
 Begin["`Private`"]
 
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
-modelsMXFile = FileNameJoin[{rootDir, "models.mx"}];
+modelsMXFile = FileNameJoin[{rootDirectory, "ModelsCache.mx"}];
 
 If[FileExistsQ[modelsMXFile],
     Get[modelsMXFile]
@@ -152,10 +153,10 @@ deleteLayerWeights[lyr_[assoc0_, r___]] :=
         KeyDropFrom[assoc,"Output"];*)
         Inactive[lyr][assoc, r]
    ];
-
+   
 DeleteModelWeights[model_?StringQ] :=
     With[{
-        layers = NetInformation[NetModel[model]]
+        layers = NetInformation[NetModel[model], "LayersList"]
     },
         model -> (deleteLayerWeights /@ layers)
     ]
@@ -163,7 +164,7 @@ DeleteModelWeights[model_?StringQ] :=
 DumpSaveModelWeights[] :=
     Module[{names = $ModelNames, info},
         info = DeleteModelWeights /@ names;
-        $Models = info;
+        $Models = Association[info];
         DumpSave[modelsMXFile, $Models];
     ]
 

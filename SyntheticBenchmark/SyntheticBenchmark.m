@@ -1,7 +1,5 @@
 
-BeginPackage["SyntheticBenchmark`"]
-
-Needs["SyntheticBenchmark`Assets`"]
+BeginPackage["SyntheticBenchmark`", {"SyntheticBenchmark`Assets`"}]
 
 Begin["`Private`"]
 
