@@ -15,7 +15,7 @@ rootDirectory = FileNameDrop[$InputFileName, -1];
 modelsMXFile = FileNameJoin[{rootDirectory, "ModelsCache.mx"}];
 
 If[FileExistsQ[modelsMXFile],
-    Get[modelsMXFile]
+    Get[modelsMXFile];
 ]
 
 
