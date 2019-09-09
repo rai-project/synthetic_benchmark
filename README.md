@@ -1,6 +1,10 @@
 # synthetic_benchmark
 
 
+## Docs
+
+- https://reference.wolfram.com/language/tutorial/NeuralNetworksOverview.html
+
 ## Tools
 
 ### Wolfram Script
