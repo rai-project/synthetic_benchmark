@@ -5,6 +5,14 @@
 
 - https://reference.wolfram.com/language/tutorial/NeuralNetworksOverview.html
 
+## Tips
+
+- https://mathematica.stackexchange.com/questions/124977/qa-mathematica-v-11-neural-networks-a-comprehensive-look-at-layers-net-functi
+
+## StackExchange
+
+- https://mathematica.stackexchange.com/questions/tagged/neural-networks
+
 ## Tools
 
 ### Wolfram Script
@@ -33,3 +41,4 @@
 
 ### Publish
 - https://github.com/b3m2a1/Ems
+- https://github.com/jfultz/WolframDocViewer
