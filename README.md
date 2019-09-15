@@ -1,5 +1,4 @@
-# synthetic_benchmark
-
+# synthetic_benchmark [![View notebooks](https://www.wolframcloud.com/obj/user-3ed91f5b-da42-447a-8a46-df433a144012/dev/WDV/badge2.png)](https://www.wolframcloud.com/obj/user-3ed91f5b-da42-447a-8a46-df433a144012/dev/WDV/wdv_api?user=rai-project&repo=synthetic_benchmark&branch=master) 
 
 ## Docs
 
