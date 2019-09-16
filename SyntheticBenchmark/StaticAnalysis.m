@@ -143,8 +143,12 @@ flops[OrderingLayer, inputs_, outputs_, params_, opts_] :=
         <| "Additions" -> numOps * Log2[numOps] |>
     ];
 flops[ThreadingLayer, inputs_, outputs_, params_, opts_] :=
-    Module[{numInputs, inputShapes, fun, numOps},
-        inputShapes = tensorDims[inputs["Input"]];
+    Module[{numInputs, input, inputShapes, fun, numOps},
+        input = inputs["Input"];
+        If[MissingQ[input],
+            input = inputs["1"]
+        ];
+        inputShapes = tensorDims[input];
 
         numInputs = Length[inputs];
         numOps = numInputs * Apply[Times, inputShapes];
