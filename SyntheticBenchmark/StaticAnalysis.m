@@ -94,8 +94,40 @@ flops[ElementwiseLayer, inputs_, outputs_, params_, opts_] :=
                 <| "Additions" -> numOps, "Divisions" -> numOps, "Exponentiations" -> numOps |>,
             ValidatedParameter[Abs],
                 <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
+            ValidatedParameter[Sqrt],
+                <| "Exponentiations" -> numOps |>,
+            ValidatedParameter[_NeuralNetworks`Private`ScalarFunctionObject],
+                fun = First[fun];
+                Switch[NeuralNetworks`Private`ScalarFunctionToPureFunction[fun],
+                    Min[6,Max[0,#1]]&,
+                        <| "Comparisons" -> 2 * numOps |>,
+                    (#1^2)&,
+                        <| "MultiplyAdds" -> numOps |>,
+                    Sqrt[#1]/(1+#1)&,
+                        <| "Exponentiations" -> numOps, "Divisions" -> numOps, "Additions" -> numOps |>,
+                    (ScaledExponentialLinearUnit[#1]&) | ("ScaledExponentialLinearUnit"[#1]&) | ("SELU"[#1]&),
+                        <| "Exponentiations" -> numOps, "Additions" -> numOps |>,
+                    ("RectifiedLinearUnit"[#1]&) | ("RELU"[#1]&),
+                        <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
+                    ("ExponentialLinearUnit"[#1]&) | ("ELU"[#1]&),
+                        <| "Comparisons" -> numOps, "Additions" -> numOps |>,
+                    "SoftSign"[#1]&,
+                        <| "Comparisons" -> numOps, "Additions" -> numOps, "Divisions" -> numOps |>,
+                    "SoftPlus"[#1]&,
+                        <| "Exponentiations" -> 2*numOps, "Additions" -> numOps |>,
+                    "HardTanh"[#1]&,
+                        <| "Comparisons" -> 2*numOps |>,
+                    "HardSigmoid"[#1]&,
+                        <| "Comparisons" -> 2*numOps, "Divisions" -> numOps |>,
+                    "Sigmoid"[#1]&,
+                        <| "Exponentiations" -> 2*numOps, "Additions" -> numOps, "Divisions" -> numOps |>,
+                    _,
+                        Global`es = NeuralNetworks`Private`ScalarFunctionToPureFunction[fun];
+                        Print["unhandled ElementwiseLayer ScalarFunctionObject case ", NeuralNetworks`Private`ScalarFunctionToPureFunction[fun]]
+                ],
             _,
-                Print["unhandled ElementwiseLayer case", params]
+                Print["unhandled ElementwiseLayer case ", fun]
+                
         ]
     ];
 flops[ConstantPlusLayer, inputs_, outputs_, params_, opts_] :=
@@ -103,6 +135,12 @@ flops[ConstantPlusLayer, inputs_, outputs_, params_, opts_] :=
         inputShapes = tensorDims[inputs["Input"]];
         numOps = Apply[Times, inputShapes];
         <| "Additions" -> numOps |>
+    ];
+flops[OrderingLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{inputShapes, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
+        numOps = Apply[Times, inputShapes];
+        <| "Additions" -> numOps * Log2[numOps] |>
     ];
 flops[ThreadingLayer, inputs_, outputs_, params_, opts_] :=
     Module[{numInputs, inputShapes, fun, numOps},
@@ -133,6 +171,10 @@ flops[AggregationLayer, inputs_, outputs_, params_, opts_] :=
             ValidatedParameter[Max],
                 <| "Comparisons" -> numOps |>,
             ValidatedParameter[Times],
+                <| "MultiplyAdds" -> numOps |>,
+            Mean | ValidatedParameter[Mean],
+                <| "Additions" -> numOps, "Divisions" -> numOps |>,
+            Total | ValidatedParameter[Total],
                 <| "Additions" -> numOps |>,
             _,
                 Print["unhandled AggregationLayer case", params]
@@ -169,6 +211,12 @@ flops[LinearLayer, inputs_, outputs_, params_, opts_] :=
     Module[{batchSize, inputShapes, outputShapes, fun, m, n, k},
         inputShapes = tensorDims[inputs["Input"]];
         outputShapes = tensorDims[outputs["Output"]];
+
+        If[MatchQ[outputShapes, _NeuralNetworks`ListT],
+            Return[<|
+                "MultiplyAdds" -> Apply[Times, inputShapes]
+            |>]
+        ];
 
         batchSize = Lookup[opts, "BatchSize", 1];
         fun = If[Length[outputShapes] === 1, "GEMV", "GEMM"];
@@ -232,19 +280,26 @@ flops[TransposeLayer, inputs_, outputs_, params_, opts_] :=
     <||>;
 flops[SequenceMostLayer, inputs_, outputs_, params_, opts_] :=
     <||>;
+flops[SequenceLastLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
 flops[NeuralNetworks`SequenceIndicesLayer, inputs_, outputs_, params_, opts_] :=
     <||>;
-
+flops[ExtractLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[ConstantArrayLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
 GatedRecurrentLayer;
 EmbeddingLayer;
 DeconvolutionLayer;
+
+
 
 paramsOf[lyr_] :=
     NData[lyr]["Parameters"]
 
 tensorDims[TensorT[dims_, _]] := 
 	dims
-
+    
 End[]
 
 
