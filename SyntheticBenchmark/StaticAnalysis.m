@@ -16,7 +16,7 @@ Inputs = NeuralNetworks`Private`Inputs;
 
 ClearAll[FlopCount]
 FlopCount[e_, opts:OptionsPattern[]] := FlopCount[e, <|opts|>]
-FlopCount[Invactive[nm_][assoc_?AssociationQ, ___], opts_?AssociationQ] := formatS[flops[nm, assoc["Inputs"], assoc["Outputs"], assoc["Parameters"], opts]]
+FlopCount[Inactive[nm_][assoc_?AssociationQ, ___], opts_?AssociationQ] := formatS[flops[nm, assoc["Inputs"], assoc["Outputs"], assoc["Parameters"], opts]]
 FlopCount[lyr_[assoc_?AssociationQ, ___], opts_?AssociationQ] := formatS[flops[lyr, assoc["Inputs"], assoc["Outputs"], assoc["Parameters"], opts]]
 
 formatS[assoc_?AssociationQ] :=
@@ -50,6 +50,26 @@ flops[ConvolutionLayer, inputs_, outputs_, params_, opts_] :=
             "MultiplyAdds" -> (kernelH*kernelW*hOut*wOut*cIn*cOut*nIn) / params["ChannelGroups"]
         |>
     ];
+flops[NormalizationLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{inputShapes, numOps, tmp, size},
+        inputShapes = tensorDims[inputs["Input"]];
+        
+        numOps = Apply[Times, inputShapes];
+        tmp = Lookup[params, "AggregationLevels"];
+        size = Switch[tmp,
+            HoldPattern[NeuralNetworks`ValidatedParameter[n_ ;; All]],
+                tmp /. HoldPattern[NeuralNetworks`ValidatedParameter[n_ ;; All]] -> n,
+            _,
+                Print["unhandled NormalizationLayer case", tmp]
+        ];
+
+        <|
+            "MultiplyAdds" -> numOps * size,
+            "Additions" -> numOps,
+            "Exponentiations" -> numOps,
+            "Divisions" -> 2 * numOps 
+        |>
+    ];
 flops[BatchNormalizationLayer, inputs_, outputs_, params_, opts_] :=
     Module[{inputShapes, numOps},
         inputShapes = tensorDims[inputs["Input"]];
@@ -65,17 +85,59 @@ flops[ElementwiseLayer, inputs_, outputs_, params_, opts_] :=
         inputShapes = tensorDims[inputs["Input"]];
 
         numInputs = Length[inputs];
-        numOps = Apply[Times, inputShapes];
+        numOps = numInputs * Apply[Times, inputShapes];
         fun = params["Function"];
         Switch[fun,
             ValidatedParameter[Ramp],
+                <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
+            ValidatedParameter[LogisticSigmoid],
+                <| "Additions" -> numOps, "Divisions" -> numOps, "Exponentiations" -> numOps |>,
+            ValidatedParameter[Abs],
                 <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
             _,
                 Print["unhandled ElementwiseLayer case", params]
         ]
     ];
-flops[PaddingLayer, inputs_, outputs_, params_, opts_] :=
-    <||>
+flops[ConstantPlusLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{inputShapes, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
+        numOps = Apply[Times, inputShapes];
+        <| "Additions" -> numOps |>
+    ];
+flops[ThreadingLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{numInputs, inputShapes, fun, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
+
+        numInputs = Length[inputs];
+        numOps = numInputs * Apply[Times, inputShapes];
+        fun = params["Function"];
+        Switch[fun,
+            ValidatedParameter[Plus],
+                <| "Additions" -> numOps |>,
+            ValidatedParameter[Total],
+                <| "Additions" -> numOps |>,
+            ValidatedParameter[Times],
+                <| "MultiplyAdds" -> numOps |>,
+            _,
+                Print["unhandled ThreadingLayer case", params]
+        ]
+    ];
+flops[AggregationLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{numInputs, inputShapes, fun, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
+
+        numInputs = Length[inputs];
+        numOps = numInputs * Apply[Times, inputShapes];
+        fun = params["Function"];
+        Switch[fun,
+            ValidatedParameter[Max],
+                <| "Comparisons" -> numOps |>,
+            ValidatedParameter[Times],
+                <| "Additions" -> numOps |>,
+            _,
+                Print["unhandled AggregationLayer case", params]
+        ]
+    ];
 flops[PoolingLayer, inputs_, outputs_, params_, opts_] :=
     Module[{inputShapes, outputShapes, nOut, cOut, hOut, wOut, fun, batchSize},
         inputShapes = tensorDims[inputs["Input"]];
@@ -103,8 +165,6 @@ flops[TotalLayer, inputs_, outputs_, params_, opts_] :=
         numOps = Apply[Times, inputShapes];
         <| "Additions" -> numOps |>
     ];
-flops[FlattenLayer, inputs_, outputs_, params_, opts_] :=
-    <||>;
 flops[LinearLayer, inputs_, outputs_, params_, opts_] :=
     Module[{batchSize, inputShapes, outputShapes, fun, m, n, k},
         inputShapes = tensorDims[inputs["Input"]];
@@ -136,7 +196,48 @@ flops[SoftmaxLayer, inputs_, outputs_, params_, opts_] :=
             "Divisions" -> numOps
         |>
     ];
+flops[DropoutLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{numInputs, inputShapes, fun, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
 
+        numInputs = Length[inputs];
+        numOps = Apply[Times, inputShapes];
+        <|
+            "MultiplyAdds" -> numOps
+        |>
+    ];
+flops[LocalResponseNormalizationLayer, inputs_, outputs_, params_, opts_] :=
+    Module[{inputShapes, channel, numOps},
+        inputShapes = tensorDims[inputs["Input"]];
+        channel = params["ChannelWindowSize"];
+        numOps = channel * Apply[Times, inputShapes];
+        <| "Additions" -> numOps |>
+    ];
+
+flops[PaddingLayer, inputs_, outputs_, params_, opts_] :=
+    <||>
+flops[FlattenLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[ResizeLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[ReshapeLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[CatenateLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[PartLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[ReplicateLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[TransposeLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[SequenceMostLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+flops[NeuralNetworks`SequenceIndicesLayer, inputs_, outputs_, params_, opts_] :=
+    <||>;
+
+GatedRecurrentLayer;
+EmbeddingLayer;
+DeconvolutionLayer;
 
 paramsOf[lyr_] :=
     NData[lyr]["Parameters"]
