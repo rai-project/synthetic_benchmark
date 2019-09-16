@@ -1,5 +1,9 @@
 
-BeginPackage["SyntheticBenchmark`", {"SyntheticBenchmark`Assets`"}]
+BeginPackage["SyntheticBenchmark`", {
+    "SyntheticBenchmark`Assets`",
+    "SyntheticBenchmark`StaticAnalysis`",
+    "SyntheticBenchmark`SynthesizeData`"
+}]
 
 Begin["`Private`"]
 
