@@ -1,0 +1,10 @@
+{
+    "l1_cache_access": 27,
+    "l2_cache_access": 234,
+    "global_mem_latency": 424,
+    "local_mem_latency": 424,
+    "constant_mem_latency": 8,
+    "texture_mem_latency": 410,
+    "texture_cache_latency": 92,
+    "shared_mem_latency": 21
+}
