@@ -6,6 +6,8 @@ $GPUs
 
 Begin["`Private`"]
 
+Needs["SyntheticBenchmark`Assets`GPULatency`"]
+
 Gbps = 1
 GBps = 8
 
@@ -67,9 +69,16 @@ PCIe3 = <|
     "Bandwidth" -> 16 GBps
 |>
 
+SXM2 = <|
+    "Name" -> "SXM2",
+    "Bandwidth" -> Missing["SXM2", "Not implemented"]
+|>
+
 GPUInformation["TESLA V100 SXM2"] = <|
     "Name" -> "TESLA V100 SXM2",
     "Architecture" -> "Volta",
+    "InstructionLatency" -> GPUInstructionLatency["Volta"],
+    "MemoryLatency" -> GPUMemoryLatency["Volta"],
     "Interconnect" -> SXM2,
 	"ClockRate" -> 1530,
 	"PeekGFlops" -> 15000,
@@ -79,6 +88,8 @@ GPUInformation["TESLA V100 SXM2"] = <|
 GPUInformation["TESLA V100 PCIE"] = <|
     "Name" -> "TESLA V100 PCIE",
     "Architecture" -> "Volta",
+    "InstructionLatency" -> GPUInstructionLatency["Volta"],
+    "MemoryLatency" -> GPUMemoryLatency["Volta"],
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1380,
 	"PeekGFlops" -> 14000,
@@ -88,6 +99,8 @@ GPUInformation["TESLA V100 PCIE"] = <|
 GPUInformation["TESLA P100 SXM2"] = <|
     "Name" -> "TESLA P100 SXM2",
     "Architecture" -> "Pascal",
+    "InstructionLatency" -> GPUInstructionLatency["Pascal"],
+    "MemoryLatency" -> GPUMemoryLatency["Pascal"],
     "Interconnect" -> SXM2,
 	"ClockRate" -> 1481,
 	"PeekGFlops" -> 10600,
@@ -97,6 +110,8 @@ GPUInformation["TESLA P100 SXM2"] = <|
 GPUInformation["TESLA P100 PCIE"] = <|
     "Name" -> "TESLA P100 PCIE",
     "Architecture" -> "Pascal",
+    "InstructionLatency" -> GPUInstructionLatency["Pascal"],
+    "MemoryLatency" -> GPUMemoryLatency["Pascal"],
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1328,
 	"PeekGFlops" -> 9300,
@@ -106,6 +121,8 @@ GPUInformation["TESLA P100 PCIE"] = <|
 GPUInformation["TITAN Xp"] = <|
     "Name" -> "TITAN Xp",
     "Architecture" -> "Maxwell",
+    "InstructionLatency" -> GPUInstructionLatency["Maxwell"],
+    "MemoryLatency" -> GPUMemoryLatency["Maxwell"],
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1582,
 	"PeekGFlops" -> 12100,
@@ -114,6 +131,8 @@ GPUInformation["TITAN Xp"] = <|
 
 GPUInformation["TITAN X"] = <|
     "Name" -> "TITAN X",
+    "InstructionLatency" -> GPUInstructionLatency["Maxwell"],
+    "MemoryLatency" -> GPUMemoryLatency["Maxwell"],
     "Architecture" -> "Maxwell",
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1000,
@@ -123,6 +142,8 @@ GPUInformation["TITAN X"] = <|
 
 GPUInformation["K20"] = <|
     "Name" -> "K20",
+    "InstructionLatency" -> GPUInstructionLatency["Kepler"],
+    "MemoryLatency" -> GPUMemoryLatency["Kepler"],
     "Architecture" -> "Kepler",
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1000,
@@ -132,6 +153,8 @@ GPUInformation["K20"] = <|
 
 GPUInformation["K20X"] = <|
     "Name" -> "K20X",
+    "InstructionLatency" -> GPUInstructionLatency["Kepler"],
+    "MemoryLatency" -> GPUMemoryLatency["Kepler"],
     "Architecture" -> "Kepler",
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 1000,
@@ -141,6 +164,8 @@ GPUInformation["K20X"] = <|
 
 GPUInformation["K40"] = <|
     "Name" -> "K40",
+    "InstructionLatency" -> GPUInstructionLatency["Kepler"],
+    "MemoryLatency" -> GPUMemoryLatency["Kepler"],
     "Architecture" -> "Kepler",
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 745,
@@ -150,6 +175,8 @@ GPUInformation["K40"] = <|
 
 GPUInformation["K80"] = <|
     "Name" -> "K80",
+    "InstructionLatency" -> GPUInstructionLatency["Kepler"],
+    "MemoryLatency" -> GPUMemoryLatency["Kepler"],
     "Architecture" -> "Kepler",
     "Interconnect" -> PCIe2,
 	"ClockRate" -> 560,
