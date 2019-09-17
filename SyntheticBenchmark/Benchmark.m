@@ -16,6 +16,9 @@ NetAttachLoss = NeuralNetworks`NetAttachLoss;
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
 
+PrependTo[$Path, ParentDirectory[rootDirectory]]
+
+Get["SyntheticBenchmark`"]
 
 PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];
 
@@ -24,15 +27,16 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
-benchmarkModel[modelName_, n_:50] :=
-  Module[{model, lyrs, timings},
-    model = NetModel[modelName];
-    lyrs = NetInformation[model, "Layers"];
+model = NetModel[modelName];
+lyrs = NetInformation[model, "Layers"];
+
+benchmarkModel[modelName_, n_:1] :=
+  Module[{model, timings},
     timings = Association@Table[
       max = min;
       lyr = lyrs[[min]];
       name = Keys[lyrs][[min]];
-      net = NetChain[Values[lyrs][[min ;; max]]];
+      net = NetChain[{lyr}];
       SeedRandom[1];
       tdata = synthesizeData /@ Inputs[lyr];
       name -> TrimmedMean[Table[First[AbsoluteTiming[net[tdata];]], n], 0.2],
@@ -88,4 +92,6 @@ outputDims[lyr_[params_, ___]] :=
 
 
 timings = benchmarkModel[modelName];
-writeTimings[shortModelName, timings]
+Print["done running benchmark.... writing"];
+writeTimings[shortModelName, timings];
+Print["done benchmarking...."];
