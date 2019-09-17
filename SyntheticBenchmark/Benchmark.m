@@ -49,23 +49,29 @@ writeTimings[modelName_, timings_] :=
   header = {"index", "kind", "layer_name", "timing", "add", "div",
    "comp", "exp", "mad", "input", "output", "function", "kernel",
    "stride", "dilation", "mad/time"};
-  idx = 0;
+  idx = 1;
   tbl = Table[
-    time = 1000000 * timings[k];
+    time = Round[1000000 * timings[k], 0.1];
     flops = FlopCount[lyrs[k]];
+    (*Print[flops];
+    Print[ time];*)
     {
       idx++,
       StringTrim[SymbolName[Head[lyrs[k]]], "Layer"],
       StringRiffle[k, "/"],
       time,
-      Sequence @@ Sort[flops],
+      flops["Additions"],
+      flops["Divisions"],
+      flops["Comparisons"],
+      flops["Exponentiations"],
+      flops["MultiplyAdds"],
       inputDims[lyrs[k]],
       outputDims[lyrs[k]],
       function[lyrs[k]],
       kernelSize[lyrs[k]],
       stride[lyrs[k]],
       dilation[lyrs[k]],
-      flops["MultiplyAdds"] / time
+      N[flops["MultiplyAdds"] / time]
       },
     {k, Keys[timings]}
     ];
