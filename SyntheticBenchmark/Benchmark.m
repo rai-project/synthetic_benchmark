@@ -77,7 +77,7 @@ writeTimings[modelName_, timings_] :=
       },
     {k, Keys[timings]}
     ];
-  tbl = SortBy[tbl, {#[[2]] &, #[[13]] &, #[[14]] &, #[[15]] &, #[[12]] &, #[[10]]&, #[[1]] &, #[[9]] &, #[[16]] &}];
+  tbl = SortBy[tbl, {#[[2]] &, #[[15]] &, #[[16]] &, #[[17]] &, #[[14]] &, #[[10]]&,#[[11]]&, #[[1]] &, #[[9]] &, #[[18]] &}];
   PrependTo[tbl, header];
   Export[FileNameJoin[{rootDirectory, "..", "data", modelName <> ".csv"}], tbl]
 ]
