@@ -45,24 +45,27 @@ benchmarkModel[modelName_, n_:50] :=
   ]
 
 writeTimings[modelName_, timings_] :=
-  Module[{tbl, header},
+  Module[{tbl, header, time, flops},
   header = {"index", "kind", "layer_name", "timing", "add", "div",
    "comp", "exp", "mad", "input", "output", "function", "kernel",
    "stride", "dilation", "mad/time"};
   idx = 0;
-  tbl = Table[{
+  tbl = Table[
+    time = 1000000 * timings[k];
+    flops = FlopCount[lyrs[k]];
+    {
       idx++,
       StringTrim[SymbolName[Head[lyrs[k]]], "Layer"],
       StringRiffle[k, "/"],
-      timings[k],
-      Sequence @@ Sort[FlopCount[lyrs[k]]],
+      time,
+      Sequence @@ Sort[flops],
       inputDims[lyrs[k]],
       outputDims[lyrs[k]],
       function[lyrs[k]],
       kernelSize[lyrs[k]],
       stride[lyrs[k]],
       dilation[lyrs[k]],
-      FlopCount[lyrs[k]]["MultiplyAdds"] / timings[k]
+      flops["MultiplyAdds"] / time
       },
     {k, Keys[timings]}
     ];
