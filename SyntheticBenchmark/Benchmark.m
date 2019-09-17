@@ -47,7 +47,7 @@ benchmarkModel[modelName_, n_:50] :=
 writeTimings[modelName_, timings_] :=
   Module[{tbl, header, time, flops},
   header = {"index", "kind", "layer_name", "timing", "add", "div",
-   "comp", "exp", "mad", "input", "output", "function", "kernel",
+   "comp", "exp", "mad", "input_channel", "input_shape", "output_channel", "output_shape", "function", "kernel",
    "stride", "dilation", "mad/time"};
   idx = 1;
   tbl = Table[
@@ -65,8 +65,10 @@ writeTimings[modelName_, timings_] :=
       flops["Comparisons"],
       flops["Exponentiations"],
       flops["MultiplyAdds"],
-      inputDims[lyrs[k]],
-      outputDims[lyrs[k]],
+      inputDims[lyrs[k]][[1]],
+      inputDims[lyrs[k]][[2;;]],
+      outputDims[lyrs[k]][[1]],
+      outputDims[lyrs[k]][[2;;]],
       function[lyrs[k]],
       kernelSize[lyrs[k]],
       stride[lyrs[k]],
