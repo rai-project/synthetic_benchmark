@@ -51,7 +51,7 @@ writeTimings[modelName_, timings_] :=
    "stride", "dilation", "mad/time"};
   idx = 1;
   tbl = Table[
-    time = Round[1000000 * timings[k], 0.1];
+    time = Round[1000000 * timings[k], 0.01];
     flops = FlopCount[lyrs[k]];
     (*Print[flops];
     Print[ time];*)
