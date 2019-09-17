@@ -46,60 +46,106 @@ benchmarkModel[modelName_, n_:50] :=
 
 writeTimings[modelName_, timings_] :=
   Module[{tbl, header, time, flops},
-  header = {"index", "kind", "layer_name", "timing", "add", "div",
-   "comp", "exp", "mad", "input_channel", "input_shape", "output_channel", "output_shape", "function", "kernel",
-   "stride", "dilation", "mad/time"};
+  header = {
+    "index",
+    "kind",
+    "name",
+    "time",
+    "add_flops",
+    "div_flops",
+    "comp_flops",
+    "exp_flops",
+    "mad_flops",
+    "input_channel",
+    "input_height",
+    "input_width",
+    "output_channel",
+    "output_height",
+    "output_width",
+    "function",
+    "kernel_1",
+    "kernel_2",
+    "stride_1",
+    "stride_2",
+    "dilation_1",
+    "dilation_2",
+    "mad/time"
+  };
   idx = 1;
   tbl = Table[
     time = Round[1000000 * timings[k], 0.01];
     flops = FlopCount[lyrs[k]];
     (*Print[flops];
     Print[ time];*)
-    {
-      idx++,
-      StringTrim[SymbolName[Head[lyrs[k]]], "Layer"],
-      StringRiffle[k, "/"],
-      time,
-      flops["Additions"],
-      flops["Divisions"],
-      flops["Comparisons"],
-      flops["Exponentiations"],
-      flops["MultiplyAdds"],
-      inputDims[lyrs[k]][[1]],
-      inputDims[lyrs[k]][[2;;]],
-      outputDims[lyrs[k]][[1]],
-      outputDims[lyrs[k]][[2;;]],
-      function[lyrs[k]],
-      kernelSize[lyrs[k]],
-      stride[lyrs[k]],
-      dilation[lyrs[k]],
-      N[flops["MultiplyAdds"] / time]
-      },
+    <|
+      "index" -> idx++,
+      "kind" -> StringTrim[SymbolName[Head[lyrs[k]]], "Layer"],
+      "name" -> StringRiffle[k, "/"],
+      "time" -> time,
+      "add_flops" -> flops["Additions"],
+      "div_flops" -> flops["Divisions"],
+      "cmp_flops" -> flops["Comparisons"],
+      "exp_flops" -> flops["Exponentiations"],
+      "mad_flops" -> flops["MultiplyAdds"],
+      "input_channel" -> inputDims[lyrs[k]][[1]],
+      "input_height" -> inputDims[lyrs[k]][[2]],
+      "input_width" -> inputDims[lyrs[k]][[3]],
+      "output_channel" -> outputDims[lyrs[k]][[1]],
+      "output_height" -> outputDims[lyrs[k]][[2]],
+      "output_width" -> outputDims[lyrs[k]][[3]],
+      "function" -> function[lyrs[k]],
+      "kernel_1" -> kernelSize[lyrs[k]][[1]],
+      "kernel_2" -> kernelSize[lyrs[k]][[2]],
+      "stride_1" -> stride[lyrs[k]][[1]],
+      "stride_2" -> stride[lyrs[k]][[2]],
+      "dilation_1" -> dilation[lyrs[k]][[1]],
+      "dilation_2" -> dilation[lyrs[k]][[2]],
+      "mad/time" -> N[flops["MultiplyAdds"] / time]
+    |>,
     {k, Keys[timings]}
     ];
-  tbl = SortBy[tbl, {#[[2]] &, #[[15]] &, #[[16]] &, #[[17]] &, #[[14]] &, #[[10]]&,#[[11]]&, #[[1]] &, #[[9]] &, #[[18]] &}];
+  tbl = SortBy[tbl, {
+    #["kind"]&,
+    #["kernel_1"]&,
+    #["kernel_2"]&,
+    #["stride_1"]&,
+    #["stride_2"]&,
+    #["dilation_1"]&,
+    #["dilation_2"]&,
+    #["input_channel"]&,
+    #["input_height"]&,
+    #["input_width"]&,
+    #["mad"]&,
+    #["time"]&,
+    #["mad/time"]&
+  }];
+  tbl = Values /@ tbl;
   PrependTo[tbl, header];
   Export[FileNameJoin[{rootDirectory, "..", "data", modelName <> ".csv"}], tbl]
 ]
 
 paramsOf[lyr_[params_, ___]] := params
 kernelSize[lyr_[params_, ___]] :=
- With[{e = params["Parameters"]["KernelSize"]}, If[ListQ[e], e, ""]]
+ With[{e = params["Parameters"]["KernelSize"]}, If[ListQ[e], e, {"",""}]]
 stride[lyr_[params_, ___]] :=
- With[{e = params["Parameters"]["Stride"]}, If[ListQ[e], e, ""]]
+ With[{e = params["Parameters"]["Stride"]}, If[ListQ[e], e, {"",""}]]
 function[lyr_[params_, ___]] :=
  With[{e = params["Parameters"]["Function"]},
   If[! MissingQ[e], e /. ValidatedParameter -> Identity, ""]]
 dilation[lyr_[params_, ___]] :=
- With[{e = params["Parameters"]["Dilation"]}, If[ListQ[e], e, ""]]
+ With[{e = params["Parameters"]["Dilation"]}, If[ListQ[e], e, {"",""}]]
 inputDims[lyr_[params_, ___]] :=
  With[{e = params["Inputs"]},
-  If[AssociationQ[e],
+  With[{r=If[AssociationQ[e],
    If[KeyExistsQ[e, "Input"], e["Input"], e["1"]] /.
-    TensorT[x_, _] :> x, ""]]
+    TensorT[x_, _] :> x, {"","",""}]},
+    PadRight[r, 3, ""]
+  ]]
 outputDims[lyr_[params_, ___]] :=
- With[{e = params["Outputs"]},
-  If[AssociationQ[e], e["Output"] /. TensorT[x_, _] :> x, ""]]
+ With[{r=With[{e = params["Outputs"]},
+  If[AssociationQ[e], e["Output"] /. TensorT[x_, _] :> x, {"","",""}]]},
+    PadRight[r, 3, ""]
+ ]
 
 
 
