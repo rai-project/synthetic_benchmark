@@ -1,3 +1,12 @@
+
+shortModelName = "resnet50";
+modelName = "ResNet-50 Trained on ImageNet Competition Data";
+
+(*********************************************************************)
+(*********************************************************************)
+(*********************************************************************)
+(*********************************************************************)
+
 << NeuralNetworks`
 synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
 Inputs = NeuralNetworks`Private`Inputs;
@@ -15,7 +24,7 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
-benchmarkModel[modelName_, n_:20] :=
+benchmarkModel[modelName_, n_:50] :=
   Module[{model, lyrs, timings},
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
@@ -26,7 +35,7 @@ benchmarkModel[modelName_, n_:20] :=
       net = NetChain[Values[lyrs][[min ;; max]]];
       SeedRandom[1];
       tdata = synthesizeData /@ Inputs[lyr];
-      name -> Mean[Table[First[AbsoluteTiming[net[tdata];]], n]],
+      name -> TrimmedMean[Table[First[AbsoluteTiming[net[tdata];]], n], 0.2],
       {min, Length[lyrs]}
     ]
   ]
@@ -77,7 +86,6 @@ outputDims[lyr_[params_, ___]] :=
   If[AssociationQ[e], e["Output"] /. TensorT[x_, _] :> x, ""]]
 
 
-modelName = "ResNet-50 Trained on ImageNet Competition Data";
 
 timings = benchmarkModel[modelName];
-writeTimings[modelName, timings]
+writeTimings[shortModelName, timings]
