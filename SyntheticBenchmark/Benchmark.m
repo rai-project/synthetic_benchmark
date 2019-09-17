@@ -30,7 +30,7 @@ sequenceLength = 1;
 model = NetModel[modelName];
 lyrs = NetInformation[model, "Layers"];
 
-benchmarkModel[modelName_, n_:1] :=
+benchmarkModel[modelName_, n_:50] :=
   Module[{model, timings},
     timings = Association@Table[
       max = min;
@@ -48,7 +48,7 @@ writeTimings[modelName_, timings_] :=
   Module[{tbl, header},
   header = {"index", "kind", "layer_name", "timing", "add", "div",
    "comp", "exp", "mad", "input", "output", "function", "kernel",
-   "stride", "dilation"};
+   "stride", "dilation", "mad/time"};
   idx = 0;
   tbl = Table[{
       idx++,
@@ -61,13 +61,14 @@ writeTimings[modelName_, timings_] :=
       function[lyrs[k]],
       kernelSize[lyrs[k]],
       stride[lyrs[k]],
-      dilation[lyrs[k]]
+      dilation[lyrs[k]],
+      FlopCount[lyrs[k]]["MultiplyAdds"] / timings[k]
       },
     {k, Keys[timings]}
     ];
+  tbl = SortBy[tbl, {#[[2]] &, #[[13]] &, #[[14]] &, #[[15]] &, #[[12]] &, #[[10]]&, #[[1]] &, #[[9]] &, #[[16]] &}];
   PrependTo[tbl, header];
-  Export[FileNameJoin[{rootDirectory, "..", "data",
-   modelName <> ".csv"}], tbl]
+  Export[FileNameJoin[{rootDirectory, "..", "data", modelName <> ".csv"}], tbl]
 ]
 
 paramsOf[lyr_[params_, ___]] := params
