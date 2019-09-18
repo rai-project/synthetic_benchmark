@@ -1,54 +1,54 @@
-"index","kind","name","time","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","mad/time"
-43,"Aggregation","Norm/2",169.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",0.
-38,"Aggregation","DigitCaps/v/2",171.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",0.
-22,"Aggregation","DynamicRouting/2/Net/capsule/v/2",174.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",0.
-7,"Aggregation","PrimaryCaps/4/2",369.,9216,0,0,0,0,1152,8,"",1152,"","","Total","","","","","","",0.
-20,"Aggregation","DynamicRouting/2/Net/capsule/s/3",3781.,184320,0,0,0,0,1152,10,16,10,16,"","Total","","","","","","",0.
-36,"Aggregation","DigitCaps/s/3",3783.,184320,0,0,0,0,1152,10,16,10,16,"","Total","","","","","","",0.
-28,"Aggregation","DynamicRouting/2/Net/dots/3",3867.,184320,0,0,0,0,1152,10,16,1152,10,"","Total","","","","","","",0.
-14,"Aggregation","PrimaryPredVects/4",31304.,1474560,0,0,0,0,1152,10,16,1152,10,16,"Total","","","","","","",0.
-11,"ConstantArray","PrimaryPredVects/2",17611.,0,0,0,0,0,"KeyAbsent","1","",1152,10,16,"","","","","","","",0.
-1,"Convolution","ReLUConv1/1",599.,0,0,0,0,8294400,1,28,28,256,20,20,"",9,9,1,1,1,1,13847.078464106846
-3,"Convolution","PrimaryCaps/1",2587.,0,0,0,0,191102976,256,20,20,256,6,6,"",9,9,2,2,1,1,73870.49710088906
-42,"Elementwise","Norm/1",168.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",0.9523809523809523
-21,"Elementwise","DynamicRouting/2/Net/capsule/v/1",169.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",0.9467455621301775
-37,"Elementwise","DigitCaps/v/1",169.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",0.9467455621301775
-44,"Elementwise","Norm/3",160.,0,0,0,10,0,10,"","",10,"","","Sqrt","","","","","","",0.
-39,"Elementwise","DigitCaps/v/3",162.,10,10,0,10,0,10,"","",10,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",0.
-23,"Elementwise","DynamicRouting/2/Net/capsule/v/3",166.,10,10,0,10,0,10,"","",10,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",0.
-2,"Elementwise","ReLUConv1/2",500.,0,0,102400,0,102400,256,20,20,256,20,20,"Ramp","","","","","","",204.8
-48,"Elementwise","Reconstruct/2",162.,0,0,512,0,512,512,"","",512,"","","Ramp","","","","","","",3.1604938271604937
-52,"Elementwise","Reconstruct/6",167.,784,784,0,784,0,784,"","",784,"","","LogisticSigmoid","","","","","","",0.
-50,"Elementwise","Reconstruct/4",165.,0,0,1024,0,1024,1024,"","",1024,"","","Ramp","","","","","","",6.206060606060606
-6,"Elementwise","PrimaryCaps/4/1",194.,0,0,0,0,9216,1152,8,"",1152,8,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",47.50515463917526
-8,"Elementwise","PrimaryCaps/4/3",189.,1152,1152,0,1152,0,1152,"","",1152,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",0.
-46,"Extract","Pick/2",221.,0,0,0,0,0,10,16,"",16,"","","","","","","","","",0.
-29,"Flatten","DynamicRouting/2/Net/dots_flatten",214.,0,0,0,0,0,1152,10,"",11520,"","","","","","","","","",0.
-47,"Linear","Reconstruct/1",175.,0,0,0,0,8192,16,"","",512,"","","","","","","","","",46.81142857142857
-49,"Linear","Reconstruct/3",216.,0,0,0,0,524288,512,"","",1024,"","","","","","","","","",2427.259259259259
-51,"Linear","Reconstruct/5",234.,0,0,0,0,802816,1024,"","",784,"","","","","","","","","",3430.8376068376074
-45,"Ordering","Pick/1",160.,"(10*Log[10])/Log[2]",0,0,0,0,10,"","",1,"","","","","","","","","",0.
-26,"Replicate","DynamicRouting/2/Net/dots/1",5929.,0,0,0,0,0,10,16,"",1152,10,16,"","","","","","","",0.
-40,"Replicate","DigitCaps/v/4",164.,0,0,0,0,0,10,"","",10,16,"","","","","","","","",0.
-24,"Replicate","DynamicRouting/2/Net/capsule/v/4",167.,0,0,0,0,0,10,"","",10,16,"","","","","","","","",0.
-12,"Replicate","PrimaryPredVects/1",48838.,0,0,0,0,0,1152,8,"",1152,10,16,"","","","","","","",0.
-15,"Replicate","DynamicRouting/1",11713.,0,0,0,0,0,1152,10,16,2,1152,10,"","","","","","","",0.
-18,"Replicate","DynamicRouting/2/Net/capsule/s/1",5929.,0,0,0,0,0,1152,10,"",1152,10,16,"","","","","","","",0.
-34,"Replicate","DigitCaps/s/1",5951.,0,0,0,0,0,1152,10,"",1152,10,16,"","","","","","","",0.
-9,"Replicate","PrimaryCaps/4/4",462.,0,0,0,0,0,1152,"","",1152,8,"","","","","","","","",0.
-5,"Reshape","PrimaryCaps/3",207.,0,0,0,0,0,6,6,256,1152,8,"","","","","","","","",0.
-53,"Reshape","Reconstruct/7",164.,0,0,0,0,0,784,"","",1,28,28,"","","","","","","",0.
-32,"Reshape","DigitCaps/c/1",206.,0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",0.
-16,"Reshape","DynamicRouting/2/Net/capsule/c/1",207.,0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",0.
-31,"SequenceLast","DynamicRouting/3",429.,0,0,0,0,0,2,11520,"",11520,"","","","","","","","","",0.
-17,"Softmax","DynamicRouting/2/Net/capsule/c/2",417.,11520,11520,0,11520,0,1152,10,"",1152,10,"","","","","","","","",0.
-33,"Softmax","DigitCaps/c/2",420.,11520,11520,0,11520,0,1152,10,"",1152,10,"","","","","","","","",0.
-41,"Threading","DigitCaps/v/5",182.,0,0,0,0,320,10,16,"",10,16,"","Times","","","","","","",1.7582417582417584
-25,"Threading","DynamicRouting/2/Net/capsule/v/5",189.,0,0,0,0,320,10,16,"",10,16,"","Times","","","","","","",1.693121693121693
-10,"Threading","PrimaryCaps/4/5",228.,0,0,0,0,18432,1152,8,"",1152,8,"","Times","","","","","","",80.84210526315789
-35,"Threading","DigitCaps/s/2",875.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",421.3028571428572
-19,"Threading","DynamicRouting/2/Net/capsule/s/2",878.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",419.8633257403189
-27,"Threading","DynamicRouting/2/Net/dots/2",883.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",417.4858437146093
-13,"Threading","PrimaryPredVects/3",8368.,0,0,0,0,2949120,1152,10,16,1152,10,16,"Times","","","","","","",352.4282982791587
-30,"Threading","DynamicRouting/2/Net/new_b",241.,23040,0,0,0,0,11520,"","",11520,"","","Plus","","","","","","",0.
-4,"Transpose","PrimaryCaps/2",287.,0,0,0,0,0,256,6,6,6,6,256,"","","","","","","",0.
+"index","kind","name","time","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","constant_input_overhead","constant_output_overhead","mad/time"
+43,"Aggregation","Norm/2",170.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",65.,65.,0.
+38,"Aggregation","DigitCaps/v/2",171.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",67.,66.,0.
+22,"Aggregation","DynamicRouting/2/Net/capsule/v/2",173.,160,0,0,0,0,10,16,"",10,"","","Total","","","","","","",75.,76.,0.
+7,"Aggregation","PrimaryCaps/4/2",504.,9216,0,0,0,0,1152,8,"",1152,"","","Total","","","","","","",186.,92.,0.
+36,"Aggregation","DigitCaps/s/3",3787.,184320,0,0,0,0,1152,10,16,10,16,"","Total","","","","","","",2191.,68.,0.
+20,"Aggregation","DynamicRouting/2/Net/capsule/s/3",3791.,184320,0,0,0,0,1152,10,16,10,16,"","Total","","","","","","",2231.,78.,0.
+28,"Aggregation","DynamicRouting/2/Net/dots/3",3868.,184320,0,0,0,0,1152,10,16,1152,10,"","Total","","","","","","",2232.,216.,0.
+14,"Aggregation","PrimaryPredVects/4",31346.,1474560,0,0,0,0,1152,10,16,1152,10,16,"Total","","","","","","",2226.,2232.,0.
+11,"ConstantArray","PrimaryPredVects/2",17618.,0,0,0,0,0,"KeyAbsent","1","",1152,10,16,"","","","","","","",0.,2233.,0.
+1,"Convolution","ReLUConv1/1",550.,0,0,0,0,8294400,1,28,28,256,20,20,"",9,9,1,1,1,1,89.,1295.,15080.727272727272
+3,"Convolution","PrimaryCaps/1",2426.,0,0,0,0,191102976,256,20,20,256,6,6,"",9,9,2,2,1,1,1290.,188.,78772.86727122836
+42,"Elementwise","Norm/1",167.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",73.,67.,0.9580838323353293
+37,"Elementwise","DigitCaps/v/1",169.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",68.,69.,0.9467455621301775
+21,"Elementwise","DynamicRouting/2/Net/capsule/v/1",173.,0,0,0,0,160,10,16,"",10,16,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",77.,77.,0.9248554913294798
+44,"Elementwise","Norm/3",159.,0,0,0,10,0,10,"","",10,"","","Sqrt","","","","","","",68.,67.,0.
+39,"Elementwise","DigitCaps/v/3",161.,10,10,0,10,0,10,"","",10,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",68.,66.,0.
+23,"Elementwise","DynamicRouting/2/Net/capsule/v/3",166.,10,10,0,10,0,10,"","",10,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",75.,76.,0.
+2,"Elementwise","ReLUConv1/2",520.,0,0,102400,0,102400,256,20,20,256,20,20,"Ramp","","","","","","",1292.,1292.,196.92307692307693
+48,"Elementwise","Reconstruct/2",162.,0,0,512,0,512,512,"","",512,"","","Ramp","","","","","","",78.,69.,3.1604938271604937
+52,"Elementwise","Reconstruct/6",166.,784,784,0,784,0,784,"","",784,"","","LogisticSigmoid","","","","","","",83.,79.,0.
+50,"Elementwise","Reconstruct/4",165.,0,0,1024,0,1024,1024,"","",1024,"","","Ramp","","","","","","",86.,83.,6.206060606060606
+6,"Elementwise","PrimaryCaps/4/1",196.,0,0,0,0,9216,1152,8,"",1152,8,"","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[2], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Power, NeuralNetworks`Private`ScalarSymbol[1], 2.}|>]","","","","","","",191.,188.,47.0204081632653
+8,"Elementwise","PrimaryCaps/4/3",195.,1152,1152,0,1152,0,1152,"","",1152,"","","NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[5], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Sqrt, NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Plus, 1., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[4] -> {Power, NeuralNetworks`Private`ScalarSymbol[3], -1.}, NeuralNetworks`Private`ScalarSymbol[5] -> {Times, NeuralNetworks`Private`ScalarSymbol[2], NeuralNetworks`Private`ScalarSymbol[4]}|>]","","","","","","",95.,94.,0.
+46,"Extract","Pick/2",220.,0,0,0,0,0,10,16,"",16,"","","","","","","","","",67.,69.,0.
+29,"Flatten","DynamicRouting/2/Net/dots_flatten",214.,0,0,0,0,0,1152,10,"",11520,"","","","","","","","","",216.,216.,0.
+47,"Linear","Reconstruct/1",172.,0,0,0,0,8192,16,"","",512,"","","","","","","","","",67.,69.,47.627906976744185
+49,"Linear","Reconstruct/3",218.,0,0,0,0,524288,512,"","",1024,"","","","","","","","","",77.,80.,2404.9908256880735
+51,"Linear","Reconstruct/5",236.,0,0,0,0,802816,1024,"","",784,"","","","","","","","","",85.,78.,3401.762711864407
+45,"Ordering","Pick/1",159.,"(10*Log[10])/Log[2]",0,0,0,0,10,"","",1,"","","","","","","","","",68.,67.,0.
+26,"Replicate","DynamicRouting/2/Net/dots/1",5945.,0,0,0,0,0,10,16,"",1152,10,16,"","","","","","","",77.,2232.,0.
+40,"Replicate","DigitCaps/v/4",164.,0,0,0,0,0,10,"","",10,16,"","","","","","","","",68.,66.,0.
+24,"Replicate","DynamicRouting/2/Net/capsule/v/4",169.,0,0,0,0,0,10,"","",10,16,"","","","","","","","",73.,76.,0.
+12,"Replicate","PrimaryPredVects/1",48894.,0,0,0,0,0,1152,8,"",1152,10,16,"","","","","","","",192.,2232.,0.
+15,"Replicate","DynamicRouting/1",11729.,0,0,0,0,0,1152,10,16,2,1152,10,"","","","","","","",2228.,358.,0.
+34,"Replicate","DigitCaps/s/1",5970.,0,0,0,0,0,1152,10,"",1152,10,16,"","","","","","","",206.,2184.,0.
+18,"Replicate","DynamicRouting/2/Net/capsule/s/1",5974.,0,0,0,0,0,1152,10,"",1152,10,16,"","","","","","","",216.,2231.,0.
+9,"Replicate","PrimaryCaps/4/4",460.,0,0,0,0,0,1152,"","",1152,8,"","","","","","","","",92.,187.,0.
+5,"Reshape","PrimaryCaps/3",201.,0,0,0,0,0,6,6,256,1152,8,"","","","","","","","",187.,188.,0.
+53,"Reshape","Reconstruct/7",161.,0,0,0,0,0,784,"","",1,28,28,"","","","","","","",83.,78.,0.
+32,"Reshape","DigitCaps/c/1",205.,0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",203.,203.,0.
+16,"Reshape","DynamicRouting/2/Net/capsule/c/1",208.,0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",216.,217.,0.
+31,"SequenceLast","DynamicRouting/3",431.,0,0,0,0,0,2,11520,"",11520,"","","","","","","","","",332.,204.,0.
+33,"Softmax","DigitCaps/c/2",417.,11520,11520,0,11520,0,1152,10,"",1152,10,"","","","","","","","",203.,201.,0.
+17,"Softmax","DynamicRouting/2/Net/capsule/c/2",422.,11520,11520,0,11520,0,1152,10,"",1152,10,"","","","","","","","",218.,217.,0.
+41,"Threading","DigitCaps/v/5",181.,0,0,0,0,320,10,16,"",10,16,"","Times","","","","","","",67.,68.,1.7679558011049723
+25,"Threading","DynamicRouting/2/Net/capsule/v/5",189.,0,0,0,0,320,10,16,"",10,16,"","Times","","","","","","",76.,76.,1.693121693121693
+10,"Threading","PrimaryCaps/4/5",224.,0,0,0,0,18432,1152,8,"",1152,8,"","Times","","","","","","",188.,188.,82.28571428571428
+35,"Threading","DigitCaps/s/2",900.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",2191.,2191.,409.6
+19,"Threading","DynamicRouting/2/Net/capsule/s/2",904.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",2231.,2231.,407.78761061946904
+27,"Threading","DynamicRouting/2/Net/dots/2",910.,0,0,0,0,368640,1152,10,16,1152,10,16,"Times","","","","","","",2229.,2231.,405.0989010989011
+13,"Threading","PrimaryPredVects/3",8559.,0,0,0,0,2949120,1152,10,16,1152,10,16,"Times","","","","","","",2233.,2234.,344.5636172450053
+30,"Threading","DynamicRouting/2/Net/new_b",239.,23040,0,0,0,0,11520,"","",11520,"","","Plus","","","","","","",206.,202.,0.
+4,"Transpose","PrimaryCaps/2",275.,0,0,0,0,0,256,6,6,6,6,256,"","","","","","","",188.,189.,0.

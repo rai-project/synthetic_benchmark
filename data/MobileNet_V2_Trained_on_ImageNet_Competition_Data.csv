@@ -1,154 +1,154 @@
-"index","kind","name","time","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","mad/time"
-8,"BatchNormalization","2_1/2/conv2_1_linear_bn",1085.,301056,301056,0,0,0,24,112,112,24,112,112,"","","","","","","",0.
-16,"BatchNormalization","2_2/3/conv2_2_linear_bn",512.,100352,100352,0,0,0,32,56,56,32,56,56,"","","","","","","",0.
-24,"BatchNormalization","3_1/3/conv3_1_linear_bn",512.,100352,100352,0,0,0,32,56,56,32,56,56,"","","","","","","",0.
-41,"BatchNormalization","4_1/3/conv4_1_linear_bn",301.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",0.
-50,"BatchNormalization","4_2/3/conv4_2_linear_bn",315.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",0.
-33,"BatchNormalization","3_2/3/conv3_2_linear_bn",316.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",0.
-5,"BatchNormalization","2_1/1/conv2_1_dwise_bn",2104.,602112,602112,0,0,0,48,112,112,48,112,112,"","","","","","","",0.
-2,"BatchNormalization","1/conv1_bn",2115.,602112,602112,0,0,0,48,112,112,48,112,112,"","","","","","","",0.
-67,"BatchNormalization","4_4/3/conv4_4_linear_bn",233.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",0.
-76,"BatchNormalization","4_5/3/conv4_5_linear_bn",239.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",0.
-59,"BatchNormalization","4_3/3/conv4_3_linear_bn",241.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",0.
-85,"BatchNormalization","4_6/3/conv4_6_linear_bn",241.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",0.
-94,"BatchNormalization","4_7/3/conv4_7_linear_bn",279.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",0.
-111,"BatchNormalization","5_2/3/conv5_2_linear_bn",279.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",0.
-102,"BatchNormalization","5_1/3/conv5_1_linear_bn",280.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",0.
-13,"BatchNormalization","2_2/2/conv2_2_dwise_bn",1564.,451584,451584,0,0,0,144,56,56,144,56,56,"","","","","","","",0.
-10,"BatchNormalization","2_2/1/conv2_2_expand_bn",8372.,1806336,1806336,0,0,0,144,112,112,144,112,112,"","","","","","","",0.
-30,"BatchNormalization","3_2/2/conv3_2_dwise_bn",659.,150528,150528,0,0,0,192,28,28,192,28,28,"","","","","","","",0.
-27,"BatchNormalization","3_2/1/conv3_2_expand_bn",2120.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",0.
-21,"BatchNormalization","3_1/2/conv3_1_dwise_bn",2154.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",0.
-18,"BatchNormalization","3_1/1/conv3_1_expand_bn",2193.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",0.
-128,"BatchNormalization","6_1/3/conv6_1_linear_bn",220.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",0.
-120,"BatchNormalization","5_3/3/conv5_3_linear_bn",224.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",0.
-137,"BatchNormalization","6_2/3/conv6_2_linear_bn",246.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",0.
-56,"BatchNormalization","4_3/2/conv4_3_dwise_bn",379.,56448,56448,0,0,0,288,14,14,288,14,14,"","","","","","","",0.
-35,"BatchNormalization","4_1/1/conv4_1_expand_bn",867.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",0.
-44,"BatchNormalization","4_2/1/conv4_2_expand_bn",874.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",0.
-53,"BatchNormalization","4_3/1/conv4_3_expand_bn",874.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",0.
-47,"BatchNormalization","4_2/2/conv4_2_dwise_bn",877.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",0.
-38,"BatchNormalization","4_1/2/conv4_1_dwise_bn",878.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",0.
-146,"BatchNormalization","6_3/3/conv6_3_linear_bn",275.,21952,21952,0,0,0,448,7,7,448,7,7,"","","","","","","",0.
-91,"BatchNormalization","4_7/2/conv4_7_dwise_bn",492.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-82,"BatchNormalization","4_6/2/conv4_6_dwise_bn",496.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-73,"BatchNormalization","4_5/2/conv4_5_dwise_bn",524.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-61,"BatchNormalization","4_4/1/conv4_4_expand_bn",525.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-64,"BatchNormalization","4_4/2/conv4_4_dwise_bn",526.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-70,"BatchNormalization","4_5/1/conv4_5_expand_bn",526.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-79,"BatchNormalization","4_6/1/conv4_6_expand_bn",530.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-88,"BatchNormalization","4_7/1/conv4_7_expand_bn",538.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",0.
-117,"BatchNormalization","5_3/2/conv5_3_dwise_bn",312.,39984,39984,0,0,0,816,7,7,816,7,7,"","","","","","","",0.
-99,"BatchNormalization","5_1/2/conv5_1_dwise_bn",646.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",0.
-108,"BatchNormalization","5_2/2/conv5_2_dwise_bn",647.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",0.
-114,"BatchNormalization","5_3/1/conv5_3_expand_bn",710.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",0.
-105,"BatchNormalization","5_2/1/conv5_2_expand_bn",711.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",0.
-96,"BatchNormalization","5_1/1/conv5_1_expand_bn",714.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",0.
-134,"BatchNormalization","6_2/2/conv6_2_dwise_bn",395.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-125,"BatchNormalization","6_1/2/conv6_1_dwise_bn",399.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-143,"BatchNormalization","6_3/2/conv6_3_dwise_bn",402.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-140,"BatchNormalization","6_3/1/conv6_3_expand_bn",421.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-122,"BatchNormalization","6_1/1/conv6_1_expand_bn",449.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-131,"BatchNormalization","6_2/1/conv6_2_expand_bn",450.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",0.
-148,"BatchNormalization","6_4/conv6_4_bn",547.,87808,87808,0,0,0,1792,7,7,1792,7,7,"","","","","","","",0.
-9,"Convolution","2_2/1/conv2_2_expand",6937.,0,0,0,0,43352064,24,112,112,144,112,112,"",1,1,1,1,1,1,6249.396569122099
-26,"Convolution","3_2/1/conv3_2_expand",1844.,0,0,0,0,19267584,32,56,56,192,56,56,"",1,1,1,1,1,1,10448.798264642082
-17,"Convolution","3_1/1/conv3_1_expand",1857.,0,0,0,0,19267584,32,56,56,192,56,56,"",1,1,1,1,1,1,10375.651050080776
-52,"Convolution","4_3/1/conv4_3_expand",880.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,12315.927272727273
-34,"Convolution","4_1/1/conv4_1_expand",892.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,12150.242152466368
-43,"Convolution","4_2/1/conv4_2_expand",896.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,12096.
-7,"Convolution","2_1/2/conv2_1_linear",1404.,0,0,0,0,14450688,48,112,112,24,112,112,"",1,1,1,1,1,1,10292.51282051282
-69,"Convolution","4_5/1/conv4_5_expand",518.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,17580.972972972973
-60,"Convolution","4_4/1/conv4_4_expand",519.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,17547.098265895955
-87,"Convolution","4_7/1/conv4_7_expand",535.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,17022.32523364486
-78,"Convolution","4_6/1/conv4_6_expand",540.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,16864.71111111111
-95,"Convolution","5_1/1/conv5_1_expand",771.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,28211.79766536965
-113,"Convolution","5_3/1/conv5_3_expand",771.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,28211.79766536965
-104,"Convolution","5_2/1/conv5_2_expand",773.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,28138.804657179822
-15,"Convolution","2_2/3/conv2_2_linear",804.,0,0,0,0,14450688,144,56,56,32,56,56,"",1,1,1,1,1,1,17973.492537313432
-32,"Convolution","3_2/3/conv3_2_linear",434.,0,0,0,0,7225344,192,28,28,48,28,28,"",1,1,1,1,1,1,16648.25806451613
-23,"Convolution","3_1/3/conv3_1_linear",889.,0,0,0,0,19267584,192,56,56,32,56,56,"",1,1,1,1,1,1,21673.32283464567
-139,"Convolution","6_3/1/conv6_3_expand",506.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,29153.6442687747
-130,"Convolution","6_2/1/conv6_2_expand",530.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,27833.47924528302
-121,"Convolution","6_1/1/conv6_1_expand",534.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,27624.988764044945
-58,"Convolution","4_3/3/conv4_3_linear",326.,0,0,0,0,4967424,288,14,14,88,14,14,"",1,1,1,1,1,1,15237.496932515338
-49,"Convolution","4_2/3/conv4_2_linear",478.,0,0,0,0,10838016,288,28,28,48,28,28,"",1,1,1,1,1,1,22673.673640167362
-40,"Convolution","4_1/3/conv4_1_linear",481.,0,0,0,0,10838016,288,28,28,48,28,28,"",1,1,1,1,1,1,22532.257796257796
-147,"Convolution","6_4/conv6_4",843.,0,0,0,0,39337984,448,7,7,1792,7,7,"",1,1,1,1,1,1,46664.275207591934
-66,"Convolution","4_4/3/conv4_4_linear",374.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,24350.11764705882
-75,"Convolution","4_5/3/conv4_5_linear",375.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,24285.183999999997
-84,"Convolution","4_6/3/conv4_6_linear",377.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,24156.350132625994
-93,"Convolution","4_7/3/conv4_7_linear",461.,0,0,0,0,14074368,528,14,14,136,14,14,"",1,1,1,1,1,1,30530.082429501086
-119,"Convolution","5_3/3/conv5_3_linear",320.,0,0,0,0,8956416,816,7,7,224,7,7,"",1,1,1,1,1,1,27988.800000000003
-101,"Convolution","5_1/3/conv5_1_linear",558.,0,0,0,0,21751296,816,14,14,136,14,14,"",1,1,1,1,1,1,38980.81720430108
-110,"Convolution","5_2/3/conv5_2_linear",560.,0,0,0,0,21751296,816,14,14,136,14,14,"",1,1,1,1,1,1,38841.6
-136,"Convolution","6_2/3/conv6_2_linear",370.,0,0,0,0,14751744,1344,7,7,224,7,7,"",1,1,1,1,1,1,39869.57837837838
-127,"Convolution","6_1/3/conv6_1_linear",379.,0,0,0,0,14751744,1344,7,7,224,7,7,"",1,1,1,1,1,1,38922.8073878628
-145,"Convolution","6_3/3/conv6_3_linear",538.,0,0,0,0,29503488,1344,7,7,448,7,7,"",1,1,1,1,1,1,54839.1970260223
-151,"Convolution","fc7",330.,0,0,0,0,1793792,1792,1,1,1001,1,1,"",1,1,1,1,1,1,5435.733333333334
-4,"Convolution","2_1/1/conv2_1_dwise",7373.,0,0,0,0,5419008,48,112,112,48,112,112,"",3,3,1,1,1,1,734.9800623898005
-20,"Convolution","3_1/2/conv3_1_dwise",7530.,0,0,0,0,5419008,192,56,56,192,56,56,"",3,3,1,1,1,1,719.6557768924303
-37,"Convolution","4_1/2/conv4_1_dwise",2757.,0,0,0,0,2032128,288,28,28,288,28,28,"",3,3,1,1,1,1,737.0794341675735
-46,"Convolution","4_2/2/conv4_2_dwise",2780.,0,0,0,0,2032128,288,28,28,288,28,28,"",3,3,1,1,1,1,730.9812949640288
-90,"Convolution","4_7/2/conv4_7_dwise",1449.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,642.7826086956522
-81,"Convolution","4_6/2/conv4_6_dwise",1451.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,641.8966230186079
-72,"Convolution","4_5/2/conv4_5_dwise",1494.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,623.4216867469879
-63,"Convolution","4_4/2/conv4_4_dwise",1499.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,621.3422281521014
-107,"Convolution","5_2/2/conv5_2_dwise",2117.,0,0,0,0,1439424,816,14,14,816,14,14,"",3,3,1,1,1,1,679.9357581483231
-98,"Convolution","5_1/2/conv5_1_dwise",2133.,0,0,0,0,1439424,816,14,14,816,14,14,"",3,3,1,1,1,1,674.8354430379748
-133,"Convolution","6_2/2/conv6_2_dwise",1139.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,520.3722563652327
-124,"Convolution","6_1/2/conv6_1_dwise",1140.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,519.9157894736842
-142,"Convolution","6_3/2/conv6_3_dwise",1141.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,519.4601226993865
-1,"Convolution","1/conv1",2275.,0,0,0,0,16257024,3,224,224,48,112,112,"",3,3,2,2,1,1,7145.944615384616
-12,"Convolution","2_2/2/conv2_2_dwise",8960.,0,0,0,0,4064256,144,112,112,144,56,56,"",3,3,2,2,1,1,453.59999999999997
-29,"Convolution","3_2/2/conv3_2_dwise",2648.,0,0,0,0,1354752,192,56,56,192,28,28,"",3,3,2,2,1,1,511.6132930513595
-55,"Convolution","4_3/2/conv4_3_dwise",1203.,0,0,0,0,508032,288,28,28,288,14,14,"",3,3,2,2,1,1,422.30423940149626
-116,"Convolution","5_3/2/conv5_3_dwise",1018.,0,0,0,0,359856,816,14,14,816,7,7,"",3,3,2,2,1,1,353.49312377210214
-3,"Elementwise","1/relu1",2280.,0,0,1204224,0,0,48,112,112,48,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-6,"Elementwise","2_1/1/relu2_1_dwise",2330.,0,0,1204224,0,0,48,112,112,48,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-14,"Elementwise","2_2/2/relu2_2_dwise",1727.,0,0,903168,0,0,144,56,56,144,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-11,"Elementwise","2_2/1/relu2_2_expand",9221.,0,0,3612672,0,0,144,112,112,144,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-31,"Elementwise","3_2/2/relu3_2_dwise",705.,0,0,301056,0,0,192,28,28,192,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-28,"Elementwise","3_2/1/relu3_2_expand",2292.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-19,"Elementwise","3_1/1/relu3_1_expand",2348.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-22,"Elementwise","3_1/2/relu3_1_dwise",2370.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-57,"Elementwise","4_3/2/relu4_3_dwise",394.,0,0,112896,0,0,288,14,14,288,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-54,"Elementwise","4_3/1/relu4_3_expand",951.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-39,"Elementwise","4_1/2/relu4_1_dwise",952.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-45,"Elementwise","4_2/1/relu4_2_expand",952.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-48,"Elementwise","4_2/2/relu4_2_dwise",953.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-36,"Elementwise","4_1/1/relu4_1_expand",954.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-92,"Elementwise","4_7/2/relu4_7_dwise",521.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-83,"Elementwise","4_6/2/relu4_6_dwise",525.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-74,"Elementwise","4_5/2/relu4_5_dwise",549.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-65,"Elementwise","4_4/2/relu4_4_dwise",551.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-62,"Elementwise","4_4/1/relu4_4_expand",552.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-71,"Elementwise","4_5/1/relu4_5_expand",552.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-80,"Elementwise","4_6/1/relu4_6_expand",593.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-89,"Elementwise","4_7/1/relu4_7_expand",595.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-118,"Elementwise","5_3/2/relu5_3_dwise",318.,0,0,79968,0,0,816,7,7,816,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-100,"Elementwise","5_1/2/relu5_1_dwise",695.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-109,"Elementwise","5_2/2/relu5_2_dwise",700.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-97,"Elementwise","5_1/1/relu5_1_expand",808.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-106,"Elementwise","5_2/1/relu5_2_expand",810.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-115,"Elementwise","5_3/1/relu5_3_expand",811.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-135,"Elementwise","6_2/2/relu6_2_dwise",397.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-126,"Elementwise","6_1/2/relu6_1_dwise",399.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-144,"Elementwise","6_3/2/relu6_3_dwise",405.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-141,"Elementwise","6_3/1/relu6_3_expand",450.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-132,"Elementwise","6_2/1/relu6_2_expand",452.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-123,"Elementwise","6_1/1/relu6_1_expand",456.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-149,"Elementwise","6_4/relu6_4",545.,0,0,175616,0,0,1792,7,7,1792,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",0.
-150,"Pooling","pool6",329.,87808,0,0,0,0,1792,7,7,1792,1,1,"Mean",7,7,1,1,"","",0.
-152,"Reshape","reshape",164.,0,0,0,0,0,1001,1,1,1001,"","","","","","","","","",0.
-153,"Softmax","prob_softmax",198.,1001,1001,0,1001,0,1001,"","",1001,"","","","","","","","","",0.
-25,"Threading","3_1/4",591.,200704,0,0,0,0,32,56,56,32,56,56,"Plus","","","","","","",0.
-42,"Threading","4_1/4",336.,75264,0,0,0,0,48,28,28,48,28,28,"Plus","","","","","","",0.
-51,"Threading","4_2/4",346.,75264,0,0,0,0,48,28,28,48,28,28,"Plus","","","","","","",0.
-68,"Threading","4_4/4",264.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",0.
-86,"Threading","4_6/4",266.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",0.
-77,"Threading","4_5/4",271.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",0.
-112,"Threading","5_2/4",308.,53312,0,0,0,0,136,14,14,136,14,14,"Plus","","","","","","",0.
-103,"Threading","5_1/4",310.,53312,0,0,0,0,136,14,14,136,14,14,"Plus","","","","","","",0.
-129,"Threading","6_1/4",228.,21952,0,0,0,0,224,7,7,224,7,7,"Plus","","","","","","",0.
-138,"Threading","6_2/4",273.,21952,0,0,0,0,224,7,7,224,7,7,"Plus","","","","","","",0.
+"index","kind","name","time","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","constant_input_overhead","constant_output_overhead","mad/time"
+8,"BatchNormalization","2_1/2/conv2_1_linear_bn",1158.,301056,301056,0,0,0,24,112,112,24,112,112,"","","","","","","",3519.,3513.,0.
+24,"BatchNormalization","3_1/3/conv3_1_linear_bn",521.,100352,100352,0,0,0,32,56,56,32,56,56,"","","","","","","",1237.,1389.,0.
+16,"BatchNormalization","2_2/3/conv2_2_linear_bn",528.,100352,100352,0,0,0,32,56,56,32,56,56,"","","","","","","",1232.,1229.,0.
+50,"BatchNormalization","4_2/3/conv4_2_linear_bn",315.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",497.,498.,0.
+41,"BatchNormalization","4_1/3/conv4_1_linear_bn",316.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",496.,496.,0.
+33,"BatchNormalization","3_2/3/conv3_2_linear_bn",324.,37632,37632,0,0,0,48,28,28,48,28,28,"","","","","","","",498.,501.,0.
+5,"BatchNormalization","2_1/1/conv2_1_dwise_bn",2138.,602112,602112,0,0,0,48,112,112,48,112,112,"","","","","","","",6963.,6968.,0.
+2,"BatchNormalization","1/conv1_bn",2215.,602112,602112,0,0,0,48,112,112,48,112,112,"","","","","","","",6964.,6960.,0.
+59,"BatchNormalization","4_3/3/conv4_3_linear_bn",237.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",265.,265.,0.
+85,"BatchNormalization","4_6/3/conv4_6_linear_bn",239.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",266.,265.,0.
+67,"BatchNormalization","4_4/3/conv4_4_linear_bn",244.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",267.,267.,0.
+76,"BatchNormalization","4_5/3/conv4_5_linear_bn",245.,17248,17248,0,0,0,88,14,14,88,14,14,"","","","","","","",267.,268.,0.
+102,"BatchNormalization","5_1/3/conv5_1_linear_bn",277.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",376.,374.,0.
+94,"BatchNormalization","4_7/3/conv4_7_linear_bn",281.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",373.,373.,0.
+111,"BatchNormalization","5_2/3/conv5_2_linear_bn",281.,26656,26656,0,0,0,136,14,14,136,14,14,"","","","","","","",372.,373.,0.
+13,"BatchNormalization","2_2/2/conv2_2_dwise_bn",1627.,451584,451584,0,0,0,144,56,56,144,56,56,"","","","","","","",5239.,5242.,0.
+10,"BatchNormalization","2_2/1/conv2_2_expand_bn",8373.,1806336,1806336,0,0,0,144,112,112,144,112,112,"","","","","","","",21888.,21856.,0.
+30,"BatchNormalization","3_2/2/conv3_2_dwise_bn",665.,150528,150528,0,0,0,192,28,28,192,28,28,"","","","","","","",1799.,1797.,0.
+27,"BatchNormalization","3_2/1/conv3_2_expand_bn",2109.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",6962.,6961.,0.
+21,"BatchNormalization","3_1/2/conv3_1_dwise_bn",2144.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",6976.,6981.,0.
+18,"BatchNormalization","3_1/1/conv3_1_expand_bn",2217.,602112,602112,0,0,0,192,56,56,192,56,56,"","","","","","","",6976.,6978.,0.
+137,"BatchNormalization","6_2/3/conv6_2_linear_bn",209.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",195.,195.,0.
+120,"BatchNormalization","5_3/3/conv5_3_linear_bn",220.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",196.,197.,0.
+128,"BatchNormalization","6_1/3/conv6_1_linear_bn",221.,10976,10976,0,0,0,224,7,7,224,7,7,"","","","","","","",196.,197.,0.
+56,"BatchNormalization","4_3/2/conv4_3_dwise_bn",369.,56448,56448,0,0,0,288,14,14,288,14,14,"","","","","","","",714.,714.,0.
+53,"BatchNormalization","4_3/1/conv4_3_expand_bn",883.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",2651.,2648.,0.
+35,"BatchNormalization","4_1/1/conv4_1_expand_bn",887.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",2652.,2655.,0.
+44,"BatchNormalization","4_2/1/conv4_2_expand_bn",887.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",2651.,2653.,0.
+38,"BatchNormalization","4_1/2/conv4_1_dwise_bn",889.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",2654.,2649.,0.
+47,"BatchNormalization","4_2/2/conv4_2_dwise_bn",891.,225792,225792,0,0,0,288,28,28,288,28,28,"","","","","","","",2654.,2652.,0.
+146,"BatchNormalization","6_3/3/conv6_3_linear_bn",262.,21952,21952,0,0,0,448,7,7,448,7,7,"","","","","","","",321.,321.,0.
+91,"BatchNormalization","4_7/2/conv4_7_dwise_bn",491.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1267.,1258.,0.
+64,"BatchNormalization","4_4/2/conv4_4_dwise_bn",512.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1261.,1263.,0.
+88,"BatchNormalization","4_7/1/conv4_7_expand_bn",526.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1262.,1260.,0.
+79,"BatchNormalization","4_6/1/conv4_6_expand_bn",535.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1262.,1258.,0.
+70,"BatchNormalization","4_5/1/conv4_5_expand_bn",536.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1258.,1259.,0.
+82,"BatchNormalization","4_6/2/conv4_6_dwise_bn",537.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1263.,1260.,0.
+73,"BatchNormalization","4_5/2/conv4_5_dwise_bn",541.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1264.,1266.,0.
+61,"BatchNormalization","4_4/1/conv4_4_expand_bn",549.,103488,103488,0,0,0,528,14,14,528,14,14,"","","","","","","",1264.,1262.,0.
+117,"BatchNormalization","5_3/2/conv5_3_dwise_bn",316.,39984,39984,0,0,0,816,7,7,816,7,7,"","","","","","","",523.,526.,0.
+108,"BatchNormalization","5_2/2/conv5_2_dwise_bn",647.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",1906.,1902.,0.
+99,"BatchNormalization","5_1/2/conv5_1_dwise_bn",651.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",1903.,1902.,0.
+114,"BatchNormalization","5_3/1/conv5_3_expand_bn",714.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",1905.,1903.,0.
+96,"BatchNormalization","5_1/1/conv5_1_expand_bn",716.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",1903.,1901.,0.
+105,"BatchNormalization","5_2/1/conv5_2_expand_bn",716.,159936,159936,0,0,0,816,14,14,816,14,14,"","","","","","","",1900.,1903.,0.
+134,"BatchNormalization","6_2/2/conv6_2_dwise_bn",396.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",823.,823.,0.
+143,"BatchNormalization","6_3/2/conv6_3_dwise_bn",398.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",826.,827.,0.
+125,"BatchNormalization","6_1/2/conv6_1_dwise_bn",403.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",821.,823.,0.
+140,"BatchNormalization","6_3/1/conv6_3_expand_bn",449.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",824.,824.,0.
+131,"BatchNormalization","6_2/1/conv6_2_expand_bn",456.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",824.,825.,0.
+122,"BatchNormalization","6_1/1/conv6_1_expand_bn",459.,65856,65856,0,0,0,1344,7,7,1344,7,7,"","","","","","","",822.,824.,0.
+148,"BatchNormalization","6_4/conv6_4_bn",496.,87808,87808,0,0,0,1792,7,7,1792,7,7,"","","","","","","",1077.,1080.,0.
+9,"Convolution","2_2/1/conv2_2_expand",7721.,0,0,0,0,43352064,24,112,112,144,112,112,"",1,1,1,1,1,1,3507.,21914.,5614.825022665458
+26,"Convolution","3_2/1/conv3_2_expand",1879.,0,0,0,0,19267584,32,56,56,192,56,56,"",1,1,1,1,1,1,1386.,6969.,10254.16923895689
+17,"Convolution","3_1/1/conv3_1_expand",2042.,0,0,0,0,19267584,32,56,56,192,56,56,"",1,1,1,1,1,1,1229.,6981.,9435.64348677767
+34,"Convolution","4_1/1/conv4_1_expand",900.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,499.,2659.,12042.24
+43,"Convolution","4_2/1/conv4_2_expand",901.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,496.,2657.,12028.874583795783
+52,"Convolution","4_3/1/conv4_3_expand",905.,0,0,0,0,10838016,48,28,28,288,28,28,"",1,1,1,1,1,1,495.,2650.,11975.708287292819
+7,"Convolution","2_1/2/conv2_1_linear",1434.,0,0,0,0,14450688,48,112,112,24,112,112,"",1,1,1,1,1,1,6963.,3521.,10077.188284518828
+87,"Convolution","4_7/1/conv4_7_expand",522.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,265.,1261.,17446.25287356322
+78,"Convolution","4_6/1/conv4_6_expand",530.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,267.,1260.,17182.91320754717
+60,"Convolution","4_4/1/conv4_4_expand",538.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,265.,1261.,16927.405204460967
+69,"Convolution","4_5/1/conv4_5_expand",554.,0,0,0,0,9106944,88,14,14,528,14,14,"",1,1,1,1,1,1,266.,1262.,16438.527075812275
+95,"Convolution","5_1/1/conv5_1_expand",701.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,372.,1905.,31028.952924393725
+104,"Convolution","5_2/1/conv5_2_expand",774.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,372.,1903.,28102.449612403103
+113,"Convolution","5_3/1/conv5_3_expand",782.,0,0,0,0,21751296,136,14,14,816,14,14,"",1,1,1,1,1,1,371.,1901.,27814.956521739132
+15,"Convolution","2_2/3/conv2_2_linear",852.,0,0,0,0,14450688,144,56,56,32,56,56,"",1,1,1,1,1,1,5249.,1231.,16960.901408450703
+32,"Convolution","3_2/3/conv3_2_linear",444.,0,0,0,0,7225344,192,28,28,48,28,28,"",1,1,1,1,1,1,1799.,499.,16273.297297297297
+23,"Convolution","3_1/3/conv3_1_linear",917.,0,0,0,0,19267584,192,56,56,32,56,56,"",1,1,1,1,1,1,6971.,1229.,21011.541984732827
+139,"Convolution","6_3/1/conv6_3_expand",513.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,195.,826.,28755.83625730994
+130,"Convolution","6_2/1/conv6_2_expand",535.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,195.,826.,27573.353271028038
+121,"Convolution","6_1/1/conv6_1_expand",540.,0,0,0,0,14751744,224,7,7,1344,7,7,"",1,1,1,1,1,1,195.,823.,27318.044444444444
+58,"Convolution","4_3/3/conv4_3_linear",323.,0,0,0,0,4967424,288,14,14,88,14,14,"",1,1,1,1,1,1,719.,268.,15379.021671826626
+49,"Convolution","4_2/3/conv4_2_linear",490.,0,0,0,0,10838016,288,28,28,48,28,28,"",1,1,1,1,1,1,2651.,496.,22118.4
+40,"Convolution","4_1/3/conv4_1_linear",492.,0,0,0,0,10838016,288,28,28,48,28,28,"",1,1,1,1,1,1,2653.,498.,22028.487804878052
+147,"Convolution","6_4/conv6_4",685.,0,0,0,0,39337984,448,7,7,1792,7,7,"",1,1,1,1,1,1,319.,1077.,57427.71386861314
+75,"Convolution","4_5/3/conv4_5_linear",386.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,1264.,266.,23593.119170984457
+84,"Convolution","4_6/3/conv4_6_linear",387.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,1264.,267.,23532.15503875969
+66,"Convolution","4_4/3/conv4_4_linear",388.,0,0,0,0,9106944,528,14,14,88,14,14,"",1,1,1,1,1,1,1264.,267.,23471.505154639173
+93,"Convolution","4_7/3/conv4_7_linear",462.,0,0,0,0,14074368,528,14,14,136,14,14,"",1,1,1,1,1,1,1263.,374.,30464.
+119,"Convolution","5_3/3/conv5_3_linear",324.,0,0,0,0,8956416,816,7,7,224,7,7,"",1,1,1,1,1,1,525.,199.,27643.25925925926
+101,"Convolution","5_1/3/conv5_1_linear",561.,0,0,0,0,21751296,816,14,14,136,14,14,"",1,1,1,1,1,1,1904.,374.,38772.36363636363
+110,"Convolution","5_2/3/conv5_2_linear",562.,0,0,0,0,21751296,816,14,14,136,14,14,"",1,1,1,1,1,1,1902.,373.,38703.37366548042
+136,"Convolution","6_2/3/conv6_2_linear",373.,0,0,0,0,14751744,1344,7,7,224,7,7,"",1,1,1,1,1,1,828.,196.,39548.911528150136
+127,"Convolution","6_1/3/conv6_1_linear",378.,0,0,0,0,14751744,1344,7,7,224,7,7,"",1,1,1,1,1,1,827.,197.,39025.777777777774
+145,"Convolution","6_3/3/conv6_3_linear",453.,0,0,0,0,29503488,1344,7,7,448,7,7,"",1,1,1,1,1,1,829.,321.,65129.112582781454
+151,"Convolution","fc7",301.,0,0,0,0,1793792,1792,1,1,1001,1,1,"",1,1,1,1,1,1,91.,82.,5959.441860465116
+4,"Convolution","2_1/1/conv2_1_dwise",7451.,0,0,0,0,5419008,48,112,112,48,112,112,"",3,3,1,1,1,1,6964.,6967.,727.2860018789424
+20,"Convolution","3_1/2/conv3_1_dwise",7476.,0,0,0,0,5419008,192,56,56,192,56,56,"",3,3,1,1,1,1,6967.,6977.,724.8539325842696
+46,"Convolution","4_2/2/conv4_2_dwise",2781.,0,0,0,0,2032128,288,28,28,288,28,28,"",3,3,1,1,1,1,2653.,2654.,730.7184466019418
+37,"Convolution","4_1/2/conv4_1_dwise",2793.,0,0,0,0,2032128,288,28,28,288,28,28,"",3,3,1,1,1,1,2663.,2655.,727.5789473684212
+90,"Convolution","4_7/2/conv4_7_dwise",1447.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,1262.,1263.,643.6710435383552
+63,"Convolution","4_4/2/conv4_4_dwise",1461.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,1264.,1266.,637.5030800821355
+72,"Convolution","4_5/2/conv4_5_dwise",1503.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,1260.,1265.,619.688622754491
+81,"Convolution","4_6/2/conv4_6_dwise",1512.,0,0,0,0,931392,528,14,14,528,14,14,"",3,3,1,1,1,1,1264.,1262.,616.
+98,"Convolution","5_1/2/conv5_1_dwise",2116.,0,0,0,0,1439424,816,14,14,816,14,14,"",3,3,1,1,1,1,1902.,1901.,680.257088846881
+107,"Convolution","5_2/2/conv5_2_dwise",2119.,0,0,0,0,1439424,816,14,14,816,14,14,"",3,3,1,1,1,1,1905.,1904.,679.2940066068901
+142,"Convolution","6_3/2/conv6_3_dwise",1141.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,827.,828.,519.4601226993865
+133,"Convolution","6_2/2/conv6_2_dwise",1142.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,825.,826.,519.0052539404553
+124,"Convolution","6_1/2/conv6_1_dwise",1150.,0,0,0,0,592704,1344,7,7,1344,7,7,"",3,3,1,1,1,1,828.,825.,515.3947826086957
+1,"Convolution","1/conv1",2375.,0,0,0,0,16257024,3,224,224,48,112,112,"",3,3,2,2,1,1,3149.,10986.,6845.062736842106
+12,"Convolution","2_2/2/conv2_2_dwise",11207.,0,0,0,0,4064256,144,112,112,144,56,56,"",3,3,2,2,1,1,21912.,5249.,362.6533416614616
+29,"Convolution","3_2/2/conv3_2_dwise",2675.,0,0,0,0,1354752,192,56,56,192,28,28,"",3,3,2,2,1,1,6959.,1798.,506.4493457943925
+55,"Convolution","4_3/2/conv4_3_dwise",1162.,0,0,0,0,508032,288,28,28,288,14,14,"",3,3,2,2,1,1,2650.,713.,437.20481927710847
+116,"Convolution","5_3/2/conv5_3_dwise",1015.,0,0,0,0,359856,816,14,14,816,7,7,"",3,3,2,2,1,1,1904.,525.,354.5379310344827
+3,"Elementwise","1/relu1",2287.,0,0,1204224,0,0,48,112,112,48,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",6970.,6978.,0.
+6,"Elementwise","2_1/1/relu2_1_dwise",2326.,0,0,1204224,0,0,48,112,112,48,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",6971.,6967.,0.
+14,"Elementwise","2_2/2/relu2_2_dwise",1688.,0,0,903168,0,0,144,56,56,144,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",5238.,5248.,0.
+11,"Elementwise","2_2/1/relu2_2_expand",9261.,0,0,3612672,0,0,144,112,112,144,112,112,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",21877.,21897.,0.
+31,"Elementwise","3_2/2/relu3_2_dwise",720.,0,0,301056,0,0,192,28,28,192,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1799.,1802.,0.
+19,"Elementwise","3_1/1/relu3_1_expand",2310.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",6977.,6975.,0.
+22,"Elementwise","3_1/2/relu3_1_dwise",2328.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",6967.,6969.,0.
+28,"Elementwise","3_2/1/relu3_2_expand",2335.,0,0,1204224,0,0,192,56,56,192,56,56,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",6959.,6962.,0.
+57,"Elementwise","4_3/2/relu4_3_dwise",383.,0,0,112896,0,0,288,14,14,288,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",717.,715.,0.
+54,"Elementwise","4_3/1/relu4_3_expand",924.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",2651.,2653.,0.
+36,"Elementwise","4_1/1/relu4_1_expand",964.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",2650.,2649.,0.
+45,"Elementwise","4_2/1/relu4_2_expand",965.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",2658.,2653.,0.
+39,"Elementwise","4_1/2/relu4_1_dwise",967.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",2656.,2657.,0.
+48,"Elementwise","4_2/2/relu4_2_dwise",970.,0,0,451584,0,0,288,28,28,288,28,28,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",2652.,2649.,0.
+92,"Elementwise","4_7/2/relu4_7_dwise",514.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1266.,1263.,0.
+89,"Elementwise","4_7/1/relu4_7_expand",530.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1265.,1264.,0.
+65,"Elementwise","4_4/2/relu4_4_dwise",536.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1265.,1265.,0.
+74,"Elementwise","4_5/2/relu4_5_dwise",558.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1264.,1261.,0.
+71,"Elementwise","4_5/1/relu4_5_expand",560.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1264.,1263.,0.
+83,"Elementwise","4_6/2/relu4_6_dwise",560.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1264.,1263.,0.
+80,"Elementwise","4_6/1/relu4_6_expand",562.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1264.,1260.,0.
+62,"Elementwise","4_4/1/relu4_4_expand",612.,0,0,206976,0,0,528,14,14,528,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1266.,1266.,0.
+118,"Elementwise","5_3/2/relu5_3_dwise",317.,0,0,79968,0,0,816,7,7,816,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",526.,526.,0.
+100,"Elementwise","5_1/2/relu5_1_dwise",696.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1903.,1903.,0.
+109,"Elementwise","5_2/2/relu5_2_dwise",699.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1902.,1910.,0.
+106,"Elementwise","5_2/1/relu5_2_expand",701.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1906.,1904.,0.
+115,"Elementwise","5_3/1/relu5_3_expand",701.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1906.,1904.,0.
+97,"Elementwise","5_1/1/relu5_1_expand",703.,0,0,319872,0,0,816,14,14,816,14,14,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1902.,1902.,0.
+144,"Elementwise","6_3/2/relu6_3_dwise",401.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",828.,830.,0.
+135,"Elementwise","6_2/2/relu6_2_dwise",403.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",826.,828.,0.
+126,"Elementwise","6_1/2/relu6_1_dwise",405.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",828.,825.,0.
+141,"Elementwise","6_3/1/relu6_3_expand",450.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",829.,826.,0.
+132,"Elementwise","6_2/1/relu6_2_expand",451.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",825.,825.,0.
+123,"Elementwise","6_1/1/relu6_1_expand",453.,0,0,131712,0,0,1344,7,7,1344,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",826.,827.,0.
+149,"Elementwise","6_4/relu6_4",491.,0,0,175616,0,0,1792,7,7,1792,7,7,"NeuralNetworks`Private`ScalarFunctionObject[{NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3], <|NeuralNetworks`Private`ScalarSymbol[2] -> {Max, 0., NeuralNetworks`Private`ScalarSymbol[1]}, NeuralNetworks`Private`ScalarSymbol[3] -> {Min, 6., NeuralNetworks`Private`ScalarSymbol[2]}|>]","","","","","","",1082.,1080.,0.
+150,"Pooling","pool6",351.,87808,0,0,0,0,1792,7,7,1792,1,1,"Mean",7,7,1,1,"","",1083.,92.,0.
+152,"Reshape","reshape",163.,0,0,0,0,0,1001,1,1,1001,"","","","","","","","","",80.,83.,0.
+153,"Softmax","prob_softmax",187.,1001,1001,0,1001,0,1001,"","",1001,"","","","","","","","","",82.,81.,0.
+25,"Threading","3_1/4",606.,200704,0,0,0,0,32,56,56,32,56,56,"Plus","","","","","","",1386.,1387.,0.
+42,"Threading","4_1/4",350.,75264,0,0,0,0,48,28,28,48,28,28,"Plus","","","","","","",496.,498.,0.
+51,"Threading","4_2/4",352.,75264,0,0,0,0,48,28,28,48,28,28,"Plus","","","","","","",495.,497.,0.
+86,"Threading","4_6/4",263.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",265.,265.,0.
+77,"Threading","4_5/4",268.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",268.,267.,0.
+68,"Threading","4_4/4",278.,34496,0,0,0,0,88,14,14,88,14,14,"Plus","","","","","","",266.,266.,0.
+112,"Threading","5_2/4",314.,53312,0,0,0,0,136,14,14,136,14,14,"Plus","","","","","","",370.,371.,0.
+103,"Threading","5_1/4",315.,53312,0,0,0,0,136,14,14,136,14,14,"Plus","","","","","","",375.,373.,0.
+138,"Threading","6_2/4",220.,21952,0,0,0,0,224,7,7,224,7,7,"Plus","","","","","","",196.,195.,0.
+129,"Threading","6_1/4",233.,21952,0,0,0,0,224,7,7,224,7,7,"Plus","","","","","","",196.,197.,0.

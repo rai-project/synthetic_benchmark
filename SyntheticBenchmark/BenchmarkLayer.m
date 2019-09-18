@@ -86,6 +86,8 @@ writeTimings[modelName_, timings_] :=
     "stride_2",
     "dilation_1",
     "dilation_2",
+    "constant_input_overhead",
+    "constant_output_overhead",
     "mad/time"
   };
   idx = 1;
@@ -117,6 +119,8 @@ writeTimings[modelName_, timings_] :=
       "stride_2" -> stride[lyrs[k]][[2]],
       "dilation_1" -> dilation[lyrs[k]][[1]],
       "dilation_2" -> dilation[lyrs[k]][[2]],
+      "constant_input_overhead" -> Round[1000000 * measureConstantOverhead[inputDims[lyrs[k]]], 0.1],
+      "constant_output_overhead" -> Round[1000000 * measureConstantOverhead[outputDims[lyrs[k]]], 0.1],
       "mad/time" -> N[flops["MultiplyAdds"] / time]
     |>,
     {k, Keys[timings]}
@@ -140,6 +144,17 @@ writeTimings[modelName_, timings_] :=
   PrependTo[tbl, header];
   Export[FileNameJoin[{rootDirectory, "..", "data", modelName <> ".csv"}], tbl]
 ]
+
+
+measureConstantOverhead[dims_] :=
+  iMeasureConstantOverhead[Select[dims, IntegerQ]]
+iMeasureConstantOverhead[{}] := ""
+iMeasureConstantOverhead[dims_] :=
+  Module[{},
+    layer = ConstantArrayLayer["Array" -> ConstantArray[1, dims]];
+    net = NetChain[{layer}];
+    Min[Table[First[AbsoluteTiming[net[];]], {10}]]
+  ]
 
 paramsOf[lyr_[params_, ___]] := params
 kernelSize[lyr_[params_, ___]] :=
