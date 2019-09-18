@@ -1,6 +1,23 @@
 
-shortModelName = "resnet50";
-modelName = "ResNet-50 Trained on ImageNet Competition Data";
+
+modelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
+Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
+"Age Estimation VGG-16 Trained on IMDB-WIKI Data", "CapsNet Trained \
+on MNIST Data", "Gender Prediction VGG-16 Trained on IMDB-WIKI Data", \
+"Inception V1 Trained on Extended Salient Object Subitizing Data", \
+"Inception V1 Trained on ImageNet Competition Data", "Inception V1 \
+Trained on Places365 Data", "Inception V3 Trained on ImageNet \
+Competition Data", "LeNet Trained on MNIST Data", "MobileNet V2 \
+Trained on ImageNet Competition Data", "ResNet-101 Trained on \
+ImageNet Competition Data", "ResNet-101 Trained on YFCC100m Geotagged \
+Data", "ResNet-152 Trained on ImageNet Competition Data", "ResNet-50 \
+Trained on ImageNet Competition Data", "Self-Normalizing Net for \
+Numeric Data", "Squeeze-and-Excitation Net Trained on ImageNet \
+Competition Data", "SqueezeNet V1.1 Trained on ImageNet Competition \
+Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
+on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
+Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
+Model V1"};
 
 (*********************************************************************)
 (*********************************************************************)
@@ -27,11 +44,12 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
-model = NetModel[modelName];
-lyrs = NetInformation[model, "Layers"];
 
-benchmarkModel[modelName_, n_:50] :=
+benchmarkLayers[modelName_, n_:50] :=
   Module[{model, timings},
+    model = NetModel[modelName];
+    lyrs = NetInformation[model, "Layers"];
+    Print["benchmarking .... modelName"];
     timings = Association@Table[
       max = min;
       lyr = lyrs[[min]];
@@ -41,7 +59,9 @@ benchmarkModel[modelName_, n_:50] :=
       tdata = synthesizeData /@ Inputs[lyr];
       name -> TrimmedMean[Table[First[AbsoluteTiming[net[tdata];]], n], 0.2],
       {min, Length[lyrs]}
-    ]
+    ];
+    Print["writing benchmark results .... modelName"];
+    writeTimings[StringReplace[modelName, " " -> "_"], timings]
   ]
 
 writeTimings[modelName_, timings_] :=
@@ -149,7 +169,5 @@ outputDims[lyr_[params_, ___]] :=
 
 
 
-timings = benchmarkModel[modelName];
-Print["done running benchmark.... writing"];
-writeTimings[shortModelName, timings];
+benchmarkModel[modelNames]
 Print["done benchmarking...."];
