@@ -10,9 +10,7 @@ Competition Data", "LeNet Trained on MNIST Data", "MobileNet V2 \
 Trained on ImageNet Competition Data", "ResNet-101 Trained on \
 ImageNet Competition Data", "ResNet-101 Trained on YFCC100m Geotagged \
 Data", "ResNet-152 Trained on ImageNet Competition Data", "ResNet-50 \
-Trained on ImageNet Competition Data", "Self-Normalizing Net for \
-Numeric Data", "Squeeze-and-Excitation Net Trained on ImageNet \
-Competition Data", "SqueezeNet V1.1 Trained on ImageNet Competition \
+Trained on ImageNet Competition Data",  "SqueezeNet V1.1 Trained on ImageNet Competition \
 Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
 on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
 Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
@@ -48,7 +46,7 @@ benchmarkModel[modelName_, n_:50] :=
     Print["benchmarking .... " <> modelName];
     tdata = Image[Transpose[First[synthesizeData[#]], {3,2,1}]]& /@ Inputs[First[lyrs]];
     time = TrimmedMean[Table[First[AbsoluteTiming[model[tdata];]], n], 0.2];
-    AppendTo[timings, name -> time];
+    AppendTo[timings, modelName -> time];
   ]
 
 

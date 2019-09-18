@@ -1,5 +1,4 @@
 
-
 modelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
 Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
 "Age Estimation VGG-16 Trained on IMDB-WIKI Data", "CapsNet Trained \
@@ -11,9 +10,7 @@ Competition Data", "LeNet Trained on MNIST Data", "MobileNet V2 \
 Trained on ImageNet Competition Data", "ResNet-101 Trained on \
 ImageNet Competition Data", "ResNet-101 Trained on YFCC100m Geotagged \
 Data", "ResNet-152 Trained on ImageNet Competition Data", "ResNet-50 \
-Trained on ImageNet Competition Data", "Self-Normalizing Net for \
-Numeric Data", "Squeeze-and-Excitation Net Trained on ImageNet \
-Competition Data", "SqueezeNet V1.1 Trained on ImageNet Competition \
+Trained on ImageNet Competition Data",  "SqueezeNet V1.1 Trained on ImageNet Competition \
 Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
 on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
 Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
@@ -49,7 +46,7 @@ benchmarkLayers[modelName_, n_:50] :=
   Module[{model, timings},
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
-    Print["benchmarking .... modelName"];
+    Print["benchmarking .... " <> modelName];
     timings = Association@Table[
       max = min;
       lyr = lyrs[[min]];
@@ -60,7 +57,7 @@ benchmarkLayers[modelName_, n_:50] :=
       name -> TrimmedMean[Table[First[AbsoluteTiming[net[tdata];]], n], 0.2],
       {min, Length[lyrs]}
     ];
-    Print["writing benchmark results .... modelName"];
+    Print["writing benchmark results .... " <> modelName];
     writeTimings[StringReplace[modelName, " " -> "_"], timings]
   ]
 
@@ -169,5 +166,5 @@ outputDims[lyr_[params_, ___]] :=
 
 
 
-benchmarkModel[modelNames]
+benchmarkLayers /@ modelNames;
 Print["done benchmarking...."];
