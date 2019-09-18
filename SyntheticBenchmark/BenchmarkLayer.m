@@ -54,7 +54,7 @@ benchmarkLayers[modelName_, n_:50] :=
       net = NetChain[{lyr}];
       SeedRandom[1];
       tdata = synthesizeData /@ Inputs[lyr];
-      name -> TrimmedMean[Table[First[AbsoluteTiming[net[tdata];]], n], 0.2],
+      name -> Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
       {min, Length[lyrs]}
     ];
     Print["writing benchmark results .... " <> modelName];
