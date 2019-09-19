@@ -113,6 +113,9 @@ benchmarkLayers[modelName_, n_] :=
         "start_name" -> StringRiffle[Keys[lyrs][[min]], "/"],
         "end_name" -> StringRiffle[Keys[lyrs][[max]], "/"],
 
+        "start_layer_kind" -> StringTrim[SymbolName[Head[lyrs[[min]]]], "Layer"],
+        "end_layer_kind" -> StringTrim[SymbolName[Head[lyrs[[max]]]], "Layer"],
+
         "min_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Min[minTime], 0.0001]],
         "mean_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * summarize[minTime], 0.0001]],
         "max_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Max[minTime], 0.0001]],

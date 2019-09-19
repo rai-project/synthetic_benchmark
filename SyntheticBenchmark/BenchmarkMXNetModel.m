@@ -90,10 +90,10 @@ benchmarkModel[modelName_, n_] :=
     ];
     time = <|
       "name" -> StringReplace[modelName, " " -> "_"],
-      "min_time" -> Min[time],
-      "mean_time" -> TrimmedMean[time, 0.2],
-      "max_time" -> Max[time],
-      "raw_time" -> time
+      "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
+      "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
+      "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
+      "raw_time" -> If[time === $Failed, invalidVal, Round[1000000 * time, 0.0001]]
     |>;
     AppendTo[timings, time];
     Print["writing benchmark results .... " <> modelName];
