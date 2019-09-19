@@ -44,28 +44,38 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
+invalidVal = -999
 
 benchmarkLayers[modelName_, n_:50] :=
-  Module[{model, max, timings},
+  Module[{model, max, timings, t1, t2},
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     Print["benchmarking .... " <> modelName];
     timings = Table[
       max = min+1;
       lyr = lyrs[[min]];
-      t = Quiet@Check[
+      t1 = Quiet@Check[
+          net = NetChain[Values[lyrs][[min ;; min]]];
+          SeedRandom[1];
+          tdata = synthesizeData /@ Inputs[lyr];
+          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          invalidVal
+      ];
+      t2 = Quiet@Check[
           net = NetChain[Values[lyrs][[min ;; max]]];
           SeedRandom[1];
           tdata = synthesizeData /@ Inputs[lyr];
-          Round[1000000 * Min[Table[First[AbsoluteTiming[net[tdata];]], n]], 0.01],
-          -999
+          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          invalidVal
       ];
       <|
         "start_index" -> min,
         "end_index" -> max,
-        "start_name" -> Keys[lyrs][[min]],
-        "end_name" -> Keys[lyrs][[max]],
-        "time" -> Round[1000000 * t, 0.01]
+        "start_name" -> StringRiffle[Keys[lyrs][[min]], "/"],
+        "end_name" -> StringRiffle[Keys[lyrs][[max]], "/"],
+        "own_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t1, 0.01]],
+        "path_time" -> If[t2 === invalidVal, invalidVal, Round[1000000 * t2, 0.01]],
+        "diff_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t1), 0.01]]
       |>,
       {min, Length[lyrs]-1}
     ];
@@ -80,7 +90,9 @@ writeTimings[modelName_, timings_] :=
     "end_index",
     "start_name",
     "end_name",
-    "time"
+    "own_time",
+    "path_time",
+    "diff_time"
   };
   tbl = Lookup[#, header]& /@ timings;
   PrependTo[tbl, header];
