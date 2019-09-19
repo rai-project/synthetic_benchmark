@@ -176,5 +176,5 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-benchmarkLayers[First[modelNames[[;;1]]]];
+benchmarkLayers /@ modelNames;
 Print["done benchmarking...."];
