@@ -41,7 +41,7 @@ NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
 
-baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet"}]
+baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model"}]
 Quiet[CreateDirectory[baseDir]]
 
 run[net_, fstLyr_, n_] :=
@@ -66,41 +66,45 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 100
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
+
+timings = {}
 
 benchmarkModel[modelName_] :=
     benchmarkModel[modelName, $NumRuns]
 benchmarkModel[modelName_, n_] :=
-  Module[{model, max, timings, minTime, pathTime},
+  Module[{model, time},
     model = NetModel[modelName];
+    net = model;
     lyrs = NetInformation[model, "Layers"];
     Print["benchmarking .... " <> modelName];
-    time = 
-      pathTime = Quiet@Check[
-          CheckAbort[
-          lyr = lyrs[[1]];
-          net = model;
-          run[net, lyr, n],
-          xPrint["abort. path .."];
-          $Failed],
-          $Failed
-      ];
-      <|
-        "name" -> modelName,
-        "time" -> time,
-      |>,
+    time = Quiet@Check[
+        CheckAbort[
+        lyr = lyrs[[1]];
+        run[net, lyr, n],
+        xPrint["abort. path .."];
+        $Failed],
+        $Failed
+    ];
+    time = <|
+      "name" -> StringReplace[modelName, " " -> "_"],
+      "min_time" -> Min[time],
+      "mean_time" -> TrimmedMean[time, 0.2],
+      "max_time" -> Max[time],
+      "raw_time" -> time
+    |>;
+    AppendTo[timings, time];
     Print["writing benchmark results .... " <> modelName];
-    writeTimings[StringReplace[modelName, " " -> "_"], timings]
   ]
 
-writeTimings[modelName_, timings_] :=
+writeTimings[timings_] :=
   Module[{tbl, header, time, flops},
     header = Keys[timings[[1]]];
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
-    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
+    Export[FileNameJoin[{baseDir, "mxnet.csv"}], tbl, "CSV"]
   ]
 
 
@@ -110,15 +114,6 @@ Inputs = NeuralNetworks`Private`Inputs;
 NetAttachLoss = NeuralNetworks`NetAttachLoss;
 
 
-measureConstantOverhead[dims_] :=
-  iMeasureConstantOverhead[Select[dims, IntegerQ]]
-iMeasureConstantOverhead[{}] := ""
-iMeasureConstantOverhead[dims_] :=
-  Module[{},
-    layer = ConstantArrayLayer["Array" -> ConstantArray[1, dims]];
-    net = NetChain[{layer}];
-    Min[Table[First[AbsoluteTiming[net[];]], {10}]]
-  ]
 
 paramsOf[lyr_[params_, ___]] := params
 kernelSize[lyr_[params_, ___]] :=
@@ -143,5 +138,10 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-PreemptProtect@AbortProtect[benchmarkModel[First[modelNames]];
+PreemptProtect[
+  AbortProtect[
+    benchmarkModel /@ modelNames;
+    writeTimings[timings]
+  ]
+];
 Print["done benchmarking...."];
