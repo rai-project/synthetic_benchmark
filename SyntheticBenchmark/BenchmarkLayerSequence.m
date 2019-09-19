@@ -68,14 +68,24 @@ benchmarkLayers[modelName_, n_:50] :=
           Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
           invalidVal
       ];
+      t3 = Quiet@Check[
+          lyr = lyrs[[max]];
+          net = NetChain[Values[lyrs][[max ;; max]]];
+          SeedRandom[1];
+          tdata = synthesizeData /@ Inputs[lyr];
+          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          invalidVal
+      ];
       <|
         "start_index" -> min,
         "end_index" -> max,
         "start_name" -> StringRiffle[Keys[lyrs][[min]], "/"],
         "end_name" -> StringRiffle[Keys[lyrs][[max]], "/"],
-        "own_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t1, 0.01]],
+        "start_index_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t1, 0.01]],
+        "end_index_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t3, 0.01]],
         "path_time" -> If[t2 === invalidVal, invalidVal, Round[1000000 * t2, 0.01]],
-        "diff_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t1), 0.01]]
+        "path_minus_start_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t1), 0.01]],
+        "path_minus_end_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t3), 0.01]]
       |>,
       {min, Length[lyrs]-1}
     ];
@@ -90,9 +100,11 @@ writeTimings[modelName_, timings_] :=
     "end_index",
     "start_name",
     "end_name",
-    "own_time",
+    "start_index_time",
+    "end_index_time",
     "path_time",
-    "diff_time"
+    "path_minus_start_time",
+    "path_minus_end_time"
   };
   tbl = Lookup[#, header]& /@ timings;
   PrependTo[tbl, header];
