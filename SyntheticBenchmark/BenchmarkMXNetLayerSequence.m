@@ -67,7 +67,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 100
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
