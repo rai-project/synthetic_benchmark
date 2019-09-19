@@ -44,8 +44,9 @@ benchmarkModel[modelName_, n_:50] :=
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     Print["benchmarking .... " <> modelName];
-    tdata = Image[Transpose[First[synthesizeData[#]], {3,2,1}]]& /@ Inputs[First[lyrs]];
-    time = Min[Table[First[AbsoluteTiming[model[tdata];]], n]];
+    (* tdata = Image[Transpose[First[synthesizeData[#]], {3,2,1}]]& /@ Inputs[First[lyrs]]; *)
+    tdata = synthesizeData /@ Inputs[First[lyrs]];
+    time = Mean[Table[First[AbsoluteTiming[model[tdata];]], n]];
     AppendTo[timings, modelName -> time];
   ]
 

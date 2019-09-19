@@ -44,7 +44,7 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
-invalidVal = -999
+invalidVal = 0
 
 summarizeTime[t_] := TrimmedMean[t, 0.2]
 

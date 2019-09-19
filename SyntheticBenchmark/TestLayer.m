@@ -18,13 +18,27 @@ lyrs = NetInformation[model, "Layers"];
 
 Print[Length[lyrs]]
 
-min = 5;
-max = 5;
-Print["min = ", min, ", max =", max]
+min = 1;
+max = 1;
+n1 = Keys[lyrs][[min]]
+Print["min = ", min, " = ", Keys[lyrs][[min]], " max = ", max, " = ", Keys[lyrs][[max]]]
 
 lyr = lyrs[[min]];
 net = NetChain[Values[lyrs][[min ;; max]]];
-tnet = NetInitialize@NetAttachLoss[net, Automatic];
-SeedRandom[1];
 tdata = synthesizeData /@ Inputs[lyr];
-Print[1000000 * Min[Table[First[AbsoluteTiming[net[tdata];]], 100]]]
+Print[1000000 * Mean[Table[First[AbsoluteTiming[net[tdata];]], 100]]]
+
+
+benchmarkModel[modelName_, n_:50] :=
+  Module[{model},
+    model = NetModel[modelName];
+    lyrs = NetInformation[model, "Layers"];
+    Print["benchmarking .... " <> modelName];
+    (* tdata = Image[Transpose[First[synthesizeData[#]], {3,2,1}]]& /@ Inputs[First[lyrs]]; *)
+    tdata = synthesizeData /@ Inputs[First[lyrs]];
+
+    time = Mean[Table[First[AbsoluteTiming[model[tdata];]], n]];
+    Print[1000000 * time]
+  ]
+
+benchmarkModel[modelName, 50]
