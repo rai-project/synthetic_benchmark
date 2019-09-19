@@ -46,6 +46,8 @@ sequenceLength = 1;
 
 invalidVal = -999
 
+summarizeTime[t_] := TrimmedMean[t, 0.2]
+
 benchmarkLayers[modelName_, n_:50] :=
   Module[{model, max, timings, t1, t2},
     model = NetModel[modelName];
@@ -58,14 +60,14 @@ benchmarkLayers[modelName_, n_:50] :=
           net = NetChain[Values[lyrs][[min ;; min]]];
           SeedRandom[1];
           tdata = synthesizeData /@ Inputs[lyr];
-          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          summarizeTime[Table[First[AbsoluteTiming[net[tdata];]], n]],
           invalidVal
       ];
       t2 = Quiet@Check[
           net = NetChain[Values[lyrs][[min ;; max]]];
           SeedRandom[1];
           tdata = synthesizeData /@ Inputs[lyr];
-          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          summarizeTime[Table[First[AbsoluteTiming[net[tdata];]], n]],
           invalidVal
       ];
       t3 = Quiet@Check[
@@ -73,7 +75,7 @@ benchmarkLayers[modelName_, n_:50] :=
           net = NetChain[Values[lyrs][[max ;; max]]];
           SeedRandom[1];
           tdata = synthesizeData /@ Inputs[lyr];
-          Min[Table[First[AbsoluteTiming[net[tdata];]], n]],
+          summarizeTime[Table[First[AbsoluteTiming[net[tdata];]], n]],
           invalidVal
       ];
       <|
