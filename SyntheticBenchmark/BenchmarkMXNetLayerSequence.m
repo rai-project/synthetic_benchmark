@@ -134,7 +134,7 @@ writeTimings[modelName_, timings_] :=
     header = Keys[timings[[1]]];
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
-    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl]
+    Echo@Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
   ]
 
 
