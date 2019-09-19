@@ -68,7 +68,7 @@ invalidVal = ""
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
-benchmarkLayers[modelName_, n_:50] :=
+benchmarkLayers[modelName_, n_:100] :=
   Module[{model, max, timings, minTime, pathTime},
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
