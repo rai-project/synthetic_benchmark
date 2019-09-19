@@ -29,6 +29,9 @@ NetAttachLoss = NeuralNetworks`NetAttachLoss;
 
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
+baseDir = FileNameJoin[{rootDirectory, "..", "data", "layer_sequence"}]
+
+Quiet[CreateDirectory[baseDir]]
 
 PrependTo[$Path, ParentDirectory[rootDirectory]]
 
@@ -50,26 +53,20 @@ benchmarkLayers[modelName_, n_:50] :=
     timings = Table[
       max = min+1;
       lyr = lyrs[[min]];
-      net = NetChain[Values[lyrs][[min;;max]]];
-      SeedRandom[1];
-      tdata = synthesizeData /@ Inputs[lyr];
-      t = Min[Table[First[AbsoluteTiming[net[tdata];]], n]]
-      Quiet@Check[
-            <|
-                "start_index" -> min,
-                "end_index" -> max,
-                "start_name" -> Keys[lyrs][[min]],
-                "end_name" -> Keys[lyrs][[max]],
-                "time" -> Round[1000000 * t, 0.01]
-            |>,
-            <|
-                "start_index" -> min,
-                "end_index" -> max,
-                "start_name" -> Keys[lyrs][[min]],
-                "end_name" -> Keys[lyrs][[max]],
-                "time" -> -9999
-            |>
-      ],
+      t = Quiet@Check[
+          net = NetChain[Values[lyrs][[min ;; max]]];
+          SeedRandom[1];
+          tdata = synthesizeData /@ Inputs[lyr];
+          Round[1000000 * Min[Table[First[AbsoluteTiming[net[tdata];]], n]], 0.01],
+          -999
+      ];
+      <|
+        "start_index" -> min,
+        "end_index" -> max,
+        "start_name" -> Keys[lyrs][[min]],
+        "end_name" -> Keys[lyrs][[max]],
+        "time" -> Round[1000000 * t, 0.01]
+      |>,
       {min, Length[lyrs]-1}
     ];
     Print["writing benchmark results .... " <> modelName];
@@ -87,7 +84,7 @@ writeTimings[modelName_, timings_] :=
   };
   tbl = Lookup[#, header]& /@ timings;
   PrependTo[tbl, header];
-  Export[FileNameJoin[{rootDirectory, "..", "data", "layere_sequence", modelName <> ".csv"}], tbl]
+  Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl]
 ]
 
 
