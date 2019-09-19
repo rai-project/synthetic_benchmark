@@ -22,6 +22,9 @@ Model V1"};
 (*********************************************************************)
 
 
+<< NeuralNetworks`
+<< MXNetLink`
+
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
 PrependTo[$Path, ParentDirectory[rootDirectory]]
@@ -51,6 +54,7 @@ run[net_, fstLyr_, n_] :=
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
+        NDArrayWaitForAll[];
         Table[
             First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
@@ -95,29 +99,29 @@ benchmarkLayers[modelName_, n_:50] :=
         "start_name" -> StringRiffle[Keys[lyrs][[min]], "/"],
         "end_name" -> StringRiffle[Keys[lyrs][[max]], "/"],
 
-        "min_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Min[minTime], 0.01]],
-        "mean_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * summarize[minTime], 0.01]],
-        "max_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Max[minTime], 0.01]],
+        "min_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Min[minTime], 0.0001]],
+        "mean_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * summarize[minTime], 0.0001]],
+        "max_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Max[minTime], 0.0001]],
 
-        "min_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * Min[maxTime], 0.01]],
-        "mean_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * summarize[maxTime], 0.01]],
-        "max_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * Max[maxTime], 0.01]],
+        "min_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * Min[maxTime], 0.0001]],
+        "mean_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * summarize[maxTime], 0.0001]],
+        "max_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * Max[maxTime], 0.0001]],
 
-        "min_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.01]],
-        "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.01]],
-        "max_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.01]],
+        "min_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.0001]],
+        "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.0001]],
+        "max_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
         
-        "min_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[minTime]), 0.01]],
-        "mean_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[minTime]), 0.01]],
-        "max_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[minTime]), 0.01]],
+        "min_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[minTime]), 0.0001]],
+        "mean_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[minTime]), 0.0001]],
+        "max_path_minus_start_time" -> If[minTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[minTime]), 0.0001]],
 
-        "min_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[maxTime]), 0.01]],
-        "mean_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[maxTime]), 0.01]],"min_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[maxTime]), 0.01]],
-        "max_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[maxTime]), 0.01]],
+        "min_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[maxTime]), 0.0001]],
+        "mean_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[maxTime]), 0.0001]],"min_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[maxTime]), 0.0001]],
+        "max_path_minus_end_time" -> If[maxTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[maxTime]), 0.0001]],
 
-        "raw_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * minTime, 0.01]],
-        "raw_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * maxTime, 0.01]],
-        "raw_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * pathTime, 0.01]]
+        "raw_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * minTime, 0.0001]],
+        "raw_end_index_time" -> If[maxTime === $Failed, invalidVal, Round[1000000 * maxTime, 0.0001]],
+        "raw_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * pathTime, 0.0001]]
       |>,
       {min, Length[lyrs]-1}
     ];
@@ -134,9 +138,6 @@ writeTimings[modelName_, timings_] :=
   ]
 
 
-
-<< NeuralNetworks`
-<< MXNetLink`
 
 synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
 Inputs = NeuralNetworks`Private`Inputs;
@@ -176,5 +177,5 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-benchmarkLayers /@ modelNames;
+PreemptProtect@AbortProtect[benchmarkLayers /@ modelNames];
 Print["done benchmarking...."];
