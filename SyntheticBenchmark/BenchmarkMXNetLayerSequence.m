@@ -132,9 +132,13 @@ benchmarkModelLayers[modelName_String, sequenceLength_, nRuns_] :=
           "end_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[max]]]]]], "Layer"],
 
 
-          "sequence_layer_kind" -> StringRiffle[Table[
-                  StringTrim[SymbolName[Head[Lookup[lyrs, e]]], "Layer"],
-                  {e,topo[[min;;max]]}], "-"],
+          "sequence_layer_kind" -> StringRiffle[
+              Table[
+                  StringTrim[SymbolName[Head[Lookup[lyrs, Key[e]]]], "Layer"],
+                  {e,topo[[min;;max]]}
+              ],
+              "-"
+          ],
 
           "min_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * Min[minTime], 0.0001]],
           "mean_start_index_time" -> If[minTime === $Failed, invalidVal, Round[1000000 * summarize[minTime], 0.0001]],
@@ -162,7 +166,7 @@ benchmarkModelLayers[modelName_String, sequenceLength_, nRuns_] :=
         |>,
         <||>
       ],
-      {min, Length[lyrs]-1}
+      {min, Length[lyrs]-sequenceLength}
     ];
     Print["writing benchmark results .... " <> modelName];
     writeTimings[StringReplace[modelName, " " -> "_"], timings]
