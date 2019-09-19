@@ -46,8 +46,10 @@ baseDir = FileNameJoin[{rootDirectory, "..", "data", "layer_mxnet_sequence"}]
 Quiet[CreateDirectory[baseDir]]
 
 run[net_, fstLyr_, n_] :=
-    Module[{ex, data},
-        ex = ToNetExecutor[ToNetPlan[net], 1, "ArrayCaching" -> False];
+    Module[{plan, ex, data},
+        NDArrayWaitForAll[];
+        plan = ToNetPlan[net];
+        ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[lyr];
         Table[
@@ -65,10 +67,13 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
+$NumRuns = 100
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
-benchmarkLayers[modelName_, n_:100] :=
+benchmarkLayers[modelName_] :=
+    benchmarkLayers[modelName, $NumRuns]
+benchmarkLayers[modelName_, n_] :=
   Module[{model, max, timings, minTime, pathTime},
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
@@ -76,21 +81,30 @@ benchmarkLayers[modelName_, n_:100] :=
     timings = Table[
       max = min+1;
       minTime = Quiet@Check[
+          CheckAbort[
           lyr = lyrs[[min]];
           net = NetChain[Values[lyrs][[min ;; min]]];
           run[net, lyr, n],
+          xPrint["abort. min .."];
+          $Failed],
           $Failed
       ];
       pathTime = Quiet@Check[
+          CheckAbort[
           lyr = lyrs[[min]];
           net = NetChain[Values[lyrs][[min ;; max]]];
           run[net, lyr, n],
+          xPrint["abort. path .."];
+          $Failed],
           $Failed
       ];
       maxTime = Quiet@Check[
+          CheckAbort[
           lyr = lyrs[[max]];
           net = NetChain[Values[lyrs][[max ;; max]]];
           run[net, lyr, n],
+          xPrint["abort. max .."];
+          $Failed],
           $Failed
       ];
       <|
@@ -134,7 +148,7 @@ writeTimings[modelName_, timings_] :=
     header = Keys[timings[[1]]];
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
-    Echo@Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
+    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
   ]
 
 
