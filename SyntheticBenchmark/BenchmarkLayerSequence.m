@@ -82,10 +82,10 @@ benchmarkLayers[modelName_, n_:50] :=
         "start_name" -> StringRiffle[Keys[lyrs][[min]], "/"],
         "end_name" -> StringRiffle[Keys[lyrs][[max]], "/"],
         "start_index_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t1, 0.01]],
-        "end_index_time" -> If[t1 === invalidVal, invalidVal, Round[1000000 * t3, 0.01]],
+        "end_index_time" -> If[t3 === invalidVal, invalidVal, Round[1000000 * t3, 0.01]],
         "path_time" -> If[t2 === invalidVal, invalidVal, Round[1000000 * t2, 0.01]],
         "path_minus_start_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t1), 0.01]],
-        "path_minus_end_time" -> If[t1 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t3), 0.01]]
+        "path_minus_end_time" -> If[t3 === invalidVal || t2 === invalidVal, invalidVal, Round[1000000 * (t2-t3), 0.01]]
       |>,
       {min, Length[lyrs]-1}
     ];
