@@ -93,6 +93,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
     topo = TopologicalSort[gr];
+    (* topo = Keys[lyrs]; *)
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
@@ -103,7 +104,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
       seq=runSequence[startLayer, endLayer];
       timings = Flatten[{timings, seq}];
       timings = Select[timings, Lookup[#, "failed", False]===False&];
-      startLayer = Max[Lookup[timings, "end_index"]]+1;
+      startLayer = Lookup[Last[timings], "end_index"]+1;
       If[startLayer > Length[lyrs],
         Break[]
       ];
