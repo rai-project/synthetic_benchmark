@@ -172,12 +172,8 @@ eRunSequence[startLayer_, endLayer_] :=
     If[r =!= $Failed,
       Return[r]
     ];
-    r = iRunSequence[startLayer, startLayer];
-    If[r === $Failed,
-      r = failure
-    ];
     Flatten[{
-      r,
+      runSequence[startLayer, startLayer],
       runSequence[startLayer+1, endLayer+1]
     }]
     
