@@ -79,7 +79,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Do[
       runSequenceCache = <||>;
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models[[15;;15]]}
+      {modelName, {models[[9]],models[[15]]}}
     ]
   ]
 
