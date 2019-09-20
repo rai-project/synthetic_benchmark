@@ -18,8 +18,8 @@ lyrs = NetInformation[model, "Layers"];
 
 Print[Length[lyrs]]
 
-min = 20;
-max = 22;
+min = 25;
+max = 28;
 n1 = Keys[lyrs][[min]]
 Print["min = ", min, " = ", Keys[lyrs][[min]], " max = ", max, " = ", Keys[lyrs][[max]]]
 

@@ -1,0 +1,3 @@
+"start_index","end_index","start_name","end_name","sequence_length","sequence_name","start_layer_kind","end_layer_kind","sequence_layer_kind","start_layer_path_time","mean_path_time","endLayer_path_time","raw_path_time"
+1,6,"1","6",5,"1-2-3-4-5-6","Convolution","Pooling","Convolution-Elementwise-Pooling-Convolution-Elementwise-Pooling",283.,283.,283.,"{283.}"
+7,11,"7","11",4,"7-8-9-10-11","Flatten","Softmax","Flatten-Linear-Elementwise-Linear-Softmax",138.,138.,138.,"{138.}"

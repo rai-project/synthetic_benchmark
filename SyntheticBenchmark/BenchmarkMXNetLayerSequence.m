@@ -66,7 +66,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 1
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -77,8 +77,9 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
     Quiet[CreateDirectory[baseDir]];
     Do[
+      runSequenceCache = <||>;
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models}
+      {modelName, models[[9;;9]]}
     ]
   ]
 
@@ -91,13 +92,15 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
-    topo = TopologicalSort[gr];
+    (* topo = TopologicalSort[gr]; *)
+    topo = Keys[lyrs];
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
     end = Ceiling[Length[lyrs]/sequenceLength];
     For[ii = 0, ii < end, ii++,
       endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
+      xPrint[">>> ", {startLayer,endLayer}];
       seq=runSequence[startLayer, endLayer];
       timings = Flatten[{timings, seq}];
       timings = Select[timings, Lookup[#, "failed", False]===False&];
@@ -122,7 +125,17 @@ writeTistartLayergs[modelName_, timings_] :=
   ]
 
 
+runSequenceCache = <||>
 runSequence[startLayer_, endLayer_] :=
+  Module[{r},
+    r = Lookup[runSequenceCache, Key[{startLayer, endLayer}]];
+    If[MissingQ[r],
+      r = eRunSequence[startLayer, endLayer];
+      AppendTo[runSequenceCache, Key[{startLayer, endLayer}]->r];
+    ];
+    r
+  ]
+eRunSequence[startLayer_, endLayer_] :=
   Module[{r, failure},
     xPrint[{startLayer, endLayer}];
     failure = <|
@@ -156,10 +169,10 @@ runSequence[startLayer_, endLayer_] :=
     ];
     r = iRunSequence[startLayer, endLayer];
     If[r =!= $Failed,
-      Return[{r}]
+      Return[r]
     ];
     Prepend[
-      Flatten[runSequence[startLayer+1, endLayer+1]],
+      Flatten[{runSequence[startLayer+1, endLayer+1]}],
       runSequence[startLayer, startLayer]
     ]
   ]
@@ -205,8 +218,8 @@ xrunSequence[startLayer_, endLayer_] :=
   ]
 
 iRunSequence[startLayer_, endLayer_] :=
-  Module[{},
-    Quiet@Check[
+  Module[{r},
+    Check[
       (* startLayerTime = Quiet@Check[
           CheckAbort[
           lyr = lyrs[[startLayer]];
@@ -216,6 +229,11 @@ iRunSequence[startLayer_, endLayer_] :=
           $Failed],
           $Failed
       ]; *)
+(* 
+      r = Lookup[runSequenceCache, Key[{startLayer, endLayer}]];
+      If[!MissingQ[r],
+        Return[r]
+      ]; *)
       pathTime = Quiet@Check[
           CheckAbort[
           lyr = lyrs[[startLayer]];
@@ -224,6 +242,9 @@ iRunSequence[startLayer_, endLayer_] :=
           xPrint["abort. path .."];
           $Failed],
           $Failed
+      ];
+      If[pathTime === $Failed,
+        Return[$Failed]
       ];
       (* endLayerTime = Quiet@Check[
           CheckAbort[
@@ -324,7 +345,8 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    benchmarkLayers[modelNames, 1];
+    benchmarkLayers[modelNames, 3];
+    (* benchmarkLayers[modelNames, 1];
     benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
     benchmarkLayers[modelNames, 4];
@@ -333,7 +355,7 @@ PreemptProtect[
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
     benchmarkLayers[modelNames, 9];
-    benchmarkLayers[modelNames, 10];
+    benchmarkLayers[modelNames, 10]; *)
   ]
 ];
 Print["done benchmarking...."];
