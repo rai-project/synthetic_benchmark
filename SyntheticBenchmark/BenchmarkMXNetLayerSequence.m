@@ -173,8 +173,7 @@ eRunSequence[startLayer_, endLayer_] :=
     ];
     r = iRunSequence[startLayer, startLayer];
     If[r === $Failed,
-      Return[failure].
-      Return[r]
+      r = failure
     ];
     Flatten[{
       r,
@@ -352,6 +351,7 @@ outputDims[lyr_[params_, ___]] :=
 PreemptProtect[
   AbortProtect[
     benchmarkLayers[modelNames, 3];
+    benchmarkLayers[modelNames, 10];
     (* benchmarkLayers[modelNames, 1];
     benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
