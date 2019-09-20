@@ -83,12 +83,18 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     ]
   ]
 
+skipModel["Wolfram ImageIdentify Net V1", 9] = True
+skipModel["MobileNet V2 Trained on ImageNet Competition Data", 10] = True
+skipModel[___] := False
 
 benchmarkModelLayers[modelName_String] :=
     benchmarkModelLayers[modelName, 1, $NumRuns]
 benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
   Module[{ii},
     sequenceLength = sequenceLength0;
+    If[skipModel[modelName, sequenceLength],
+      Return[]
+    ];
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
@@ -360,7 +366,7 @@ PreemptProtect[
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
      *)
-     benchmarkLayers[modelNames, 9];
+     (* benchmarkLayers[modelNames, 9]; *)
     benchmarkLayers[modelNames, 10];
     (* benchmarkLayers[modelNames, 11];
     benchmarkLayers[modelNames, 12];
