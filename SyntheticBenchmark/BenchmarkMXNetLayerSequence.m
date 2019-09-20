@@ -1,5 +1,5 @@
 
-modelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
+imageClassificationModelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
 Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
 "Age Estimation VGG-16 Trained on IMDB-WIKI Data", "CapsNet Trained \
 on MNIST Data", "Gender Prediction VGG-16 Trained on IMDB-WIKI Data", \
@@ -15,6 +15,14 @@ Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
 on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
 Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
 Model V1"};
+nlpModelNames = {
+ "BERT Trained on BookCorpus and English Wikipedia Data",
+ "GPT-2 Transformer Trained on WebText Data", 
+ "GPT Transformer Trained on BookCorpus Data"
+};
+
+modelNames = imageClassificationModelNames;
+(* modelNames = nlpModelNames; *)
 
 (*********************************************************************)
 (*********************************************************************)
@@ -71,18 +79,11 @@ $NumRuns = 50
 summarize[t_] := TrimmedMean[t, 0.2]
 
 
-skipModel["Wolfram ImageIdentify Net V1", 9] = True
-skipModel["MobileNet V2 Trained on ImageNet Competition Data", 10] = True
-skipModel[___] := False
-
 benchmarkModelLayers[modelName_String] :=
     benchmarkModelLayers[modelName, 1]
 benchmarkModelLayers[modelName_String, sequenceLength0_] :=
   Module[{ii},
     sequenceLength = sequenceLength0;
-    If[skipModel[modelName, sequenceLength],
-      Return[]
-    ];
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
@@ -343,19 +344,20 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-timeLimit = QuantityMagnitude[UnitConvert[Quantity[4, "Minutes"], "Seconds"]]
+timeLimit = QuantityMagnitude[UnitConvert[Quantity[5, "Minutes"], "Seconds"]]
 
 benchmarkLayers[modelName_String, seqLen_] :=
   Module[{r},
     r = TimeConstrained[
-      PreemptProtect[
+      First@AbsoluteTiming[PreemptProtect[
         benchmarkModelLayers[modelName, seqLen]
-      ],
+      ]],
       timeLimit,
       $Failed
     ];
     If[r === $Failed,
-      Print["Terminated ", modelName, " for sequence length ", seqLen, " because it exceeded the timeLimit=", timeLimit]
+      Print["Terminated ", modelName, " for sequence length ", seqLen, " because it exceeded the timeLimit=", timeLimit],
+      Print["Completed ", modelName, " for sequence length ", seqLen, " taking ", r, " seconds to run."]
     ]
   ]
 
@@ -382,13 +384,18 @@ benchmarkLayers[modelNames, 6];
 benchmarkLayers[modelNames, 7];
 benchmarkLayers[modelNames, 8];
   *)
-  (* benchmarkLayers[modelNames, 9]; *)
+benchmarkLayers[modelNames, 9];
 benchmarkLayers[modelNames, 10];
-(* benchmarkLayers[modelNames, 11];
+benchmarkLayers[modelNames, 11];
 benchmarkLayers[modelNames, 12];
 benchmarkLayers[modelNames, 13];
 benchmarkLayers[modelNames, 14];
-benchmarkLayers[modelNames, 15]; *)
+benchmarkLayers[modelNames, 15];
+benchmarkLayers[modelNames, 16];
+benchmarkLayers[modelNames, 17];
+benchmarkLayers[modelNames, 18];
+benchmarkLayers[modelNames, 19];
+benchmarkLayers[modelNames, 20];
 
 
 Print["done benchmarking...."];

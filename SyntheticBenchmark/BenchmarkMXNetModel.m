@@ -1,5 +1,5 @@
 
-modelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
+imageClassificationModelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
 Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
 "Age Estimation VGG-16 Trained on IMDB-WIKI Data", "CapsNet Trained \
 on MNIST Data", "Gender Prediction VGG-16 Trained on IMDB-WIKI Data", \
@@ -15,7 +15,14 @@ Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
 on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
 Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
 Model V1"};
+nlpModelNames = {
+ "BERT Trained on BookCorpus and English Wikipedia Data",
+ "GPT-2 Transformer Trained on WebText Data", 
+ "GPT Transformer Trained on BookCorpus Data"
+};
 
+modelNames = imageClassificationModelNames;
+modelNames = nlpModelNames;
 (*********************************************************************)
 (*********************************************************************)
 (*********************************************************************)
