@@ -66,7 +66,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 1
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -79,7 +79,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Do[
       runSequenceCache = <||>;
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models[[9;;9]]}
+      {modelName, models[[15;;15]]}
     ]
   ]
 
