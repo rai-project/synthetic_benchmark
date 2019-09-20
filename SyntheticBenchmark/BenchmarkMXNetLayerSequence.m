@@ -94,7 +94,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     gr = NetInformation[model, "LayersGraph"];
     (* topo = TopologicalSort[gr]; *)
     topo = Keys[lyrs];
-    Print["benchmarking .... " <> modelName];
+    Print["benchmarking .... " <> modelName <> " at sequence " <> ToString[sequenceLength]];
     timings = {};
     startLayer = 1;
     end = If[sequenceLength <= 0,
@@ -114,7 +114,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
       xPrint[timings];
     ];
     xPrint[timings];
-    Print["writing benchmark results .... " <> modelName];
+    Print["writing benchmark results .... " <> modelName <> " at sequence " <> ToString[sequenceLength]];
     writeTistartLayergs[StringReplace[modelName, " " -> "_"], timings]
   ]
 
@@ -350,7 +350,7 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    benchmarkLayers[modelNames, 0];
+    (* benchmarkLayers[modelNames, 0];
     benchmarkLayers[modelNames, 1];
     benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
@@ -359,7 +359,8 @@ PreemptProtect[
     benchmarkLayers[modelNames, 6];
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
-    benchmarkLayers[modelNames, 9];
+     *)
+     benchmarkLayers[modelNames, 9];
     benchmarkLayers[modelNames, 10];
     (* benchmarkLayers[modelNames, 11];
     benchmarkLayers[modelNames, 12];
