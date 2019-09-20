@@ -66,7 +66,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 1
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -78,7 +78,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Quiet[CreateDirectory[baseDir]];
     Do[
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models}
+      {modelName, models[[9;;9]]}
     ]
   ]
 
@@ -94,10 +94,15 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     topo = TopologicalSort[gr];
     Print["benchmarking .... " <> modelName];
     timings = {};
+    startLayer = 1;
     For[ii = 0, ii < Ceiling[Length[lyrs]/sequenceLength], ii++,
-      startLayer = sequenceLength*ii + 1;
       endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
       timings = Flatten[{timings, runSequence[startLayer, endLayer]}];
+      timings = Select[timings, Lookup[#, "failed", False]===False&];
+      startLayer = Lookup[Last[timings], "end_index"]+1;
+      If[startLayer > Length[lyrs],
+        Break[]
+      ];
       xPrint[timings];
     ];
     xPrint[timings];
@@ -108,12 +113,59 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
 writeTistartLayergs[modelName_, timings_] :=
   Module[{tbl, header, time, flops},
     header = Keys[timings[[1]]];
+    header = DeleteCases[header, "failed"];
     tbl = Table[ Table[Lookup[t, h, invalidVal], {h,header}], {t, timings}];
     PrependTo[tbl, header];
     Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
   ]
 
+
 runSequence[startLayer_, endLayer_] :=
+  Module[{r, failure},
+    xPrint[{startLayer, endLayer}];
+    failure = <|
+      "failed" -> True,
+      "start_index" -> startLayer,
+      "end_index" -> endLayer,
+      "start_name" -> invalidVal,
+      "end_name" -> invalidVal,
+      "sequence_length" -> invalidVal,
+      "sequence_name" -> invalidVal,
+      "start_layer_kind" -> invalidVal,
+      "end_layer_kind" -> invalidVal,
+      "sequence_layer_kind" -> invalidVal,
+      "start_layer_path_time" -> invalidVal,
+      "mean_path_time" -> invalidVal,
+      "endLayer_path_time" -> invalidVal,
+      "raw_path_time" -> invalidVal
+    |>;
+    If[startLayer === endLayer,
+      r = iRunSequence[startLayer, startLayer];
+      If[r =!= $Failed,
+        Return[r]
+      ];
+      If[r === $Failed,
+        Return[failure]
+      ]
+    ];
+    If[startLayer > Length[lyrs] || endLayer > Length[lyrs],
+      Return[$Failed]
+    ];
+    If[startLayer > endLayer,
+      Return[{}]
+    ];
+    r = iRunSequence[startLayer, endLayer];
+    If[r =!= $Failed,
+      Return[{r}]
+    ];
+    s = Flatten[runSequence[startLayer+1, endLayer+1]];
+    Prepend[
+      s,
+      runSequence[startLayer, startLayer]
+    ]
+  ]
+
+xrunSequence[startLayer_, endLayer_] :=
   Module[{r},
     xPrint[{startLayer, endLayer}];
     If[startLayer === endLayer,
@@ -123,6 +175,7 @@ runSequence[startLayer_, endLayer_] :=
       ];
       If[r === $Failed,
         Return[<|
+          "failed" -> True,
           "start_index" -> startLayer,
           "end_index" -> endLayer,
           "start_name" -> invalidVal,
@@ -183,11 +236,12 @@ iRunSequence[startLayer_, endLayer_] :=
           $Failed
       ]; *)
       <|
+        "failed" -> False,
         "start_index" -> startLayer,
         "end_index" -> endLayer,
         "start_name" -> StringRiffle[topo[[startLayer]], "/"],
         "end_name" -> StringRiffle[topo[[endLayer]], "/"],
-        "sequence_length" -> sequenceLength,
+        "sequence_length" -> (endLayer-startLayer),
 
         "sequence_name" -> StringRiffle[Table[StringRiffle[e, "/"], {e,topo[[startLayer;;endLayer]]}], "-"],
         "start_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[startLayer]]]]]], "Layer"],
@@ -271,9 +325,11 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    benchmarkLayers[modelNames, 1];
-    (* benchmarkLayers[modelNames, 2];
-    benchmarkLayers[modelNames, 3];
+    (* benchmarkLayers[modelNames, 1];
+    benchmarkLayers[modelNames, 2]; *)
+    benchmarkLayers[modelNames, 5];
+    (* 
+    
     benchmarkLayers[modelNames, 4];
     benchmarkLayers[modelNames, 5];
     benchmarkLayers[modelNames, 6];
