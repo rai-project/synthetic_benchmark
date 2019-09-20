@@ -55,17 +55,14 @@ run[net_, fstLyr_, n_] :=
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        res = Table[
-            First[AbsoluteTistartLayerg[
+        Table[
+            NDArrayWaitForAll[];
+            First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ];
-        Clear[plan];
-        Clear[ex];
-        Clear[data];
-        res
+        ]
     ]
 
 invalidVal = ""
@@ -81,7 +78,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Quiet[CreateDirectory[baseDir]];
     Do[
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models[[;;1]]}
+      {modelName, models}
     ]
   ]
 
@@ -103,7 +100,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
       timings = Flatten[{timings, runSequence[startLayer, endLayer]}];
       xPrint[timings];
     ];
-    Print[timings];
+    xPrint[timings];
     Print["writing benchmark results .... " <> modelName];
     writeTistartLayergs[StringReplace[modelName, " " -> "_"], timings]
   ]
@@ -275,7 +272,7 @@ outputDims[lyr_[params_, ___]] :=
 PreemptProtect[
   AbortProtect[
     benchmarkLayers[modelNames, 1];
-    benchmarkLayers[modelNames, 2];
+    (* benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
     benchmarkLayers[modelNames, 4];
     benchmarkLayers[modelNames, 5];
@@ -283,7 +280,7 @@ PreemptProtect[
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
     benchmarkLayers[modelNames, 9];
-    benchmarkLayers[modelNames, 10];
+    benchmarkLayers[modelNames, 10]; *)
   ]
 ];
 Print["done benchmarking...."];
