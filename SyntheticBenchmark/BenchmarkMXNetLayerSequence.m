@@ -93,7 +93,6 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
     topo = TopologicalSort[gr];
-    topo = Keys[lyrs];
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
@@ -104,7 +103,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
       seq=runSequence[startLayer, endLayer];
       timings = Flatten[{timings, seq}];
       timings = Select[timings, Lookup[#, "failed", False]===False&];
-      startLayer = Lookup[Last[timings], "end_index"]+1;
+      startLayer = Max[Lookup[timings, "end_index"]]+1;
       If[startLayer > Length[lyrs],
         Break[]
       ];
@@ -129,9 +128,10 @@ runSequenceCache = <||>
 runSequence[startLayer_, endLayer_] :=
   Module[{r},
     r = Lookup[runSequenceCache, Key[{startLayer, endLayer}]];
+    xPrint[Keys@runSequenceCache];
     If[MissingQ[r],
       r = eRunSequence[startLayer, endLayer];
-      AppendTo[runSequenceCache, Key[{startLayer, endLayer}]->r];
+      AssociateTo[runSequenceCache, Key[{startLayer, endLayer}]->r];
     ];
     r
   ]
@@ -171,12 +171,18 @@ eRunSequence[startLayer_, endLayer_] :=
     If[r =!= $Failed,
       Return[r]
     ];
-    Prepend[
-      Flatten[{runSequence[startLayer+1, endLayer+1]}],
-      runSequence[startLayer, startLayer]
-    ]
+    r = iRunSequence[startLayer, startLayer];
+    If[r === $Failed,
+      Return[failure].
+      Return[r]
+    ];
+    Flatten[{
+      r,
+      runSequence[startLayer+1, endLayer+1]
+    }]
+    
   ]
-
+(* 
 xrunSequence[startLayer_, endLayer_] :=
   Module[{r},
     xPrint[{startLayer, endLayer}];
@@ -215,7 +221,7 @@ xrunSequence[startLayer_, endLayer_] :=
       runSequence[startLayer+1, endLayer],
       runSequence[startLayer, startLayer]
     ]
-  ]
+  ] *)
 
 iRunSequence[startLayer_, endLayer_] :=
   Module[{r},
