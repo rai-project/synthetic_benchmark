@@ -44,7 +44,7 @@ sequenceLength = 1;
 
 
 run[net_, fstLyr_, n_] :=
-    Module[{plan, ex, data},
+    Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
@@ -55,13 +55,17 @@ run[net_, fstLyr_, n_] :=
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        Table[
+        res = Table[
             First[AbsoluteTistartLayerg[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ]
+        ];
+        Clear[plan];
+        Clear[ex];
+        Clear[data];
+        res
     ]
 
 invalidVal = ""
@@ -77,98 +81,51 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Quiet[CreateDirectory[baseDir]];
     Do[
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models}
+      {modelName, models[[;;1]]}
     ]
   ]
 
+
 benchmarkModelLayers[modelName_String] :=
     benchmarkModelLayers[modelName, 1, $NumRuns]
-benchmarkModelLayers[modelName_String, sequenceLength_, nRuns_] :=
-  Module[{model, endLayer, startLayer0, timings, startLayerTime, pathTime},
+benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
+  Module[{ii},
+    sequenceLength = sequenceLength0;
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
     topo = TopologicalSort[gr];
     Print["benchmarking .... " <> modelName];
-    timings = Table[
-      Quiet@Check[
-        startLayer = sequenceLength * (startLayer0-1) + 1;
-        endLayer = startLayer+sequenceLength;
-        If[endLayer > Length[lyrs],
-          endLayer = Length[lyrs];
-        ];
-        (* startLayerTime = Quiet@Check[
-            CheckAbort[
-            lyr = lyrs[[startLayer]];
-            net = NetChain[Lookup[lyrs, topo[[startLayer ;; startLayer]]]];
-            run[net, lyr, nRuns],
-            xPrint["abort. startLayer .."];
-            $Failed],
-            $Failed
-        ]; *)
-        pathTime = Quiet@Check[
-            CheckAbort[
-            lyr = lyrs[[startLayer]];
-            net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]]];
-            run[net, lyr, nRuns],
-            xPrint["abort. path .."];
-            $Failed],
-            $Failed
-        ];
-        (* endLayerTime = Quiet@Check[
-            CheckAbort[
-            lyr = lyrs[[endLayer]];
-            net = NetChain[Lookup[lyrs, topo[[endLayer ;; endLayer]]]];
-            run[net, lyr, nRuns],
-            xPrint["abort. endLayer .."];
-            $Failed],
-            $Failed
-        ]; *)
-        <|
-          "start_index" -> startLayer,
-          "end_index" -> endLayer,
-          "start_name" -> StringRiffle[topo[[startLayer]], "/"],
-          "end_name" -> StringRiffle[topo[[endLayer]], "/"],
-          "sequence_length" -> sequenceLength,
+    timings = {};
+    For[ii = 0, ii < Ceiling[Length[lyrs]/sequenceLength], ii++,
+      startLayer = sequenceLength*ii + 1;
+      endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
+      timings = Flatten[{timings, runSequence[startLayer, endLayer]}];
+      xPrint[timings];
+    ];
+    Print[timings];
+    Print["writing benchmark results .... " <> modelName];
+    writeTistartLayergs[StringReplace[modelName, " " -> "_"], timings]
+  ]
 
-          "sequence_name" -> StringRiffle[Table[StringRiffle[e, "/"], {e,topo[[startLayer;;endLayer]]}], "-"],
-          "start_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[startLayer]]]]]], "Layer"],
-          "end_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[endLayer]]]]]], "Layer"],
+writeTistartLayergs[modelName_, timings_] :=
+  Module[{tbl, header, time, flops},
+    header = Keys[timings[[1]]];
+    tbl = Table[ Table[Lookup[t, h, invalidVal], {h,header}], {t, timings}];
+    PrependTo[tbl, header];
+    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
+  ]
 
-
-          "sequence_layer_kind" -> StringRiffle[
-              Table[
-                  StringTrim[SymbolName[Head[Lookup[lyrs, Key[e]]]], "Layer"],
-                  {e,topo[[startLayer;;endLayer]]}
-              ],
-              "-"
-          ],
-
-          (* "start_layer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Min[startLayerTime], 0.0001]],
-          "mean_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * summarize[startLayerTime], 0.0001]],
-          "endLayer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Max[startLayerTime], 0.0001]],
-
-          "start_layer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Min[endLayerTime], 0.0001]],
-          "mean_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * summarize[endLayerTime], 0.0001]],
-          "endLayer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Max[endLayerTime], 0.0001]], *)
-
-          "start_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.0001]],
-          "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.0001]],
-          "endLayer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
-(*           
-          "start_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[startLayerTime]), 0.0001]],
-          "mean_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[startLayerTime]), 0.0001]],
-          "endLayer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[startLayerTime]), 0.0001]],
-
-          "start_layer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[endLayerTime]), 0.0001]],
-          "mean_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[endLayerTime]), 0.0001]],
-          "endLayer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[endLayerTime]), 0.0001]], *)
-
-          (* "raw_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * startLayerTime, 0.0001]], *)
-          (* "raw_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * endLayerTime, 0.0001]], *)
-          "raw_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * pathTime, 0.0001]]
-        |>,
-        <|
+runSequence[startLayer_, endLayer_] :=
+  Module[{r},
+    xPrint[{startLayer, endLayer}];
+    If[startLayer === endLayer,
+      r = iRunSequence[startLayer, startLayer];
+      If[r =!= $Failed,
+        Return[r]
+      ];
+      If[r === $Failed,
+        Return[<|
           "start_index" -> startLayer,
           "end_index" -> endLayer,
           "start_name" -> invalidVal,
@@ -182,23 +139,99 @@ benchmarkModelLayers[modelName_String, sequenceLength_, nRuns_] :=
           "mean_path_time" -> invalidVal,
           "endLayer_path_time" -> invalidVal,
           "raw_path_time" -> invalidVal
-        |>
-      ],
-      {startLayer0, Ceiling[Length[lyrs]/sequenceLength]}
+        |>]
+      ]
     ];
-    Print["writing benchmark results .... " <> modelName];
-    writeTistartLayergs[StringReplace[modelName, " " -> "_"], timings]
+    If[startLayer > endLayer,
+      Return[{}]
+    ];
+    r = iRunSequence[startLayer, endLayer];
+    If[r =!= $Failed,
+      Return[{r}]
+    ];
+    Prepend[
+      runSequence[startLayer+1, endLayer],
+      runSequence[startLayer, startLayer]
+    ]
   ]
 
-writeTistartLayergs[modelName_, timings_] :=
-  Module[{tbl, header, time, flops},
-    header = Keys[timings[[1]]];
-    Print[timings];
-    tbl = Table[ Table[Lookup[t, h, invalidVal], {h,header}], {t, timings}];
-    PrependTo[tbl, header];
-    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
-  ]
+iRunSequence[startLayer_, endLayer_] :=
+  Module[{},
+    Quiet@Check[
+      (* startLayerTime = Quiet@Check[
+          CheckAbort[
+          lyr = lyrs[[startLayer]];
+          net = NetChain[Lookup[lyrs, topo[[startLayer ;; startLayer]]]];
+          run[net, lyr, nRuns],
+          xPrint["abort. startLayer .."];
+          $Failed],
+          $Failed
+      ]; *)
+      pathTime = Quiet@Check[
+          CheckAbort[
+          lyr = lyrs[[startLayer]];
+          net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]]];
+          run[net, lyr, $NumRuns],
+          xPrint["abort. path .."];
+          $Failed],
+          $Failed
+      ];
+      (* endLayerTime = Quiet@Check[
+          CheckAbort[
+          lyr = lyrs[[endLayer]];
+          net = NetChain[Lookup[lyrs, topo[[endLayer ;; endLayer]]]];
+          run[net, lyr, nRuns],
+          xPrint["abort. endLayer .."];
+          $Failed],
+          $Failed
+      ]; *)
+      <|
+        "start_index" -> startLayer,
+        "end_index" -> endLayer,
+        "start_name" -> StringRiffle[topo[[startLayer]], "/"],
+        "end_name" -> StringRiffle[topo[[endLayer]], "/"],
+        "sequence_length" -> sequenceLength,
 
+        "sequence_name" -> StringRiffle[Table[StringRiffle[e, "/"], {e,topo[[startLayer;;endLayer]]}], "-"],
+        "start_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[startLayer]]]]]], "Layer"],
+        "end_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[endLayer]]]]]], "Layer"],
+
+
+        "sequence_layer_kind" -> StringRiffle[
+            Table[
+                StringTrim[SymbolName[Head[Lookup[lyrs, Key[e]]]], "Layer"],
+                {e,topo[[startLayer;;endLayer]]}
+            ],
+            "-"
+        ],
+
+        (* "start_layer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Min[startLayerTime], 0.0001]],
+        "mean_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * summarize[startLayerTime], 0.0001]],
+        "endLayer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Max[startLayerTime], 0.0001]],
+
+        "start_layer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Min[endLayerTime], 0.0001]],
+        "mean_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * summarize[endLayerTime], 0.0001]],
+        "endLayer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Max[endLayerTime], 0.0001]], *)
+
+        "start_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.0001]],
+        "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.0001]],
+        "endLayer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
+(*           
+        "start_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[startLayerTime]), 0.0001]],
+        "mean_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[startLayerTime]), 0.0001]],
+        "endLayer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[startLayerTime]), 0.0001]],
+
+        "start_layer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[endLayerTime]), 0.0001]],
+        "mean_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[endLayerTime]), 0.0001]],
+        "endLayer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[endLayerTime]), 0.0001]], *)
+
+        (* "raw_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * startLayerTime, 0.0001]], *)
+        (* "raw_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * endLayerTime, 0.0001]], *)
+        "raw_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * pathTime, 0.0001]]
+      |>,
+      $Failed
+    ]
+  ]
 
 
 synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
@@ -241,16 +274,16 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    (* benchmarkLayers[modelNames, 1];
-    benchmarkLayers[modelNames, 2]; *)
+    benchmarkLayers[modelNames, 1];
+    benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
-    (* benchmarkLayers[modelNames, 4];
+    benchmarkLayers[modelNames, 4];
     benchmarkLayers[modelNames, 5];
     benchmarkLayers[modelNames, 6];
-    benchmarkLayers[modelNames, 7]; *)
-    (* benchmarkLayers[modelNames, 8]; *)
-    (* benchmarkLayers[modelNames, 9];
-    benchmarkLayers[modelNames, 10]; *)
+    benchmarkLayers[modelNames, 7];
+    benchmarkLayers[modelNames, 8];
+    benchmarkLayers[modelNames, 9];
+    benchmarkLayers[modelNames, 10];
   ]
 ];
 Print["done benchmarking...."];
