@@ -73,7 +73,7 @@ benchmarkLayers[models_?ListQ] :=
   benchmarkLayers[models, 1]
 benchmarkLayers[models_?ListQ, sequenceLength_] :=
   Module[{},
-    baseDir = FileNameJoin[{rootDirectory, "..", "data", "layer_mxnet_sequence", "seq_" <> ToString[sequenceLength]}];
+    baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
     Quiet[CreateDirectory[baseDir]];
     Do[
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
