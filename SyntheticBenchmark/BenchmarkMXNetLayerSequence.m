@@ -79,7 +79,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Do[
       runSequenceCache = <||>;
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, {models[[9]],models[[15]]}}
+      {modelName, models}
     ]
   ]
 
@@ -347,9 +347,7 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    benchmarkLayers[modelNames, 3];
-    benchmarkLayers[modelNames, 10];
-    (* benchmarkLayers[modelNames, 1];
+    benchmarkLayers[modelNames, 1];
     benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
     benchmarkLayers[modelNames, 4];
@@ -358,7 +356,12 @@ PreemptProtect[
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
     benchmarkLayers[modelNames, 9];
-    benchmarkLayers[modelNames, 10]; *)
+    benchmarkLayers[modelNames, 10];
+    (* benchmarkLayers[modelNames, 11];
+    benchmarkLayers[modelNames, 12];
+    benchmarkLayers[modelNames, 13];
+    benchmarkLayers[modelNames, 14];
+    benchmarkLayers[modelNames, 15]; *)
   ]
 ];
 Print["done benchmarking...."];
