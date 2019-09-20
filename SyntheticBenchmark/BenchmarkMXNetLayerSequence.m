@@ -66,7 +66,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 1
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -78,7 +78,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Quiet[CreateDirectory[baseDir]];
     Do[
       benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models[[9;;9]]}
+      {modelName, models}
     ]
   ]
 
@@ -95,9 +95,11 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
-    For[ii = 0, ii < Ceiling[Length[lyrs]/sequenceLength], ii++,
+    end = Ceiling[Length[lyrs]/sequenceLength];
+    For[ii = 0, ii < end, ii++,
       endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
-      timings = Flatten[{timings, runSequence[startLayer, endLayer]}];
+      seq=runSequence[startLayer, endLayer];
+      timings = Flatten[{timings, seq}];
       timings = Select[timings, Lookup[#, "failed", False]===False&];
       startLayer = Lookup[Last[timings], "end_index"]+1;
       If[startLayer > Length[lyrs],
@@ -136,20 +138,18 @@ runSequence[startLayer_, endLayer_] :=
       "sequence_layer_kind" -> invalidVal,
       "start_layer_path_time" -> invalidVal,
       "mean_path_time" -> invalidVal,
-      "endLayer_path_time" -> invalidVal,
+      "end_layer_path_time" -> invalidVal,
       "raw_path_time" -> invalidVal
     |>;
     If[startLayer === endLayer,
       r = iRunSequence[startLayer, startLayer];
-      If[r =!= $Failed,
+      If[r === $Failed,
+        Return[failure].
         Return[r]
       ];
-      If[r === $Failed,
-        Return[failure]
-      ]
     ];
     If[startLayer > Length[lyrs] || endLayer > Length[lyrs],
-      Return[$Failed]
+      Return[failure]
     ];
     If[startLayer > endLayer,
       Return[{}]
@@ -158,9 +158,8 @@ runSequence[startLayer_, endLayer_] :=
     If[r =!= $Failed,
       Return[{r}]
     ];
-    s = Flatten[runSequence[startLayer+1, endLayer+1]];
     Prepend[
-      s,
+      Flatten[runSequence[startLayer+1, endLayer+1]],
       runSequence[startLayer, startLayer]
     ]
   ]
@@ -187,7 +186,7 @@ xrunSequence[startLayer_, endLayer_] :=
           "sequence_layer_kind" -> invalidVal,
           "start_layer_path_time" -> invalidVal,
           "mean_path_time" -> invalidVal,
-          "endLayer_path_time" -> invalidVal,
+          "end_layer_path_time" -> invalidVal,
           "raw_path_time" -> invalidVal
         |>]
       ]
@@ -258,23 +257,23 @@ iRunSequence[startLayer_, endLayer_] :=
 
         (* "start_layer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Min[startLayerTime], 0.0001]],
         "mean_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * summarize[startLayerTime], 0.0001]],
-        "endLayer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Max[startLayerTime], 0.0001]],
+        "end_layer_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * Max[startLayerTime], 0.0001]],
 
         "start_layer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Min[endLayerTime], 0.0001]],
         "mean_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * summarize[endLayerTime], 0.0001]],
-        "endLayer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Max[endLayerTime], 0.0001]], *)
+        "end_layer_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * Max[endLayerTime], 0.0001]], *)
 
         "start_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.0001]],
         "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.0001]],
-        "endLayer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
+        "end_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
 (*           
         "start_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[startLayerTime]), 0.0001]],
         "mean_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[startLayerTime]), 0.0001]],
-        "endLayer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[startLayerTime]), 0.0001]],
+        "end_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[startLayerTime]), 0.0001]],
 
         "start_layer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[endLayerTime]), 0.0001]],
         "mean_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[endLayerTime]), 0.0001]],
-        "endLayer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[endLayerTime]), 0.0001]], *)
+        "end_layer_path_start_layer_minus_end_time" -> If[endLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[endLayerTime]), 0.0001]], *)
 
         (* "raw_start_index_time" -> If[startLayerTime === $Failed, invalidVal, Round[1000000 * startLayerTime, 0.0001]], *)
         (* "raw_end_index_time" -> If[endLayerTime === $Failed, invalidVal, Round[1000000 * endLayerTime, 0.0001]], *)
@@ -325,18 +324,16 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
-    (* benchmarkLayers[modelNames, 1];
-    benchmarkLayers[modelNames, 2]; *)
-    benchmarkLayers[modelNames, 5];
-    (* 
-    
+    benchmarkLayers[modelNames, 1];
+    benchmarkLayers[modelNames, 2];
+    benchmarkLayers[modelNames, 3];
     benchmarkLayers[modelNames, 4];
     benchmarkLayers[modelNames, 5];
     benchmarkLayers[modelNames, 6];
     benchmarkLayers[modelNames, 7];
     benchmarkLayers[modelNames, 8];
     benchmarkLayers[modelNames, 9];
-    benchmarkLayers[modelNames, 10]; *)
+    benchmarkLayers[modelNames, 10];
   ]
 ];
 Print["done benchmarking...."];

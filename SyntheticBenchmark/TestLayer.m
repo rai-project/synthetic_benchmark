@@ -11,15 +11,15 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 32;
 
-modelName = "Ademxapp Model A Trained on ImageNet Competition Data";
+modelName = "Inception V3 Trained on ImageNet Competition Data";
 
 model = NetModel[modelName];
 lyrs = NetInformation[model, "Layers"];
 
 Print[Length[lyrs]]
 
-min = 4;
-max = 6;
+min = 20;
+max = 22;
 n1 = Keys[lyrs][[min]]
 Print["min = ", min, " = ", Keys[lyrs][[min]], " max = ", max, " = ", Keys[lyrs][[max]]]
 
