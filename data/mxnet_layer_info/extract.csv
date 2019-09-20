@@ -1,0 +1,2 @@
+"index","kind","name","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","constant_input_overhead","constant_output_overhead","mad/time","time"
+46,"Extract","Pick/2",0,0,0,0,0,10,16,"",16,"","","","","","","","","",67.,68.,0.,29.7333
