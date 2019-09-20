@@ -97,7 +97,10 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
-    end = Ceiling[Length[lyrs]/sequenceLength];
+    end = If[sequenceLength <= 0,
+      Length[lyrs],
+      Ceiling[Length[lyrs]/sequenceLength]
+    ];
     For[ii = 0, ii < end, ii++,
       endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
       xPrint[">>> ", {startLayer,endLayer}];
@@ -347,6 +350,7 @@ outputDims[lyr_[params_, ___]] :=
 
 PreemptProtect[
   AbortProtect[
+    benchmarkLayers[modelNames, 0];
     benchmarkLayers[modelNames, 1];
     benchmarkLayers[modelNames, 2];
     benchmarkLayers[modelNames, 3];
