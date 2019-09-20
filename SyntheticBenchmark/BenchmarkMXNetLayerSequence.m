@@ -92,8 +92,8 @@ benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
     model = NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
-    topo = TopologicalSort[gr];
-    (* topo = Keys[lyrs]; *)
+    (* topo = TopologicalSort[gr]; *)
+    topo = Keys[lyrs];
     Print["benchmarking .... " <> modelName];
     timings = {};
     startLayer = 1;
