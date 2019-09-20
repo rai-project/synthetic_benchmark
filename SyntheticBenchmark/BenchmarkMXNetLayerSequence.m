@@ -70,26 +70,14 @@ $NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
-benchmarkLayers[models_?ListQ] :=
-  benchmarkLayers[models, 1]
-benchmarkLayers[models_?ListQ, sequenceLength_] :=
-  Module[{},
-    baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
-    Quiet[CreateDirectory[baseDir]];
-    Do[
-      runSequenceCache = <||>;
-      benchmarkModelLayers[modelName, sequenceLength, $NumRuns],
-      {modelName, models}
-    ]
-  ]
 
 skipModel["Wolfram ImageIdentify Net V1", 9] = True
 skipModel["MobileNet V2 Trained on ImageNet Competition Data", 10] = True
 skipModel[___] := False
 
 benchmarkModelLayers[modelName_String] :=
-    benchmarkModelLayers[modelName, 1, $NumRuns]
-benchmarkModelLayers[modelName_String, sequenceLength0_, nRuns_] :=
+    benchmarkModelLayers[modelName, 1]
+benchmarkModelLayers[modelName_String, sequenceLength0_] :=
   Module[{ii},
     sequenceLength = sequenceLength0;
     If[skipModel[modelName, sequenceLength],
@@ -270,9 +258,10 @@ iRunSequence[startLayer_, endLayer_] :=
         "failed" -> False,
         "start_index" -> startLayer,
         "end_index" -> endLayer,
+        "sequence_length" -> (endLayer-startLayer),
+        "num_runs" -> $NumRuns,
         "start_name" -> StringRiffle[topo[[startLayer]], "/"],
         "end_name" -> StringRiffle[topo[[endLayer]], "/"],
-        "sequence_length" -> (endLayer-startLayer),
 
         "sequence_name" -> StringRiffle[Table[StringRiffle[e, "/"], {e,topo[[startLayer;;endLayer]]}], "-"],
         "start_layer_kind" -> StringTrim[SymbolName[Head[Lookup[lyrs, Key[topo[[startLayer]]]]]], "Layer"],
@@ -354,25 +343,48 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-PreemptProtect[
-  AbortProtect[
-    (* benchmarkLayers[modelNames, 0];
-    benchmarkLayers[modelNames, 1];
-    benchmarkLayers[modelNames, 2];
-    benchmarkLayers[modelNames, 3];
-    benchmarkLayers[modelNames, 4];
-    benchmarkLayers[modelNames, 5];
-    benchmarkLayers[modelNames, 6];
-    benchmarkLayers[modelNames, 7];
-    benchmarkLayers[modelNames, 8];
-     *)
-     (* benchmarkLayers[modelNames, 9]; *)
-    benchmarkLayers[modelNames, 10];
-    (* benchmarkLayers[modelNames, 11];
-    benchmarkLayers[modelNames, 12];
-    benchmarkLayers[modelNames, 13];
-    benchmarkLayers[modelNames, 14];
-    benchmarkLayers[modelNames, 15]; *)
+tenMin = QuantityMagnitude[UnitConvert[Quantity[10, "Minutes"], "Seconds"]]
+
+benchmarkLayers[modelName_String, seqLen_] :=
+  TimeConstrained[
+    PreemptProtect[
+      AbortProtect[
+        benchmarkModelLayers[modelName, seqLen]
+      ]
+    ],
+    tenMin
   ]
-];
+
+
+benchmarkLayers[models_?ListQ, sequenceLength_] :=
+  Module[{},
+    baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
+    Quiet[CreateDirectory[baseDir]];
+    Do[
+      runSequenceCache = <||>;
+      benchmarkLayers[modelName, sequenceLength],
+      {modelName, models}
+    ]
+  ]
+
+
+(* benchmarkLayers[modelNames, 0];
+benchmarkLayers[modelNames, 1];
+benchmarkLayers[modelNames, 2];
+benchmarkLayers[modelNames, 3];
+benchmarkLayers[modelNames, 4];
+benchmarkLayers[modelNames, 5];
+benchmarkLayers[modelNames, 6];
+benchmarkLayers[modelNames, 7];
+benchmarkLayers[modelNames, 8];
+  *)
+  (* benchmarkLayers[modelNames, 9]; *)
+benchmarkLayers[modelNames, 10];
+(* benchmarkLayers[modelNames, 11];
+benchmarkLayers[modelNames, 12];
+benchmarkLayers[modelNames, 13];
+benchmarkLayers[modelNames, 14];
+benchmarkLayers[modelNames, 15]; *)
+
+
 Print["done benchmarking...."];
