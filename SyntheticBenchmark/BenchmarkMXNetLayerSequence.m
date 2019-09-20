@@ -343,16 +343,20 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-tenMin = QuantityMagnitude[UnitConvert[Quantity[10, "Minutes"], "Seconds"]]
+timeLimit = QuantityMagnitude[UnitConvert[Quantity[4, "Minutes"], "Seconds"]]
 
 benchmarkLayers[modelName_String, seqLen_] :=
-  TimeConstrained[
-    PreemptProtect[
-      AbortProtect[
+  Module[{r},
+    r = TimeConstrained[
+      PreemptProtect[
         benchmarkModelLayers[modelName, seqLen]
-      ]
-    ],
-    tenMin
+      ],
+      timeLimit,
+      $Failed
+    ];
+    If[r === $Failed,
+      Print["Terminated ", modelName, " for sequence length ", seqLen, " because it exceeded the timeLimit=", timeLimit]
+    ]
   ]
 
 
