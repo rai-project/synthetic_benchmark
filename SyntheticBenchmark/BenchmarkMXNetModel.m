@@ -37,6 +37,9 @@ rootDirectory = FileNameDrop[$InputFileName, -1];
 PrependTo[$Path, ParentDirectory[rootDirectory]]
 
 Get["SyntheticBenchmark`"]
+Get["SyntheticBenchmark`Assets`"]
+
+modelNames = Keys[$Models]
 
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
@@ -83,10 +86,10 @@ benchmarkModel[modelName_] :=
     benchmarkModel[modelName, $NumRuns]
 benchmarkModel[modelName_, n_] :=
   Module[{model, time},
+    Print["benchmarking .... " <> modelName];
     model = NetModel[modelName];
     net = model;
     lyrs = NetInformation[model, "Layers"];
-    Print["benchmarking .... " <> modelName];
     time = Quiet@Check[
         CheckAbort[
         lyr = lyrs[[1]];
