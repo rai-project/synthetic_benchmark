@@ -16,6 +16,7 @@ modelsMXFile = FileNameJoin[{rootDirectory, "ModelsCache.mx"}];
 
 If[FileExistsQ[modelsMXFile],
     Get[modelsMXFile];
+    $Models = KeyDrop[$Models,"LeNet"];
 ]
 
 

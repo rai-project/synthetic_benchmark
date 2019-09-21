@@ -105,6 +105,7 @@ benchmarkModel[modelName_, n_] :=
       "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
       "raw_time" -> If[time === $Failed, invalidVal, Round[1000000 * time, 0.0001]]
     |>;
+    ClearAll[net];
     AppendTo[timings, time];
     Print["writing benchmark results .... " <> modelName];
   ]
