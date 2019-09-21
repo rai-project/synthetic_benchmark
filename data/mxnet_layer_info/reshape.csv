@@ -1,0 +1,7 @@
+"index","kind","name","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","constant_input_overhead","constant_output_overhead","mad/time","time"
+5,"Reshape","PrimaryCaps/3",0,0,0,0,0,6,6,256,1152,8,"","","","","","","","",303.,303.,0.,26.
+16,"Reshape","DynamicRouting/2/Net/capsule/c/1",0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",265.,265.,0.,27.166700000000002
+32,"Reshape","DigitCaps/c/1",0,0,0,0,0,11520,"","",1152,10,"","","","","","","","",204.,205.,0.,25.3
+53,"Reshape","Reconstruct/7",0,0,0,0,0,784,"","",1,28,28,"","","","","","","",82.,79.,0.,24.
+152,"Reshape","reshape",0,0,0,0,0,1001,1,1,1001,"","","","","","","","","",82.,82.,0.,35.033300000000004
+174,"Reshape",22,0,0,0,0,0,2048,1,1,2048,"","","","","","","","","",101.,101.,0.,24.0667

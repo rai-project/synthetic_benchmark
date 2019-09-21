@@ -1,0 +1,7 @@
+"index","kind","name","add_flops","div_flops","comp_flops","exp_flops","mad_flops","input_channel","input_height","input_width","output_channel","output_height","output_width","function","kernel_1","kernel_2","stride_1","stride_2","dilation_1","dilation_2","constant_input_overhead","constant_output_overhead","mad/time","time"
+5,"LocalResponseNormalization","pool1_norm1",401408,0,0,0,0,64,56,56,64,56,56,"","","","","","","",2622.,2620.,0.,3472.6333
+10,"LocalResponseNormalization","conv2_norm2",1204224,0,0,0,0,192,56,56,192,56,56,"","","","","","","",7019.,7002.,0.,10408.2667
+5,"LocalResponseNormalization","pool1_norm1",401408,0,0,0,0,64,56,56,64,56,56,"","","","","","","",2415.,2414.,0.,3473.0667000000003
+10,"LocalResponseNormalization","conv2_norm2",1204224,0,0,0,0,192,56,56,192,56,56,"","","","","","","",7048.,7020.,0.,10421.2
+5,"LocalResponseNormalization","pool1_norm1",401408,0,0,0,0,64,56,56,64,56,56,"","","","","","","",2379.,2371.,0.,3492.3
+10,"LocalResponseNormalization","conv2_norm2",1204224,0,0,0,0,192,56,56,192,56,56,"","","","","","","",6987.,6965.,0.,10422.3333
