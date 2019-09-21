@@ -8,8 +8,16 @@ Get["SyntheticBenchmark`Assets`"]
 
 modelNames = Keys[$Models]
 
+ ResourceSystemClient`Private`$throttle = 1;
+
 Table[
     Print[model];
-    NetModel[model],
+    PreemptProtect[
+        AbortProtect[
+            net = NetModel[model]
+        ]
+    ];
+    ClearAll[net];
+    ,
     {model, modelNames}
 ]
