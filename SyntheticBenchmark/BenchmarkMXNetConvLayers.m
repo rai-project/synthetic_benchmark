@@ -174,8 +174,8 @@ convLayers = Flatten@Table[
 ]; *)
 
 convDataLimit=20;
-convLayersLimit=500;
-channelProd=2^12;
+convLayersLimit=300;
+channelProd=2^10;
 
 convData = convData[[;;convDataLimit]]
 
