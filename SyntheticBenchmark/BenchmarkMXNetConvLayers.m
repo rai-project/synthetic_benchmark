@@ -47,7 +47,7 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 10
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -95,7 +95,7 @@ benchmarkConv[info_, n_] :=
         "dilation_2" -> dilation[convLayer][[2]],
         "add_flops" -> Lookup[info, "add_flops", 0],
         "div_flops" -> Lookup[info, "div_flops", 0],
-        "cmp_flops" -> Lookup[info, "cmp_flops", 0],
+        "comp_flops" -> Lookup[info, "comp_flops", 0],
         "exp_flops" -> Lookup[info, "exp_flops", 0],
         "mad_flops" -> Lookup[info, "mad_flops", 0],
         "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
@@ -173,21 +173,18 @@ channelProd=2048;
 
 convData = convData[[;;convDataLimit]]
 
-convLayers = Reap@Do[
+convLayers = Flatten@Table[
     outputChannels = e["output_channel"];
-    Do[
-        If[outputChannel*inputChannel === channelProd,
-            xPrint[{outputChannel, inputChannel}];
-            Sow[Join[
-                e,
-                <|
-                    "input_channel" -> inputChannel,
-                    "output_channel" -> outputChannel
-                |>
-            ]]
+    Table[
+        Join[
+            e,
+            <|
+                "input_channel" -> inputChannel,
+                "output_channel" -> outputChannel
+            |>
         ],
-        {inputChannel, channelProd},
-        {outputChannel, channelProd}
+        {inputChannel, Divisors[channelProd]},
+        {outputChannel, Reverse[Divisors[channelProd]]}
     ],
     {e, convData}
 ];
