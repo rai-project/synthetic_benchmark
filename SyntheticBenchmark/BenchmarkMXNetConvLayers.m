@@ -58,7 +58,7 @@ benchmarkConv[info_] :=
     benchmarkConv[info, $NumRuns]
 benchmarkConv[info_, n_] :=
   Module[{conv, convLayer, time},
-    Print["benchmarking .... " <> ToString[idx++]];
+    Print["benchmarking .... " <> ToString[idx++] <> "/" <> ToString[Length[convLayers]]];
     convLayer = NetInitialize@ConvolutionLayer[
         info["output_channel"],
         {info["kernel_1"],info["kernel_2"]},
@@ -93,6 +93,11 @@ benchmarkConv[info_, n_] :=
         "stride_2" -> stride[convLayer][[2]],
         "dilation_1" -> dilation[convLayer][[1]],
         "dilation_2" -> dilation[convLayer][[2]],
+        "add_flops" -> Lookup[info, "add_flops", 0],
+        "div_flops" -> Lookup[info, "div_flops", 0],
+        "cmp_flops" -> Lookup[info, "cmp_flops", 0],
+        "exp_flops" -> Lookup[info, "exp_flops", 0],
+        "mad_flops" -> Lookup[info, "mad_flops", 0],
         "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
         "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
         "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
@@ -101,7 +106,7 @@ benchmarkConv[info_, n_] :=
     ClearAll[net];
     AppendTo[timings, row];
     writeTimings[timings];
-    Print["writing benchmark results .... " <> ToString[idx]];
+    Print["writing benchmark results .... " <> ToString[idx] <> "/" <> ToString[Length[convLayers]]];
   ]
 
 writeTimings[timings_] :=
@@ -154,8 +159,7 @@ convLayers = Flatten@Table[
         Join[
             e,
             <|
-                "output_channel" -> 2^ii,
-                "input_channel" -> 2^ii
+                "output_channel" -> 2^ii
             |>
         ],
         {ii, Min[Ceiling[Log2[outputChannels]], 8]}
