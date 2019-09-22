@@ -173,7 +173,7 @@ convLayers = Flatten@Table[
     {e, convData}
 ]; *)
 
-convDataLimit=10;
+convDataLimit=20;
 convLayersLimit=500;
 channelProd=2^12;
 
