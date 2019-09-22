@@ -175,7 +175,7 @@ convLayers = Flatten@Table[
 
 convDataLimit=1;
 convLayersLimit=3000;
-channelProd=2^10;
+channelProd=64;
 convIterStride=64;
 
 convData = convData[[;;convDataLimit]]
@@ -192,8 +192,8 @@ convLayers = Flatten@Table[
                 "output_channel" -> outputChannel
             |>
         ],
-        {inputChannel, convIterStride, channelProd, convIterStride},
-        {outputChannel, convIterStride, channelProd, convIterStride}
+        {inputChannel, 32, channelProd},
+        {outputChannel, 32, channelProd}
     ],
     {e, convData}
 ];
