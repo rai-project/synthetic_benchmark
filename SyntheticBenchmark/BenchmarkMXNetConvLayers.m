@@ -169,23 +169,22 @@ convLayers = Flatten@Table[
 
 convDataLimit=10;
 convLayersLimit=500;
-channelProd=512;
+channelProd=2048;
 
 convData = convData[[;;convDataLimit]]
 
-convLayers = Flatten@Table[
+convLayers = Reap@Do[
     outputChannels = e["output_channel"];
-    Table[
+    Do[
         If[outputChannel*inputChannel === channelProd,
             xPrint[{outputChannel, inputChannel}];
-            Join[
+            Sow[Join[
                 e,
                 <|
                     "input_channel" -> inputChannel,
                     "output_channel" -> outputChannel
                 |>
-            ],
-            Nothing
+            ]]
         ],
         {inputChannel, channelProd},
         {outputChannel, channelProd}
@@ -193,7 +192,7 @@ convLayers = Flatten@Table[
     {e, convData}
 ];
 
-convLayers = convLayers[[;;convLayersLimit]]
+convLayers = convLayers[[;;UpTo[convLayersLimit]]]
 
 
 Print[Length[convLayers]]
