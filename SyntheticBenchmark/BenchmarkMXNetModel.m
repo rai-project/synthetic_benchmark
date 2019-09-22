@@ -39,7 +39,7 @@ PrependTo[$Path, ParentDirectory[rootDirectory]]
 Get["SyntheticBenchmark`"]
 Get["SyntheticBenchmark`Assets`"]
 
-modelNames = Keys[$Models]
+(* modelNames = Keys[$Models][[29;;]] *)
 
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
