@@ -26,7 +26,7 @@ baseDir = FileNameJoin[{dataDir, "conv_layers"}]
 Quiet[CreateDirectory[baseDir]]
 
 run[net_, fstLyr_, n_] :=
-    Module[{plan, ex, data},
+    Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
@@ -37,13 +37,17 @@ run[net_, fstLyr_, n_] :=
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        Table[
+        res = Table[
             First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ]
+        ];
+        ClearAll[plan];
+        ClearAll[ex];
+        ClearAll[data];
+        res
     ]
 
 invalidVal = ""
@@ -57,7 +61,7 @@ idx = 0;
 benchmarkConv[info_] :=
     benchmarkConv[info, $NumRuns]
 benchmarkConv[info_, n_] :=
-  Module[{conv, convLayer, time},
+  Module[{conv, convLayer, time, model,flops},
     Print["benchmarking .... " <> ToString[idx++] <> "/" <> ToString[Length[convLayers]]];
     convLayer = NetInitialize@ConvolutionLayer[
         info["output_channel"],
@@ -78,6 +82,7 @@ benchmarkConv[info_, n_] :=
         xPrint[Internal`$LastInternalFailure];
         Return[]
     ];
+    flops = FlopCount[convLayer];
     row= <|
         "name" -> info["name"],
         "input_channel" -> inputDims[convLayer][[1]],
@@ -93,11 +98,11 @@ benchmarkConv[info_, n_] :=
         "stride_2" -> stride[convLayer][[2]],
         "dilation_1" -> dilation[convLayer][[1]],
         "dilation_2" -> dilation[convLayer][[2]],
-        "add_flops" -> Lookup[info, "add_flops", 0],
-        "div_flops" -> Lookup[info, "div_flops", 0],
-        "comp_flops" -> Lookup[info, "comp_flops", 0],
-        "exp_flops" -> Lookup[info, "exp_flops", 0],
-        "mad_flops" -> Lookup[info, "mad_flops", 0],
+        "add_flops" -> flops["Additions"],
+        "div_flops" -> flops["Divisions"],
+        "cmp_flops" -> flops["Comparisons"],
+        "exp_flops" -> flops["Exponentiations"],
+        "mad_flops" -> flops["MultiplyAdds"],
         "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
         "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
         "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
@@ -105,17 +110,18 @@ benchmarkConv[info_, n_] :=
     |>;
     ClearAll[net];
     AppendTo[timings, row];
+    ClearAll[row];
     writeTimings[timings];
     Print["writing benchmark results .... " <> ToString[idx] <> "/" <> ToString[Length[convLayers]]];
   ]
 
 writeTimings[timings_] :=
-  Module[{tbl, header, time, flops},
+  Module[{tbl, header, time},
     header = Keys[timings[[1]]];
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
     xPrint["writing..."];
-    Export[FileNameJoin[{baseDir, "conv.csv"}], tbl, "CSV"]
+    Export[FileNameJoin[{baseDir, "convolution.csv"}], tbl, "CSV"]
   ]
 
 
@@ -169,7 +175,7 @@ convLayers = Flatten@Table[
 
 convDataLimit=10;
 convLayersLimit=500;
-channelProd=2048;
+channelProd=2^12;
 
 convData = convData[[;;convDataLimit]]
 
