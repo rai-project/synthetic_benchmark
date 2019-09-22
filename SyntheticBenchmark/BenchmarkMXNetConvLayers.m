@@ -152,7 +152,7 @@ outputDims[lyr_[params_, ___]] :=
 convData = Import[FileNameJoin[{dataDir, "mxnet_layer_info", "convolution.csv"}]];
 header = First[convData];
 convData = AssociationThread[header -> #] & /@ Rest[convData];
-
+(* 
 convLayers = Flatten@Table[
     outputChannels = e["output_channel"];
     Table[
@@ -165,12 +165,40 @@ convLayers = Flatten@Table[
         {ii, Min[Ceiling[Log2[outputChannels]], 8]}
     ],
     {e, convData}
+]; *)
+
+convDataLimit=10;
+convLayersLimit=500;
+channelProd=512;
+
+convData = convData[[;;convDataLimit]]
+
+convLayers = Flatten@Table[
+    outputChannels = e["output_channel"];
+    Table[
+        If[outputChannel*inputChannel === channelProd,
+            xPrint[{outputChannel, inputChannel}];
+            Join[
+                e,
+                <|
+                    "input_channel" -> inputChannel,
+                    "output_channel" -> outputChannel
+                |>
+            ],
+            Nothing
+        ],
+        {inputChannel, channelProd},
+        {outputChannel, channelProd}
+    ],
+    {e, convData}
 ];
 
+convLayers = convLayers[[;;convLayersLimit]]
 
-convLayers = convLayers[[;;100]]
 
 Print[Length[convLayers]]
+
+xPrint[First[convLayers]]
 
 PreemptProtect[
   AbortProtect[
