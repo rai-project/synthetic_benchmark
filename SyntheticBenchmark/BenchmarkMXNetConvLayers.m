@@ -173,7 +173,7 @@ convLayers = Flatten@Table[
     {e, convData}
 ]; *)
 
-convDataLimit=20;
+convDataLimit=1;
 convLayersLimit=300;
 channelProd=2^10;
 
@@ -183,15 +183,13 @@ convLayers = Flatten@Table[
     outputChannels = e["output_channel"];
     divisors = Divisors[channelProd];
     Table[
-        If[inputChannel*outputChannel === channelProd,
-            Join[
-                e,
-                <|
-                    "input_channel" -> inputChannel,
-                    "output_channel" -> outputChannel
-                |>
-            ],
-            Nothing
+    
+        Join[
+            e,
+            <|
+                "input_channel" -> inputChannel,
+                "output_channel" -> outputChannel
+            |>
         ],
         {inputChannel, divisors},
         {outputChannel, Reverse[divisors]}
