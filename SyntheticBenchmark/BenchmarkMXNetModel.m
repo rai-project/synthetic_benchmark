@@ -41,6 +41,8 @@ Get["SyntheticBenchmark`Assets`"]
 
 modelNames = Keys[$Models];
 
+(* modelNames = {"GPT Transformer Trained on BookCorpus Data"} *)
+
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];
@@ -54,14 +56,17 @@ sequenceLength = 1;
 baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model"}]
 Quiet[CreateDirectory[baseDir]]
 
-run[net_, n_] :=
+run[name_, net_, n_] :=
     Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
-        data = synthesizeData /@ Inputs[net];
+        data = synthesizeData /@ Echo[Inputs[net]];
+        xPrint[First[plan]["Inputs"]];
         Table[
+          (* xPrint[ex["Arrays", "Inputs",  key]];
+          data[key] = NumericArray[{40434, 17087, 39104}, "Integer32"]; *)
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
@@ -94,13 +99,14 @@ benchmarkModel[modelName_, n_] :=
     model = NetModel[modelName];
     net = model;
     lyrs = NetInformation[model, "Layers"];
-    time = Quiet@Check[
+    time = Check[
         CheckAbort[
-        run[net, n],
+        run[modelName, net, n],
         xPrint["abort. path .."];
         $Failed],
         $Failed
     ];
+        Print[Internal`$LastInternalFailure];
     time = <|
       "name" -> StringReplace[modelName, " " -> "_"],
       "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
@@ -158,11 +164,21 @@ synthesizeData[e_["Image", params_, sz_]] /; e === NetEncoder :=
 
 encLength = 10
 synthesizeData[enc:(e_["Function", params_, sz_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], Verbatim[ValidatedParameter[_String]]]):= 
-  enc[StringRiffle[Table[RandomWord[], encLength], " "]]
+  First[params["Function"]][StringRiffle[Table[RandomWord[], encLength], " "]];
+
+audioLength = sequenceLength
+synthesizeData[enc:(e_["Function", params_, sz_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], ValidatedParameter[None]]):= 
+  RandomReal[1, sz /. TensorT[x_, ___] :> Prepend[x /. _LengthVar -> sequenceLength, batchSize]];
+
 
 tokenLength = 10
 synthesizeData[enc:(e_["Tokens", params_, sz_, ___])] /; (e === NetEncoder ):= 
-  enc[StringRiffle[Table[RandomWord[], tokenLength], " "]]
+  enc[StringRiffle[Table[RandomWord[], tokenLength], " "]];
+
+charLength = 1
+chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
+synthesizeData[enc:(e_["Characters", params_, sz_, ___])] /; (e === NetEncoder ):= 
+  enc[FromCharacterCode[RandomChoice[ToCharacterCode[chars], charLength]]];
 
 PreemptProtect[
   AbortProtect[
