@@ -53,7 +53,7 @@ flops[ConvolutionLayer, inputs_, outputs_, params_, opts_] :=
 flops[NormalizationLayer, inputs_, outputs_, params_, opts_] :=
     Module[{inputShapes, numOps, tmp, size},
         inputShapes = tensorDims[inputs["Input"]];
-        
+
         numOps = Apply[Times, inputShapes];
         tmp = Lookup[params, "AggregationLevels"];
         size = Switch[tmp,
@@ -67,7 +67,7 @@ flops[NormalizationLayer, inputs_, outputs_, params_, opts_] :=
             "MultiplyAdds" -> numOps * size,
             "Additions" -> numOps,
             "Exponentiations" -> numOps,
-            "Divisions" -> 2 * numOps 
+            "Divisions" -> 2 * numOps
         |>
     ];
 flops[BatchNormalizationLayer, inputs_, outputs_, params_, opts_] :=
@@ -96,17 +96,61 @@ flops[ElementwiseLayer, inputs_, outputs_, params_, opts_] :=
                 <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
             ValidatedParameter[Sqrt],
                 <| "Exponentiations" -> numOps |>,
+            ValidatedParameter[Tanh],
+                <| "Exponentiations" -> numOps |>,
+            ValidatedParameter[Exp],
+                <| "Exponentiations" -> numOps |>,
             ValidatedParameter[_NeuralNetworks`Private`ScalarFunctionObject],
                 fun = First[fun];
                 Switch[NeuralNetworks`Private`ScalarFunctionToPureFunction[fun],
                     Min[6,Max[0,#1]]&,
                         <| "Comparisons" -> 2 * numOps |>,
-                    (#1^2)&,
+                    (#1)&,
+                        <| |>,
+                    (#1+#2)&,
+                        <| "Additions" -> numOps |>,
+                    (#1-#2)&,
+                        <| "Additions" -> numOps |>,
+                    (#1^2)& | Function[Subtract[Slot[1],Times[0.5`,Slot[2]]]],
                         <| "MultiplyAdds" -> numOps |>,
+                    Function[Times[300,Subtract[1,Slot[1]]]],
+                        <| "MultiplyAdds" -> numOps, "Additions" -> numOps |>,
                     Sqrt[#1]/(1+#1)&,
                         <| "Exponentiations" -> numOps, "Divisions" -> numOps, "Additions" -> numOps |>,
+                    Min[2, #1]&,
+                        <| "Comparisons" -> numOps |>,
+                    0.125 #1& | Function[Times[0.2`,Slot[1]]] | Function[Times[9,Slot[1]]] | Function[Times[300,Slot[1]]] | Function[Times[512,Slot[1]]] | Function[Times[512,Subtract[1,Slot[1]]]],
+                        <| "MultiplyAdds" -> numOps |>,
+                    2.606` #1&,
+                        <| "MultiplyAdds" -> numOps |>,
+                    0.01` #1&,
+                        <| "MultiplyAdds" -> numOps |>,
+                    Function[Times[Slot[1],Power[Plus[1.`*^-10,Slot[2]],-1]]],
+                        <| "Additions" -> numOps, "Divisions" -> numOps |>,
+                    Function[Plus[-1,Times[2,Slot[1]]]],
+                        <| "MultiplyAdds" -> numOps, "Additions" -> numOps |>,
+                    Function[Plus[0.5`,Times[0.5`,Tanh[Slot[1]]]]],
+                        <| "MultiplyAdds" -> numOps, "Exponentiations" -> numOps, "Additions" -> numOps |>,
+                    Function[Exp[Times[0.2`,Slot[1]]]],
+                        <| "MultiplyAdds" -> numOps, "Exponentiations" -> numOps |>,
+                    Function[Log[Max[1.`*^-20,Power[Slot[1],2]]]],
+                        <| "MultiplyAdds" -> numOps, "Exponentiations" -> numOps, "Comparisons" -> numOps |>,
+                    Function[Log[Plus[0.001`,Slot[1]]]],
+                        <| "Additions" -> numOps, "Exponentiations" -> numOps |>,
+                    Function[Plus[Max[0,Slot[1]],Times[0.1`,Min[0,Slot[1]]]]],
+                        <| "Additions" -> numOps, "Comparisons" -> 2*numOps |>,
+                    0.5 (#1 (1+Erf[0.7071067811865475` #1]))&,
+                         <| "MultiplyAdds" -> 3*numOps, "Exponentiations" -> numOps, "Additions" -> numOps |>,
+                    Function[Log[Plus[1.`*^-14,Slot[1]]]],
+                        <| "Additions" -> numOps, "Exponentiations" -> numOps |>,
+                    Function[Times[0.5`,Times[Slot[1],Plus[1,Tanh[Times[0.7978845608028654`,Plus[Slot[1],Times[0.044715`,Power[Slot[1],3]]]]]]]]],
+                        <| "MultiplyAdds" -> 6*numOps, "Exponentiations" -> numOps |>,
                     (ScaledExponentialLinearUnit[#1]&) | ("ScaledExponentialLinearUnit"[#1]&) | ("SELU"[#1]&),
                         <| "Exponentiations" -> numOps, "Additions" -> numOps |>,
+                    Function[Clip[Slot[1],List[0,24]]] | Function[Clip[Slot[1],List[-3,3]]],
+                        <| "Comparisons" -> 2*numOps |>,
+                    Function[Plus[Max[0,Slot[1]],Times[0.2`,Min[0,Slot[1]]]]],
+                        <| "Comparisons" -> 2*numOps, "MultiplyAdds" -> numOps, "Additions" -> numOps |>,
                     ("RectifiedLinearUnit"[#1]&) | ("RELU"[#1]&),
                         <| "Comparisons" -> numOps, "MultiplyAdds" -> numOps |>,
                     ("ExponentialLinearUnit"[#1]&) | ("ELU"[#1]&),
@@ -123,11 +167,11 @@ flops[ElementwiseLayer, inputs_, outputs_, params_, opts_] :=
                         <| "Exponentiations" -> 2*numOps, "Additions" -> numOps, "Divisions" -> numOps |>,
                     _,
                         Global`es = NeuralNetworks`Private`ScalarFunctionToPureFunction[fun];
-                        Print["unhandled ElementwiseLayer ScalarFunctionObject case ", NeuralNetworks`Private`ScalarFunctionToPureFunction[fun]]
+                        Print["unhandled ElementwiseLayer ScalarFunctionObject case ", FullForm@NeuralNetworks`Private`ScalarFunctionToPureFunction[fun]]
                 ],
             _,
                 Print["unhandled ElementwiseLayer case ", fun]
-                
+
         ]
     ];
 flops[ConstantPlusLayer, inputs_, outputs_, params_, opts_] :=
@@ -160,6 +204,37 @@ flops[ThreadingLayer, inputs_, outputs_, params_, opts_] :=
                 <| "Additions" -> numOps |>,
             ValidatedParameter[Times],
                 <| "MultiplyAdds" -> numOps |>,
+            ValidatedParameter[Divide],
+                <| "Divisions" -> numOps |>,
+            ValidatedParameter[_NeuralNetworks`Private`ScalarFunctionObject],
+                fun = First[fun];
+                Switch[NeuralNetworks`Private`ScalarFunctionToPureFunction[fun],
+                  (#1+#2)&,
+                      <| "Additions" -> numOps |>,
+                  Function[Subtract[Slot[1],Times[0.5`,Slot[2]]]] | Function[Plus[Slot[1],Times[0.5`,Slot[2]]]],
+                      <| "MultiplyAdds" -> numOps |>,
+                  Function[Times[Slot[1],Slot[2]]],
+                      <| "MultiplyAdds" -> numOps |>,
+                  Function[Log[Plus[1.`*^-14,Slot[1]]]],
+                      <| "Additions" -> numOps, "Exponentiations" -> numOps |>,
+                  Function[Plus[Slot[1],Minus[Slot[2]]]],
+                      <| "Additions" -> numOps |>,
+                  Function[Power[Plus[Slot[1],Minus[Slot[2]]],2]],
+                      <| "MultiplyAdds" -> numOps, "Additions" -> numOps |>,
+                  Function[Times[Slot[1],Power[Plus[1.`*^-6,Slot[2]],-1]]],
+                      <| "Additions" -> numOps, "Divisions" -> numOps |>,
+                  Function[Times[Slot[2],Subtract[1,Slot[1]]]],
+                      <| "Additions" -> numOps, "MultiplyAdds" -> numOps |>,
+                  Function[Plus[Times[Slot[1],Slot[2]],Times[Slot[3],Subtract[1,Slot[2]]]]],
+                      <| "Additions" -> 2*numOps, "MultiplyAdds" -> 2*numOps |>,
+                  Function[Times[Slot[1],Power[Plus[1.`*^-10,Slot[2]],-1]]],
+                      <| "Additions" -> numOps, "Divisions" -> numOps |>,
+                  #3+(#1+#2)&,
+                      <| "Additions" -> 2*numOps |>,
+                  _,
+                    Global`es = NeuralNetworks`Private`ScalarFunctionToPureFunction[fun];
+                    Print["unhandled ThreadingLayer ScalarFunctionObject case ", FullForm@ NeuralNetworks`Private`ScalarFunctionToPureFunction[fun]]
+                ],
             _,
                 Print["unhandled ThreadingLayer case", params]
         ]
@@ -172,7 +247,7 @@ flops[AggregationLayer, inputs_, outputs_, params_, opts_] :=
         numOps = numInputs * Apply[Times, inputShapes];
         fun = params["Function"];
         Switch[fun,
-            ValidatedParameter[Max],
+            Max | ValidatedParameter[Max],
                 <| "Comparisons" -> numOps |>,
             ValidatedParameter[Times],
                 <| "MultiplyAdds" -> numOps |>,
@@ -190,7 +265,7 @@ flops[PoolingLayer, inputs_, outputs_, params_, opts_] :=
         outputShapes = tensorDims[outputs["Output"]];
 
         batchSize = Lookup[opts, "BatchSize", 1];
-        
+
         nOut = batchSize;
         {cOut, hOut, wOut} = outputShapes;
 
@@ -301,9 +376,9 @@ DeconvolutionLayer;
 paramsOf[lyr_] :=
     NData[lyr]["Parameters"]
 
-tensorDims[TensorT[dims_, _]] := 
+tensorDims[TensorT[dims_, _]] :=
 	dims
-    
+
 End[]
 
 
