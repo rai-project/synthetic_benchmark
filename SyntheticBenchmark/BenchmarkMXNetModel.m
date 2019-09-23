@@ -41,7 +41,7 @@ Get["SyntheticBenchmark`Assets`"]
 
 modelNames = Keys[$Models];
 
-(* modelNames = {"GPT Transformer Trained on BookCorpus Data"} *)
+(* modelNames = {"GloVe 50-Dimensional Word Vectors Trained on Tweets", "Wolfram Python Character-Level Language Model V1"} *)
 
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
@@ -57,17 +57,27 @@ baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model"}]
 Quiet[CreateDirectory[baseDir]]
 
 run[name_, net_, n_] :=
-    Module[{plan, ex, data, res},
+    Module[{plan, ex, data, res, setter},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
         data = synthesizeData /@ Echo[Inputs[net]];
         xPrint[First[plan]["Inputs"]];
-        Table[
+        setter = If[ContainsVarSequenceQ[Inputs[net]],
+          NDArraySetUnbatched[#1, #2, 1]&,
+          NDArraySet[#1, #2]&
+        ];
+        (* Table[
+          Print[{key,data[key]}];
           (* xPrint[ex["Arrays", "Inputs",  key]];
           data[key] = NumericArray[{40434, 17087, 39104}, "Integer32"]; *)
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
+            {key, Keys[data]}
+        ]; *)
+        Print[Head[ex]];
+        Table[
+            setter[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
@@ -85,7 +95,7 @@ run[name_, net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 10
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -175,7 +185,7 @@ tokenLength = 10
 synthesizeData[enc:(e_["Tokens", params_, sz_, ___])] /; (e === NetEncoder ):= 
   enc[StringRiffle[Table[RandomWord[], tokenLength], " "]];
 
-charLength = 1
+charLength = 10
 chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~";
 synthesizeData[enc:(e_["Characters", params_, sz_, ___])] /; (e === NetEncoder ):= 
   enc[FromCharacterCode[RandomChoice[ToCharacterCode[chars], charLength]]];
