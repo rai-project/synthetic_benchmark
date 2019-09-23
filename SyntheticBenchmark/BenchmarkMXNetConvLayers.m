@@ -173,16 +173,16 @@ convLayers = Flatten@Table[
     {e, convData}
 ]; *)
 
-convDataLimit=1;
-convLayersLimit=3000;
+convDataLimit=500;
+convLayersLimit=9000;
 channelProd=64;
 convIterStride=64;
 
-convData = convData[[;;convDataLimit]]
+convData = convData[[;;UpTo[convDataLimit]]]
 
 convLayers = Flatten@Table[
     outputChannels = e["output_channel"];
-    channelProdLog = Log2[channelProd];
+    rng = {1/4, 1/2, 1, 2, 4} * outputChannels;
     Table[
         xPrint[{inputChannel,outputChannel}];
         Join[
@@ -192,8 +192,8 @@ convLayers = Flatten@Table[
                 "output_channel" -> outputChannel
             |>
         ],
-        {inputChannel, 32, channelProd},
-        {outputChannel, 32, channelProd}
+        {inputChannel, rng},
+        {outputChannel, rng}
     ],
     {e, convData}
 ];
