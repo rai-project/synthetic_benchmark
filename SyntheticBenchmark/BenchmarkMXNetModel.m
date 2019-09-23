@@ -39,7 +39,7 @@ PrependTo[$Path, ParentDirectory[rootDirectory]]
 Get["SyntheticBenchmark`"]
 Get["SyntheticBenchmark`Assets`"]
 
-(* modelNames = Keys[$Models][[29;;]] *)
+modelNames = Keys[$Models];
 
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
@@ -54,29 +54,33 @@ sequenceLength = 1;
 baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model"}]
 Quiet[CreateDirectory[baseDir]]
 
-run[net_, fstLyr_, n_] :=
-    Module[{plan, ex, data},
+run[net_, n_] :=
+    Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
-        data = synthesizeData /@ Inputs[lyr];
+        data = synthesizeData /@ Inputs[net];
         Table[
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        Table[
+        res = Table[
             First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ]
+        ];
+        ClearAll[plan];
+        ClearAll[ex];
+        ClearAll[data];
+        res
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 10
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -92,8 +96,7 @@ benchmarkModel[modelName_, n_] :=
     lyrs = NetInformation[model, "Layers"];
     time = Quiet@Check[
         CheckAbort[
-        lyr = lyrs[[1]];
-        run[net, lyr, n],
+        run[net, n],
         xPrint["abort. path .."];
         $Failed],
         $Failed
@@ -107,6 +110,7 @@ benchmarkModel[modelName_, n_] :=
     |>;
     ClearAll[net];
     AppendTo[timings, time];
+    writeTimings[timings];
     Print["writing benchmark results .... " <> modelName];
   ]
 
@@ -148,6 +152,17 @@ outputDims[lyr_[params_, ___]] :=
   If[AssociationQ[e], e["Output"] /. TensorT[x_, _] :> x, {"","",""}]]},
     PadRight[r, 3, ""]
  ]
+
+synthesizeData[e_["Image", params_, sz_]] /; e === NetEncoder := 
+ RandomReal[1, sz /. TensorT[x_, ___] :> Prepend[x, batchSize]]
+
+encLength = 10
+synthesizeData[enc:(e_["Function", params_, sz_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], Verbatim[ValidatedParameter[_String]]]):= 
+  enc[StringRiffle[Table[RandomWord[], encLength], " "]]
+
+tokenLength = 10
+synthesizeData[enc:(e_["Tokens", params_, sz_, ___])] /; (e === NetEncoder ):= 
+  enc[StringRiffle[Table[RandomWord[], tokenLength], " "]]
 
 PreemptProtect[
   AbortProtect[
