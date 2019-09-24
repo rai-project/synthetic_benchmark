@@ -41,7 +41,7 @@ Get["SyntheticBenchmark`Assets`"]
 
 modelNames = Keys[$Models];
 
-(* modelNames = {"GloVe 50-Dimensional Word Vectors Trained on Tweets", "Wolfram Python Character-Level Language Model V1"} *)
+(* modelNames = {"ELMo Contextual Word Representations Trained on 1B Word Benchmark"} *)
 
 PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
@@ -95,7 +95,7 @@ run[name_, net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 1
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -173,9 +173,14 @@ synthesizeData[e_["Image", params_, sz_]] /; e === NetEncoder :=
  RandomReal[1, sz /. TensorT[x_, ___] :> Prepend[x, batchSize]]
 
 encLength = 10
-synthesizeData[enc:(e_["Function", params_, sz_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], Verbatim[ValidatedParameter[_String]]]):= 
-  First[params["Function"]][StringRiffle[Table[RandomWord[], encLength], " "]];
-
+synthesizeData[enc:(e_["Function", params_, sz0_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], Verbatim[ValidatedParameter[_String]]]):= 
+  Module[{sz = sz0 //. {TensorT[x_,___]:>x, _LengthVar :> encLength}},
+    If[Length[sz] === 2,
+      (* First[params["Function"]][StringRiffle[#, " "]& /@ Table[RandomWord[], sz[[1]], sz[[2]]]], *)
+      RandomInteger[1, sz],
+      First[params["Function"]][StringRiffle[Table[RandomWord[], encLength], " "]]
+    ]
+  ]
 audioLength = sequenceLength
 synthesizeData[enc:(e_["Function", params_, sz_, ___])] /; (e === NetEncoder && MatchQ[params["Pattern"], ValidatedParameter[None]]):= 
   RandomReal[1, sz /. TensorT[x_, ___] :> Prepend[x /. _LengthVar -> sequenceLength, batchSize]];
