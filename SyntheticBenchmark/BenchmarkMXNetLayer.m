@@ -51,7 +51,7 @@ run[net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
+$NumRuns = 100
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -165,7 +165,7 @@ lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-outputFile = FileNameJoin[{dataDir, "raw_mxnet_layer_info", layerKind[lyr] <> "_" <> ToString[Hash[{lyrName, lyr}]] <> ".csv"}];
+outputFile = FileNameJoin[{dataDir, "raw_mxnet_layer_info", layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
