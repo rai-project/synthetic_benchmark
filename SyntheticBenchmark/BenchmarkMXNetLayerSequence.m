@@ -1,3 +1,4 @@
+#!/usr/bin/env wolframscript
 
 imageClassificationModelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
 Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \

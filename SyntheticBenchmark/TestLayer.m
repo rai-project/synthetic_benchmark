@@ -1,3 +1,5 @@
+#!/usr/bin/env wolframscript
+
 << NeuralNetworks`
 
 PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];

@@ -1,3 +1,4 @@
+#!/usr/bin/env wolframscript
 
 imageClassificationModelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
 Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
@@ -62,7 +63,7 @@ run[name_, net_, n_] :=
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
-        data = synthesizeData /@ Echo[Inputs[net]];
+        data = synthesizeData /@ Inputs[net];
         xPrint[First[plan]["Inputs"]];
         setter = If[ContainsVarSequenceQ[Inputs[net]],
           NDArraySetUnbatched[#1, #2, 1]&,
@@ -75,7 +76,7 @@ run[name_, net_, n_] :=
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ]; *)
-        Print[Head[ex]];
+        xPrint[Head[ex]];
         Table[
             setter[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
@@ -95,7 +96,14 @@ run[name_, net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 1
+$NumRuns = 50
+
+<< SyntheticBenchmark`
+<< SyntheticBenchmark`StaticAnalysis`
+$Models = Keys[SyntheticBenchmark`Assets`Models`$Models];
+ClearAll[getModelId]; 
+getModelId[name_] := 
+ First[FirstPosition[$Models, name]]
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -118,7 +126,8 @@ benchmarkModel[modelName_, n_] :=
     ];
         Print[Internal`$LastInternalFailure];
     time = <|
-      "name" -> StringReplace[modelName, " " -> "_"],
+      "id" -> getModelId[modelName],
+      "name" -> modelName,
       "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
       "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
       "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
@@ -126,16 +135,16 @@ benchmarkModel[modelName_, n_] :=
     |>;
     ClearAll[net];
     AppendTo[timings, time];
-    writeTimings[timings];
+    writeTimings[StringReplace[modelName, " " -> "_"], {time}];
     Print["writing benchmark results .... " <> modelName];
   ]
 
-writeTimings[timings_] :=
+writeTimings[modelName_, timings_] :=
   Module[{tbl, header, time, flops},
     header = Keys[timings[[1]]];
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
-    Export[FileNameJoin[{baseDir, "mxnet.csv"}], tbl, "CSV"]
+    Export[FileNameJoin[{baseDir, modelName <> ".csv"}], tbl, "CSV"]
   ]
 
 
@@ -195,10 +204,15 @@ chars = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcd
 synthesizeData[enc:(e_["Characters", params_, sz_, ___])] /; (e === NetEncoder ):= 
   enc[FromCharacterCode[RandomChoice[ToCharacterCode[chars], charLength]]];
 
+
+If[Length[$ScriptCommandLine] == 2,
+  modelNames = {$ScriptCommandLine[[2]]}
+];
+
+Print[modelNames]
 PreemptProtect[
   AbortProtect[
     benchmarkModel /@ modelNames;
-    writeTimings[timings]
   ]
 ];
-Print["done benchmarking...."];
+xPrint["done benchmarking...."];

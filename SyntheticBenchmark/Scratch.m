@@ -1,3 +1,5 @@
+#!/usr/bin/env wolframscript
+
 multiGPUResNet152[dev_, batch_, prec_:"Real32"] := Module[
   {data, net,
     x = NumericArray[RandomReal[1, {batch, 3, 224, 224}], "Real32"],
