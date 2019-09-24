@@ -22,23 +22,27 @@ sequenceLength = 1;
 
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
-baseDir = FileNameJoin[{dataDir, "mxnet_layers"}]
+baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info"}]
 
 Quiet[CreateDirectory[baseDir]]
+
+modelNames = Keys[$Models]
 
 Do[
     model = NetModel[modelName];
     lyrLen = Length[NetInformation[model, "Layers"]];
     Do[
-        RunProcess[
+        Print@RunProcess[
             {
+                "wolframscript",
+                "-f",
                 FileNameJoin[{rootDirectory, "..", "SyntheticBenchmark", "BenchmarkMXNetLayer.m"}],
                 modelName,
                 lyrIdx
             },
-            "ExitCode"
+            "StandardOutput"
         ],
         {lyrIdx, lyrLen}
-    ]
-    {modelName, $Models}
+    ],
+    {modelName, modelNames[[;;2]]}
 ]

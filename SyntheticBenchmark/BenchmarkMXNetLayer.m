@@ -22,16 +22,16 @@ sequenceLength = 1;
 
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
-baseDir = FileNameJoin[{dataDir, "conv_layers"}]
+baseDir = FileNameJoin[{dataDir, "mxnet_layer_data"}]
 Quiet[CreateDirectory[baseDir]]
 
-run[net_, fstLyr_, n_] :=
+run[net_, n_] :=
     Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
-        data = synthesizeData /@ Inputs[fstLyr];
+        data = synthesizeData /@ Inputs[net];
         Table[
             NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
@@ -51,62 +51,54 @@ run[net_, fstLyr_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 10
+$NumRuns = 50
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
 timings = {}
 
-idx = 0;
-benchmark[info_] :=
-    benchmark[info, $NumRuns]
-benchmark[info_, n_] :=
+benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{conv, convLayer, time, model,flops},
-    Print["benchmarking .... " <> ToString[idx++] <> "/" <> ToString[Length[convLayers]]];
-    convLayer = NetInitialize@ConvolutionLayer[
-        info["output_channel"],
-        {info["kernel_1"],info["kernel_2"]},
-        "Dilation" -> {info["dilation_1"], info["dilation_2"]},
-        "Stride" -> {info["stride_1"], info["stride_2"]},
-        "Input" -> {info["input_channel"], info["input_height"], info["input_width"]}
-    ];
-    time = Quiet@Check[
+    Print["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
+    time = Check[
         CheckAbort[
-        model = NetChain[{convLayer}];
-        run[model, convLayer, n],
+        model = NetChain[{lyr}];
+        run[model, $NumRuns],
         xPrint["abort. path .."];
         $Failed],
         $Failed
     ];
     If[time === $Failed,
+        Print["failed to run..."];
         xPrint[Internal`$LastInternalFailure];
         Return[]
     ];
-    flops = FlopCount[convLayer];
+    flops = FlopCount[lyr];
     row= <|
-        "name" -> info["name"],
-        "input_channel" -> inputDims[convLayer][[1]],
-        "input_height" -> inputDims[convLayer][[2]],
-        "input_width" -> inputDims[convLayer][[3]],
-        "output_channel" -> outputDims[convLayer][[1]],
-        "output_height" -> outputDims[convLayer][[2]],
-        "output_width" -> outputDims[convLayer][[3]],
-        "function" -> function[convLayer],
-        "kernel_1" -> kernelSize[convLayer][[1]],
-        "kernel_2" -> kernelSize[convLayer][[2]],
-        "stride_1" -> stride[convLayer][[1]],
-        "stride_2" -> stride[convLayer][[2]],
-        "dilation_1" -> dilation[convLayer][[1]],
-        "dilation_2" -> dilation[convLayer][[2]],
-        "add_flops" -> flops["Additions"],
-        "div_flops" -> flops["Divisions"],
-        "cmp_flops" -> flops["Comparisons"],
-        "exp_flops" -> flops["Exponentiations"],
-        "mad_flops" -> flops["MultiplyAdds"],
-        "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
-        "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
-        "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
-        "raw_time" -> If[time === $Failed, invalidVal, Round[1000000 * time, 0.0001]]
+      "model_name" -> modelName,
+      "layer_name" -> StringRiffle[lyrName, "/"],
+      "layer_index" -> lyrIdx,
+      "kind" -> layerKind[lyr],
+      "time" -> time,
+      "add_flops" -> flops["Additions"],
+      "div_flops" -> flops["Divisions"],
+      "cmp_flops" -> flops["Comparisons"],
+      "exp_flops" -> flops["Exponentiations"],
+      "mad_flops" -> flops["MultiplyAdds"],
+      "input_channel" -> inputDims[lyr][[1]],
+      "input_height" -> inputDims[lyr][[2]],
+      "input_width" -> inputDims[lyr][[3]],
+      "output_channel" -> outputDims[lyr][[1]],
+      "output_height" -> outputDims[lyr][[2]],
+      "output_width" -> outputDims[lyr][[3]],
+      "function" -> function[lyr],
+      "kernel_1" -> kernelSize[lyr][[1]],
+      "kernel_2" -> kernelSize[lyr][[2]],
+      "stride_1" -> stride[lyr][[1]],
+      "stride_2" -> stride[lyr][[2]],
+      "dilation_1" -> dilation[lyr][[1]],
+      "dilation_2" -> dilation[lyr][[2]],
+      "mad/time" -> N[flops["MultiplyAdds"] / time]
     |>;
     ClearAll[net];
     AppendTo[timings, row];
@@ -121,10 +113,10 @@ writeTimings[timings_] :=
     tbl = Lookup[#, header]& /@ timings;
     PrependTo[tbl, header];
     xPrint["writing..."];
-    Export[FileNameJoin[{baseDir, "convolution.csv"}], tbl, "CSV"]
+    Export[outputFile, tbl, "CSV"]
   ]
 
-
+layerKind[lyr_] := StringTrim[SymbolName[Head[lyr]], "Layer"]
 
 synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
 Inputs = NeuralNetworks`Private`Inputs;
@@ -155,55 +147,40 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-convData = Import[FileNameJoin[{dataDir, "mxnet_layer_info", "convolution.csv"}]];
-header = First[convData];
-convData = AssociationThread[header -> #] & /@ Rest[convData];
-(* 
-convLayers = Flatten@Table[
-    outputChannels = e["output_channel"];
-    Table[
-        Join[
-            e,
-            <|
-                "output_channel" -> 2^ii
-            |>
-        ],
-        {ii, Min[Ceiling[Log2[outputChannels]], 8]}
-    ],
-    {e, convData}
-]; *)
 
-convDataLimit=500;
-convLayersLimit=9000;
-channelProd=64;
-convIterStride=64;
+modelName = $ScriptCommandLine[[2]]
+lyrIdx = ToExpression[$ScriptCommandLine[[3]]]
 
-convData = convData[[;;UpTo[convDataLimit]]]
+model = NetModel[modelName]
+lyrs = NetInformation[model, "Layers"]
+layerName = Keys[lyrs][[lyrIdx]]
+lyr = Values[lyrs][[lyrIdx]]
 
-convLayers = Flatten@Table[
-    outputChannels = e["output_channel"];
-    rng = {1/4, 1/2, 1, 2, 4} * outputChannels;
-    Table[
-        xPrint[{inputChannel,outputChannel}];
-        Join[
-            e,
-            <|
-                "input_channel" -> inputChannel,
-                "output_channel" -> outputChannel
-            |>
-        ],
-        {inputChannel, rng},
-        {outputChannel, rng}
-    ],
-    {e, convData}
-];
+timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-convLayers = convLayers[[;;UpTo[convLayersLimit]]]
+outputFile = FileNameJoin[{dataDir, "raw_mxnet_layer_info", layerKind[lyr] <> "_" <> ToString[Hash[{layerName, lyr}]] <> ".csv"}];
+
+
+benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
+  Module[{r},
+    r = TimeConstrained[
+      First@AbsoluteTiming[PreemptProtect[
+        benchmarkModelLayer[modelName, lyrIdx, lyrName, lyr]
+      ]],
+      timeLimit,
+      $Failed
+    ];
+    If[r === $Failed,
+      Print["Terminated ", modelName, " for layer ", lyrIdx, " because it exceeded the timeLimit=", timeLimit],
+      Print["Completed ", modelName, " for layer ", lyrIdx, " taking ", r, " seconds to run."]
+    ]
+  ]
+
 
 PreemptProtect[
   AbortProtect[
-    benchmarkConv /@ lyrs;
+    benchmarkLayer[modelName, lyrIdx, lyrName, lyr];
     xPrint[timings];
   ]
 ];
-Print["done benchmarking...."];
+xPrint["done benchmarking...."];
