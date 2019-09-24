@@ -44,5 +44,5 @@ Do[
         ],
         {lyrIdx, lyrLen}
     ],
-    {modelName, modelNames[[;;2]]}
+    {modelName, modelNames}
 ]

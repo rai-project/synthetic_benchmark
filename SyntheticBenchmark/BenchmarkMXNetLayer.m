@@ -79,7 +79,9 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
       "layer_name" -> StringRiffle[lyrName, "/"],
       "layer_index" -> lyrIdx,
       "kind" -> layerKind[lyr],
-      "time" -> time,
+      "min_time" -> Min[time],
+      "mean_time" -> TrimmedMean[time, 0.2],
+      "max_time" -> Max[time],
       "add_flops" -> flops["Additions"],
       "div_flops" -> flops["Divisions"],
       "cmp_flops" -> flops["Comparisons"],
@@ -98,7 +100,12 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
       "stride_2" -> stride[lyr][[2]],
       "dilation_1" -> dilation[lyr][[1]],
       "dilation_2" -> dilation[lyr][[2]],
-      "mad/time" -> N[flops["MultiplyAdds"] / time]
+      "input_form" -> NetInformation[lyr, "InputForm"],
+      "topology_hash" -> NetInformation[lyr, "TopologyHash"],
+      "mad/min_time" -> N[flops["MultiplyAdds"] / Min[time]],
+      "mad/mean_time" -> N[flops["MultiplyAdds"] / TrimmedMean[time, 0.2]],
+      "mad/max_time" -> N[flops["MultiplyAdds"] / Max[time]],
+      "time" -> time
     |>;
     ClearAll[net];
     AppendTo[timings, row];
@@ -153,12 +160,12 @@ lyrIdx = ToExpression[$ScriptCommandLine[[3]]]
 
 model = NetModel[modelName]
 lyrs = NetInformation[model, "Layers"]
-layerName = Keys[lyrs][[lyrIdx]]
+lyrName = Keys[lyrs][[lyrIdx]]
 lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-outputFile = FileNameJoin[{dataDir, "raw_mxnet_layer_info", layerKind[lyr] <> "_" <> ToString[Hash[{layerName, lyr}]] <> ".csv"}];
+outputFile = FileNameJoin[{dataDir, "raw_mxnet_layer_info", layerKind[lyr] <> "_" <> ToString[Hash[{lyrName, lyr}]] <> ".csv"}];
 
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
