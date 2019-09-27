@@ -27,6 +27,7 @@ baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info"}]
 Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
+modelNames = TakeWhile[Reverse[modelNames], ! StringContainsQ[#, "Multi-scale"] &]
 
 Do[
     model = NetModel[modelName];
