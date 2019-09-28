@@ -27,7 +27,7 @@ baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info"}]
 Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
-modelNames = TakeWhile[Reverse[modelNames], ! StringContainsQ[#, "Multi-scale"] &]
+(* modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Multi-scale"] &] *)
 
 Do[
     model = NetModel[modelName];
@@ -43,7 +43,7 @@ Do[
             },
             "StandardOutput"
         ],
-        {lyrIdx, lyrLen}
+        {lyrIdx, lyrLen, 1, -1}
     ],
     {modelName, modelNames}
 ]
