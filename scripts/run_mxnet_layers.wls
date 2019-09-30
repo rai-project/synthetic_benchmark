@@ -29,6 +29,8 @@ Quiet[CreateDirectory[baseDir]]
 modelNames = Keys[$Models]
 (* modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Multi-scale"] &] *)
 
+Print[modelNames]
+
 Do[
     model = NetModel[modelName];
     lyrLen = Length[NetInformation[model, "Layers"]];
@@ -43,7 +45,7 @@ Do[
             },
             "StandardOutput"
         ],
-        {lyrIdx, lyrLen, 1, -1}
+        {lyrIdx, lyrLen}
     ],
     {modelName, modelNames}
 ]
