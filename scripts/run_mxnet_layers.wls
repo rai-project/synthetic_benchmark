@@ -45,7 +45,7 @@ Do[
             },
             "StandardOutput"
         ],
-        {lyrIdx, lyrLen}
+        {lyrIdx, lyrLen, 1, -1}
     ],
     {modelName, modelNames}
 ]

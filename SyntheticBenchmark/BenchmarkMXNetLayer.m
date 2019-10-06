@@ -165,12 +165,11 @@ lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c5n.xlarge"}]
+outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c5.large"}]
 Quiet[CreateDirectory[outputDir]];
 outputFile = FileNameJoin[{outputDir, layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
 If[FileExistsQ[outputFile], Exit[]];
-
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{r},
