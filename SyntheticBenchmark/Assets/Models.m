@@ -109,8 +109,7 @@ Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
  "Multi-scale Context Aggregation Net Trained on Cityscapes Data",
  "Multi-scale Context Aggregation Net Trained on PASCAL VOC2012 Data", "U-Net \
 Trained on Glioblastoma-Astrocytoma U373 Cells on a Polyacrylamide Substrate \
-Data", "Deep Speech 2 Trained on Baidu English Data"}
-;
+Data", "Deep Speech 2 Trained on Baidu English Data"};
 
 ClearAll[proc, trimArraysConstant, inputs, inputs0];
 trimArraysConstant[assoc0_] := Module[{assoc = assoc0, arrays},
