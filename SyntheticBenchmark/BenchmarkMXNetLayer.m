@@ -3,6 +3,8 @@
 << NeuralNetworks`
 << MXNetLink`
 
+Print[$ProcessorCount]
+
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
 PrependTo[$Path, ParentDirectory[rootDirectory]]
