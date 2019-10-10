@@ -59,7 +59,7 @@ timings = {}
 
 benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{conv, convLayer, time, model,flops},
-    Print["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
+    xPrint["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
     time = Check[
         CheckAbort[
         model = NetChain[{lyr}];
@@ -169,7 +169,7 @@ outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c5.large"}]
 Quiet[CreateDirectory[outputDir]];
 outputFile = FileNameJoin[{outputDir, layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
-If[FileExistsQ[outputFile], Exit[]];
+(* If[FileExistsQ[outputFile], Exit[]]; *)
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{r},
