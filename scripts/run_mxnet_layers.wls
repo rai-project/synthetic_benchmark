@@ -36,9 +36,9 @@ baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
-(* modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Multi-scale"] &] *)
+modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Pix"] &] 
 xmodelNames = modelNames[[;;2]]
-modelNames = modelNames[[-2;;]]
+xmodelNames = modelNames[[;;2]]
 
 Print[modelNames]
 
