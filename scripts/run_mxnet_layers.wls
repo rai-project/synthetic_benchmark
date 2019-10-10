@@ -49,15 +49,14 @@ Do[
     Do[
 
         Print["Running layer ", lyrIdx ,"/", lyrLen, " in model ", modelName];
-        Print@RunProcess[
-            {
+        Run[
+            StringRiffle[{
                 "wolframscript",
                 "-f",
                 FileNameJoin[{rootDirectory, "..", "SyntheticBenchmark", "BenchmarkMXNetLayer.m"}],
-                modelName,
+                "\"" <> modelName <> "\"",
                 lyrIdx
-            },
-            "StandardOutput"
+            }, " "]
         ],
         {lyrIdx, lyrLen}
     ],
