@@ -20,9 +20,18 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
+getInstanceType[] := Quiet@Module[{url,res},
+    url = "http://169.254.169.254/latest/meta-data/instance-type";
+    res = URLExecute[url];
+    If[StringQ[res],
+        res,
+        Throw["unable to determine instance type"]
+    ]
+]
+
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
-baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c5.2xlarge"}]
+baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 
 Quiet[CreateDirectory[baseDir]]
 

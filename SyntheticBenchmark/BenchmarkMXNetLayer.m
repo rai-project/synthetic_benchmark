@@ -165,7 +165,17 @@ lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c5.2xlarge"}]
+
+getInstanceType[] := Quiet@Module[{url,res},
+    url = "http://169.254.169.254/latest/meta-data/instance-type";
+    res = URLExecute[url];
+    If[StringQ[res],
+        res,
+        Throw["unable to determine instance type"]
+    ]
+]
+
+outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];
 outputFile = FileNameJoin[{outputDir, layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
