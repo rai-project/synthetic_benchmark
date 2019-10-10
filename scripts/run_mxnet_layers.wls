@@ -28,6 +28,7 @@ Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
 (* modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Multi-scale"] &] *)
+xmodelNames = modelNames[[;;2]]
 modelNames = modelNames[[;;2]]
 
 Print[modelNames]
