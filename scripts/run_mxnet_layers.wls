@@ -39,6 +39,7 @@ modelNames = Keys[$Models]
 xmodelNames = Select[Reverse[modelNames], StringContainsQ[#, "Pix"] &] 
 xmodelNames = modelNames[[;;2]]
 xmodelNames = modelNames[[;;2]]
+modelNames = {"ResNet-101 Trained on ImageNet Competition Data"}
 
 Print[modelNames]
 

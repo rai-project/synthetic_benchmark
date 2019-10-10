@@ -57,7 +57,8 @@ run[net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 100
+$NumRuns = 50
+$NumWarmup = 10
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -66,6 +67,14 @@ timings = {}
 benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{conv, convLayer, time, model,flops},
     xPrint["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
+    Check[
+        CheckAbort[
+        model = NetChain[{lyr}];
+        run[model, $NumWarmup],
+        xPrint["abort. path .."];
+        $Failed],
+        $Failed
+    ];
     time = Check[
         CheckAbort[
         model = NetChain[{lyr}];
@@ -117,7 +126,7 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
     AppendTo[timings, row];
     ClearAll[row];
     writeTimings[timings];
-    Print["writing benchmark results .... " <> ToString[idx] <> "/" <> ToString[Length[convLayers]]];
+    Print["writing benchmark results .... " <> ToString[lyrIdx]];
   ]
 
 writeTimings[timings_] :=
