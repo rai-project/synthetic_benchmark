@@ -20,14 +20,25 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
+getInstanceType[] := Quiet@Module[{url,res},
+    url = "http://169.254.169.254/latest/meta-data/instance-type";
+    res = URLExecute[url];
+    If[StringQ[res],
+        res,
+        Throw["unable to determine instance type"]
+    ]
+]
+
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
-baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info"}]
+baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 
 Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
-(* modelNames = Select[Reverse[modelNames], StringContainsQ[#, "Multi-scale"] &] *)
+xmodelNames = Select[Reverse[modelNames], StringContainsQ[#, "Pix"] &] 
+xmodelNames = modelNames[[;;2]]
+xmodelNames = modelNames[[;;2]]
 
 Print[modelNames]
 
@@ -35,6 +46,8 @@ Do[
     model = NetModel[modelName];
     lyrLen = Length[NetInformation[model, "Layers"]];
     Do[
+
+        Print["Running layer ", lyrIdx ,"/", lyrLen, " in model ", modelName];
         Print@RunProcess[
             {
                 "wolframscript",

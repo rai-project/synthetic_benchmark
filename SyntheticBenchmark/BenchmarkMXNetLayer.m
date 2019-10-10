@@ -26,14 +26,19 @@ baseDir = FileNameJoin[{dataDir, "mxnet_layer_data"}]
 Quiet[CreateDirectory[baseDir]]
 
 run[net_, n_] :=
-    Module[{plan, ex, data, res},
+    Module[{plan, ex, data, res, nres},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[net];
+        setter = If[ContainsVarSequenceQ[Inputs[net]],
+          NDArraySetUnbatched[#1, #2, 1]&,
+          NDArraySet[#1, #2]&
+        ];
+        xPrint[Head[ex]];
         Table[
-            NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
+            setter[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
@@ -44,6 +49,7 @@ run[net_, n_] :=
             ]],
             {n}
         ];
+        If[isLocal, Print[Dimensions /@ data]];
         ClearAll[plan];
         ClearAll[ex];
         ClearAll[data];
@@ -59,7 +65,7 @@ timings = {}
 
 benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{conv, convLayer, time, model,flops},
-    Print["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
+    xPrint["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
     time = Check[
         CheckAbort[
         model = NetChain[{lyr}];
@@ -154,9 +160,9 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
-
 modelName = $ScriptCommandLine[[2]]
 lyrIdx = ToExpression[$ScriptCommandLine[[3]]]
+isLocal = If[Length[$ScriptCommandLine] > 3, ToExpression[$ScriptCommandLine[[4]]], False]
 
 model = NetModel[modelName]
 lyrs = NetInformation[model, "Layers"]
@@ -165,12 +171,24 @@ lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
-outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", "c4.2xlarge"}]
+
+getInstanceType[] := If[isLocal,
+  "local",
+  Quiet@Module[{url,res},
+      url = "http://169.254.169.254/latest/meta-data/instance-type";
+      res = URLExecute[url];
+      If[StringQ[res],
+          res,
+          Throw["unable to determine instance type"]
+      ]
+  ]
+]
+
+outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];
 outputFile = FileNameJoin[{outputDir, layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
-If[FileExistsQ[outputFile], Exit[]];
-
+(* If[FileExistsQ[outputFile], Exit[]]; *)
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{r},
