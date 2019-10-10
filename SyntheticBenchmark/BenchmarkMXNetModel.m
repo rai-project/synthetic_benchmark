@@ -124,7 +124,7 @@ benchmarkModel[modelName_, n_] :=
         $Failed],
         $Failed
     ];
-        Print[Internal`$LastInternalFailure];
+    xPrint[Internal`$LastInternalFailure];
     time = <|
       "id" -> getModelId[modelName],
       "name" -> modelName,
