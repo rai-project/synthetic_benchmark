@@ -3,7 +3,7 @@
 << NeuralNetworks`
 << MXNetLink`
 
-Print[$ProcessorCount]
+xPrint[$ProcessorCount]
 
 
 rootDirectory = FileNameDrop[$InputFileName, -1];
