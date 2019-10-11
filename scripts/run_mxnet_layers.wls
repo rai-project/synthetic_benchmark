@@ -35,10 +35,10 @@ baseDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 
 Quiet[CreateDirectory[baseDir]]
 
-modelNames = Keys[$Models]
+modelNames = Reverse@Keys[$Models]
 xmodelNames = Select[Reverse[modelNames], StringContainsQ[#, "Pix"] &] 
-xmodelNames = modelNames[[;;2]]
-xmodelNames = modelNames[[;;2]]
+xmodelNames = modelNames[[-2;;]]
+xmodelNames = {modelNames[[17]]}
 xmodelNames = {"ResNet-101 Trained on ImageNet Competition Data"}
 
 Print[modelNames]
