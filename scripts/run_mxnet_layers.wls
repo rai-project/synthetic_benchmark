@@ -37,8 +37,8 @@ Quiet[CreateDirectory[baseDir]]
 
 modelNames = Keys[$Models]
 xmodelNames = Select[Reverse[modelNames], StringContainsQ[#, "Pix"] &] 
-modelNames = modelNames[[;;2]]
-xmodelNames = modelNames[[;;2]]
+xmodelNames = modelNames[[-2;;]]
+modelNames = {modelNames[[17]]}
 xmodelNames = {"ResNet-101 Trained on ImageNet Competition Data"}
 
 Print[modelNames]
