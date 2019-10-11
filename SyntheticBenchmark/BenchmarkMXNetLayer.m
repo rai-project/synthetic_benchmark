@@ -199,7 +199,7 @@ outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];
 outputFile = FileNameJoin[{outputDir, layerKind[lyr] <> "_" <> ToString[Hash[{modelName, lyrName, lyr}]] <> ".csv"}];
 
-(* If[FileExistsQ[outputFile], Exit[]]; *)
+If[FileExistsQ[outputFile], Exit[]];
 
 benchmarkLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
   Module[{r},
