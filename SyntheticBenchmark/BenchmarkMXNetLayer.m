@@ -20,7 +20,7 @@ PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];
 batches = 1;
 batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
-sequenceLength = 1;
+sequenceLength = 128;
 
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
@@ -59,8 +59,8 @@ run[net_, n_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 50
-$NumWarmup = 10
+$NumRuns = 5
+$NumWarmup = 1
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -173,7 +173,7 @@ outputDims[lyr_[params_, ___]] :=
 
 modelName = $ScriptCommandLine[[2]]
 lyrIdx = ToExpression[$ScriptCommandLine[[3]]]
-isLocal = If[Length[$ScriptCommandLine] > 3, ToExpression[$ScriptCommandLine[[4]]], False]
+isLocal = $OperatingSystem === "MacOSX" || If[Length[$ScriptCommandLine] > 3, ToExpression[$ScriptCommandLine[[4]]], False]
 
 model = NetModel[modelName]
 lyrs = NetInformation[model, "Layers"]
@@ -182,6 +182,7 @@ lyr = Values[lyrs][[lyrIdx]]
 
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
+Print[isLocal]
 
 getInstanceType[] := If[isLocal,
   "local",
