@@ -433,7 +433,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
       cModelName = StringReplace[modelName, " " -> "_"];
       If[!FileExistsQ[FileNameJoin[{baseDir, cModelName <> ".csv"}]],
         benchmarkLayers[modelName, sequenceLength],
-        Print["Skipping ", modelName, " using ", sequenceLength, " at " , FileNameJoin[{baseDir, cModelName <> ".csv"}]];
+        xPrint["Skipping ", modelName, " using ", sequenceLength, " at " , FileNameJoin[{baseDir, cModelName <> ".csv"}]];
       ],
       {modelName, models}
     ]
