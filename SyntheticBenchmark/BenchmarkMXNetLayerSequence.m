@@ -407,13 +407,15 @@ benchmarkLayers[modelName_String, seqLen_] :=
 
 
 benchmarkLayers[models_?ListQ, sequenceLength_] :=
-  Module[{},
+  Module[{cModelName},
     baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
     Quiet[CreateDirectory[baseDir]];
     Do[
       runSequenceCache = <||>;
-      If[!FileExistsQ[FileNameJoin[{baseDir, modelName <> ".csv"}]],
-        benchmarkLayers[modelName, sequenceLength]
+      cModelName = StringReplace[modelName, " " -> "_"];
+      If[!FileExistsQ[FileNameJoin[{baseDir, cModelName <> ".csv"}]],
+        benchmarkLayers[modelName, sequenceLength],
+        Print["Skipping ", modelName, " at " , FileNameJoin[{baseDir, cModelName <> ".csv"}]];
       ],
       {modelName, models}
     ]
