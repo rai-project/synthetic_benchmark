@@ -180,6 +180,7 @@ eRunSequence[modelName_, startLayer_, endLayer_] :=
     xPrint[{startLayer, endLayer}];
     failure = <|
       "failed" -> True,
+      "instance_type" -> getInstanceType[],
       "model_name" -> modelName,
       "start_index" -> startLayer,
       "end_index" -> endLayer,
@@ -299,6 +300,7 @@ iRunSequence[modelName_, startLayer_, endLayer_] :=
       ]; *)
       <|
         "model_name" -> modelName,
+        "instance_type" -> getInstanceType[],
         "failed" -> False,
         "start_index" -> startLayer,
         "end_index" -> endLayer,
@@ -405,10 +407,19 @@ benchmarkLayers[modelName_String, seqLen_] :=
     ]
   ]
 
+getInstanceType[] := getInstanceType[]  = Quiet@Module[{url,res},
+    url = "http://169.254.169.254/latest/meta-data/instance-type";
+    res = URLExecute[url];
+    If[StringQ[res],
+        res,
+        Throw["unable to determine instance type"]
+    ]
+]
+
 
 benchmarkLayers[models_?ListQ, sequenceLength_] :=
   Module[{cModelName},
-    baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength]}];
+    baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength], getInstanceType[]}];
     Quiet[CreateDirectory[baseDir]];
     Do[
       runSequenceCache = <||>;
