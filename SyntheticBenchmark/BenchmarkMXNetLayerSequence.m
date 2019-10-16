@@ -86,13 +86,14 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
+targetDevice :=  targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
 
 
 
 run[net_, fstLyr_, n_] :=
     Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
-        plan = ToNetPlan[net];
+        plan = ToNetPlan[net, TargetDevice -> targetDevice];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[net];
@@ -288,7 +289,7 @@ iRunSequence[modelName_, startLayer_, endLayer_] :=
       pathTime = Quiet@Check[
           CheckAbort[
           lyr = lyrs[[startLayer]];
-          net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]]];
+          net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]], TargetDevice -> targetDevice];
           run[net, lyr, $NumRuns],
           xPrint["abort. path .."];
           $Failed],
@@ -370,7 +371,7 @@ iMeasureConstantOverhead[{}] := ""
 iMeasureConstantOverhead[dims_] :=
   Module[{},
     layer = ConstantArrayLayer["Array" -> ConstantArray[1, dims]];
-    net = NetChain[{layer}];
+    net = NetChain[{layer}, TargetDevice -> targetDevice];
     Min[Table[First[AbsoluteTistartLayerg[net[];]], {10}]]
   ]
 
