@@ -412,7 +412,9 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     Quiet[CreateDirectory[baseDir]];
     Do[
       runSequenceCache = <||>;
-      benchmarkLayers[modelName, sequenceLength],
+      If[!FileExistsQ[FileNameJoin[{baseDir, modelName <> ".csv"}]],
+        benchmarkLayers[modelName, sequenceLength]
+      ],
       {modelName, models}
     ]
   ]
