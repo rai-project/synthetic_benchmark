@@ -130,7 +130,7 @@ benchmarkModelLayers[modelName_String] :=
 benchmarkModelLayers[modelName_String, sequenceLength0_] :=
   Module[{ii},
     sequenceLength = sequenceLength0;
-    model = NetModel[modelName];
+    model = Quiet@NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
     (* topo = TopologicalSort[gr]; *)
