@@ -64,6 +64,7 @@ Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
 (*********************************************************************)
 (*********************************************************************)
 
+ClearAll[n]
 
 << NeuralNetworks`
 << MXNetLink`
@@ -103,14 +104,18 @@ run[net_, fstLyr_, n_] :=
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        Table[
+        res = Table[
             NDArrayWaitForAll[];
             First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ]
+        ];
+        ClearAll[plan];
+        ClearAll[ex];
+        ClearAll[data];
+        res
     ]
 
 invalidVal = ""
@@ -125,7 +130,7 @@ benchmarkModelLayers[modelName_String] :=
 benchmarkModelLayers[modelName_String, sequenceLength0_] :=
   Module[{ii},
     sequenceLength = sequenceLength0;
-    model = NetModel[modelName];
+    model = Quiet@NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
     gr = NetInformation[model, "LayersGraph"];
     (* topo = TopologicalSort[gr]; *)
@@ -390,7 +395,7 @@ outputDims[lyr_[params_, ___]] :=
  ]
 
 
-timeLimit = QuantityMagnitude[UnitConvert[Quantity[5, "Minutes"], "Seconds"]]
+timeLimit = QuantityMagnitude[UnitConvert[Quantity[10, "Minutes"], "Seconds"]]
 
 benchmarkLayers[modelName_String, seqLen_] :=
   Module[{r},
@@ -426,15 +431,20 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
       cModelName = StringReplace[modelName, " " -> "_"];
       If[!FileExistsQ[FileNameJoin[{baseDir, cModelName <> ".csv"}]],
         benchmarkLayers[modelName, sequenceLength],
-        Print["Skipping ", modelName, " at " , FileNameJoin[{baseDir, cModelName <> ".csv"}]];
+        Print["Skipping ", modelName, " using ", sequenceLength, " at " , FileNameJoin[{baseDir, cModelName <> ".csv"}]];
       ],
       {modelName, models}
     ]
   ]
 
 
+If[Length[$ScriptCommandLine] >= 2,
+  benchmarkLayers[modelNames, ToExpression[$ScriptCommandLine[[2]]]];
+  Exit[]
+];
+
 (* benchmarkLayers[modelNames, 0]; *)
-benchmarkLayers[modelNames, 1];
+(* benchmarkLayers[modelNames, 1]; *)
 benchmarkLayers[modelNames, 2];
 benchmarkLayers[modelNames, 3];
 benchmarkLayers[modelNames, 4];
