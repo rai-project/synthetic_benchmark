@@ -79,5 +79,5 @@ declare -a models=(
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 for model in "${models[@]}"; do
-    ${DIR}/../SyntheticBenchmark/BenchmarkMXNetLayerSequence.m "${model}" $0
+    ${DIR}/../SyntheticBenchmark/BenchmarkMXNetLayerSequence.m "${model}" $1
 done
