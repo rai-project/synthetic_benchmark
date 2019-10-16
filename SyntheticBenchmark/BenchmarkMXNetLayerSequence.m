@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 
 
-$xModelNames = {
+modelNames = {
  "Ademxapp Model A Trained on ImageNet Competition Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI Data",
@@ -213,8 +213,8 @@ eRunSequence[modelName_, startLayer_, endLayer_] :=
       Return[r]
     ];
     Flatten[{
-      runSequence[startLayer, startLayer],
-      runSequence[startLayer+1, endLayer+1]
+      runSequence[modelName, startLayer, startLayer],
+      runSequence[modelName, startLayer+1, endLayer+1]
     }]
 
   ]
