@@ -71,7 +71,7 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
     xPrint["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
     Check[
         CheckAbort[
-        model = NetChain[{lyr}];
+        model = NetChain[{lyr}, TargetDevice -> targetDevice];
         run[model, $NumWarmup],
         xPrint["abort. path .."];
         $Failed],
@@ -79,7 +79,7 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
     ];
     time = Check[
         CheckAbort[
-        model = NetChain[{lyr}];
+        model = NetChain[{lyr}, TargetDevice -> targetDevice];
         run[model, $NumRuns],
         xPrint["abort. path .."];
         $Failed],
@@ -184,7 +184,7 @@ timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
 Print[isLocal]
 
-getInstanceType[] := If[isLocal,
+getInstanceType[] := getInstanceType[] = If[isLocal,
   "local",
   Quiet@Module[{url,res},
       url = "http://169.254.169.254/latest/meta-data/instance-type";
@@ -195,6 +195,9 @@ getInstanceType[] := If[isLocal,
       ]
   ]
 ]
+
+
+targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
 
 outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];

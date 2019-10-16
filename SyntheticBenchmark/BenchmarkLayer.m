@@ -43,6 +43,7 @@ NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
 
+
 benchmarkLayers[modelName_, n_:50] :=
   Module[{model, timings},
     model = NetModel[modelName];
