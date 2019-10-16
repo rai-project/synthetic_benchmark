@@ -438,6 +438,11 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
   ]
 
 
+If[Length[$ScriptCommandLine] >= 2,
+  benchmarkLayers[modelNames, ToExpression[$ScriptCommandLine[[2]]]];
+  Exit[]
+];
+
 (* benchmarkLayers[modelNames, 0]; *)
 (* benchmarkLayers[modelNames, 1]; *)
 benchmarkLayers[modelNames, 2];
