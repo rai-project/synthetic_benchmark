@@ -72,11 +72,10 @@ le-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild \
 Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
  "Unguided Volumetric Regression Net for 3D Face Reconstruction",
  "Ademxapp Model A1 Trained on ADE20K Data",
- "Ademxapp Model A1 Trained on Cityscapes Data",
  "Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data",
  "Multi-scale Context Aggregation Net Trained on CamVid Data",
  "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a \ 
- Polyacrylamide Substrate Data", "Deep Speech 2 Trained on Baidu English Data"};
+ Polyacrylamide Substrate Data"};
 
 ClearAll[proc, trimArraysConstant, inputs, inputs0];
 trimArraysConstant[assoc0_] := Module[{assoc = assoc0, arrays},
