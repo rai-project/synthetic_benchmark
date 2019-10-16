@@ -38,7 +38,7 @@ declare -a models=(
     "Wide ResNet-50-2 Trained on ImageNet Competition Data"
     "Wolfram ImageIdentify Net V1"
     "Yahoo Open NSFW Model V1"
-    # "BERT Trained on BookCorpus and English Wikipedia Data"
+    "BERT Trained on BookCorpus and English Wikipedia Data"
     "GPT Transformer Trained on BookCorpus Data"
     "OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data"
     "ResNet-101 Trained on Augmented CASIA-WebFace Data"
@@ -79,5 +79,5 @@ declare -a models=(
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 for model in "${models[@]}"; do
-    ${DIR}/../SyntheticBenchmark/BenchmarkMXNetLayerSequence.m "${model}" $0
+    ${DIR}/../SyntheticBenchmark/BenchmarkMXNetLayerSequence.m "${model}" $1
 done

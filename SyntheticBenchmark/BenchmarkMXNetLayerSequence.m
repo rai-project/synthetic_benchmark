@@ -131,6 +131,7 @@ benchmarkModelLayers[modelName_String] :=
     benchmarkModelLayers[modelName, 1]
 benchmarkModelLayers[modelName_String, sequenceLength0_] :=
   Module[{ii},
+    Print[">>> ", modelName];
     sequenceLength = sequenceLength0;
     model = Quiet@NetModel[modelName];
     lyrs = NetInformation[model, "Layers"];
@@ -440,7 +441,8 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     ]
   ]
 
-benchmarkLayers[{$ScriptCommandLine[[1]]}, ToExpression[$ScriptCommandLine[[2]]]]
+Print["$ScriptCommandLine = ", $ScriptCommandLine];
+benchmarkLayers[{$ScriptCommandLine[[2]]}, ToExpression[$ScriptCommandLine[[3]]]]
 
 (*
 If[Length[$ScriptCommandLine] >= 2,
