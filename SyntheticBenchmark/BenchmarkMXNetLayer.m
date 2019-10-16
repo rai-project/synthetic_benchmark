@@ -30,8 +30,8 @@ Quiet[CreateDirectory[baseDir]]
 run[net_, m_] :=
     Module[{plan, ex, data, res, nres},
         NDArrayWaitForAll[];
-        plan = ToNetPlan[net];
-        ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
+        plan = ToNetPlan[net, TargetDevice -> targetDevice];
+        ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False, TargetDevice -> targetDevice];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[net];
         setter = If[ContainsVarSequenceQ[Inputs[net]],
@@ -184,7 +184,7 @@ timeLimit = QuantityMagnitude[UnitConvert[Quantity[2, "Minutes"], "Seconds"]]
 
 Print[isLocal]
 
-getInstanceType[] := If[isLocal,
+getInstanceType[] := getInstanceType[] = If[isLocal,
   "local",
   Quiet@Module[{url,res},
       url = "http://169.254.169.254/latest/meta-data/instance-type";
@@ -195,6 +195,9 @@ getInstanceType[] := If[isLocal,
       ]
   ]
 ]
+
+
+targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
 
 outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];
