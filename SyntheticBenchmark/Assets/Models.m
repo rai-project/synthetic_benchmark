@@ -19,8 +19,7 @@ If[FileExistsQ[modelsMXFile],
 ]
 
 
-$ModelNames = {"CREPE Pitch Detection Net Trained on Monophonic Signal Data",
- "Wolfram AudioIdentify V1 Trained on AudioSet Data",
+$ModelNames = {,
  "Ademxapp Model A Trained on ImageNet Competition Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI Data",
@@ -30,7 +29,6 @@ $ModelNames = {"CREPE Pitch Detection Net Trained on Monophonic Signal Data",
  "Inception V1 Trained on ImageNet Competition Data",
  "Inception V1 Trained on Places365 Data",
  "Inception V3 Trained on ImageNet Competition Data",
- "LeNet Trained on MNIST Data",
  "MobileNet V2 Trained on ImageNet Competition Data",
  "ResNet-101 Trained on ImageNet Competition Data",
  "ResNet-101 Trained on YFCC100m Geotagged Data",
@@ -46,7 +44,6 @@ $ModelNames = {"CREPE Pitch Detection Net Trained on Monophonic Signal Data",
  "GPT Transformer Trained on BookCorpus Data",
  "OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data",
  "ResNet-101 Trained on Augmented CASIA-WebFace Data",
- "VGGish Feature Extractor Trained on YouTube Data",
  "AdaIN-Style Trained on MS-COCO and Painter by Numbers Data",
  "Colorful Image Colorization Trained on ImageNet Competition Data",
  "ColorNet Image Colorization Trained on ImageNet Competition Data",
@@ -74,17 +71,12 @@ $ModelNames = {"CREPE Pitch Detection Net Trained on Monophonic Signal Data",
 le-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild \
 Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
  "Unguided Volumetric Regression Net for 3D Face Reconstruction",
- "Vanilla CNN for Facial Landmark Regression",
  "Ademxapp Model A1 Trained on ADE20K Data",
  "Ademxapp Model A1 Trained on Cityscapes Data",
  "Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data",
- "Dilated ResNet-105 Trained on Cityscapes Data",
- "Dilated ResNet-22 Trained on Cityscapes Data",
- "Dilated ResNet-38 Trained on Cityscapes Data",
  "Multi-scale Context Aggregation Net Trained on CamVid Data",
- "Multi-scale Context Aggregation Net Trained on Cityscapes Data", "U-Net \
-Trained on Glioblastoma-Astrocytoma U373 Cells on a Polyacrylamide Substrate \
-Data", "Deep Speech 2 Trained on Baidu English Data"};
+ "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a \ 
+ Polyacrylamide Substrate Data", "Deep Speech 2 Trained on Baidu English Data"};
 
 ClearAll[proc, trimArraysConstant, inputs, inputs0];
 trimArraysConstant[assoc0_] := Module[{assoc = assoc0, arrays},
