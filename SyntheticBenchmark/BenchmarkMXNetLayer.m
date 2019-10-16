@@ -20,7 +20,7 @@ PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];
 batches = 1;
 batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
-sequenceLength = 128;
+sequenceLength = 1;
 
 
 dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
@@ -59,8 +59,8 @@ run[net_, m_] :=
     ]
 
 invalidVal = ""
-$NumRuns = 5
-$NumWarmup = 1
+$NumRuns = 50
+$NumWarmup = 10
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
