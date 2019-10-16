@@ -291,7 +291,7 @@ iRunSequence[modelName_, startLayer_, endLayer_] :=
       pathTime = Quiet@Check[
           CheckAbort[
           lyr = lyrs[[startLayer]];
-          net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]], TargetDevice -> targetDevice];
+          net = NetChain[Lookup[lyrs, topo[[startLayer ;; endLayer]]]];
           run[net, lyr, $NumRuns],
           xPrint["abort. path .."];
           $Failed],
@@ -373,7 +373,7 @@ iMeasureConstantOverhead[{}] := ""
 iMeasureConstantOverhead[dims_] :=
   Module[{},
     layer = ConstantArrayLayer["Array" -> ConstantArray[1, dims]];
-    net = NetChain[{layer}, TargetDevice -> targetDevice];
+    net = NetChain[{layer}];
     Min[Table[First[AbsoluteTistartLayerg[net[];]], {10}]]
   ]
 
