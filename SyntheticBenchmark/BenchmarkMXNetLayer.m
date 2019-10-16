@@ -27,7 +27,7 @@ dataDir = FileNameJoin[{rootDirectory, "..", "data"}]
 baseDir = FileNameJoin[{dataDir, "mxnet_layer_data"}]
 Quiet[CreateDirectory[baseDir]]
 
-run[net_, n_] :=
+run[net_, m_] :=
     Module[{plan, ex, data, res, nres},
         NDArrayWaitForAll[];
         plan = ToNetPlan[net];
@@ -49,7 +49,7 @@ run[net_, n_] :=
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
-            {n}
+            {m}
         ];
         If[isLocal, Print[Dimensions /@ data]];
         ClearAll[plan];
