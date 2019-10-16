@@ -1,7 +1,7 @@
 #!/usr/bin/env wolframscript
 
 
-$ModelNames = {
+$xModelNames = {
  "Ademxapp Model A Trained on ImageNet Competition Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI Data",
