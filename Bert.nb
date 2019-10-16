@@ -1,0 +1,181 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      6098,        171]
+NotebookOptionsPosition[      5177,        148]
+NotebookOutlinePosition[      5515,        163]
+CellTagsIndexPosition[      5472,        160]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"addHeader", "[", "data_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"header", "=", 
+       RowBox[{"First", "[", "data", "]"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AssociationThread", "[", 
+        RowBox[{"header", "\[Rule]", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"Rest", "[", "data", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"model", "=", 
+  RowBox[{"addHeader", "[", 
+   RowBox[{
+   "Import", "[", 
+    "\"\</Users/chengli/.gvm/pkgsets/go1.12/global/src/github.com/rai-project/\
+synthetic_benchmark/data/mxnet_model/local/BERT_Trained_on_BookCorpus_and_\
+English_Wikipedia_Data.csv\>\"", "]"}], "]"}]}]}], "Input",
+ CellChangeTimes->{{3.780243870419196*^9, 3.78024393526306*^9}},
+ CellLabel->
+  "In[549]:=",ExpressionUUID->"2b996cd7-e3e5-4a1b-bb5b-4233fab9602a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\[LeftAssociation]", 
+   RowBox[{
+    RowBox[{"\<\"id\"\>", "\[Rule]", "22"}], ",", 
+    RowBox[{"\<\"name\"\>", 
+     "\[Rule]", "\<\"BERT Trained on BookCorpus and English Wikipedia \
+Data\"\>"}], ",", 
+    RowBox[{"\<\"machine_name\"\>", "\[Rule]", "\<\"local\"\>"}], ",", 
+    RowBox[{"\<\"min_time\"\>", "\[Rule]", "48733.`"}], ",", 
+    RowBox[{"\<\"mean_time\"\>", "\[Rule]", "49686.5667`"}], ",", 
+    RowBox[{"\<\"max_time\"\>", "\[Rule]", "59356.`"}], ",", 
+    RowBox[{"\<\"raw_time\"\>", 
+     "\[Rule]", "\<\"{59356., 51604., 56644., 56859., 56739., 49673., 48874., \
+48791., 49810., 49899., 49222., 48902., 49233., 49293., 49000., 49461., \
+49064., 49853., 50694., 54864., 49159., 53350., 49271., 49232., 49989., \
+53055., 48978., 49772., 49336., 48999., 49243., 48733., 49430., 49207., \
+48955., 49417., 48904., 50075., 50097., 48953., 49040., 49358., 49193., \
+54460., 55515., 55868., 53067., 48918., 49918., 48897.}\"\>"}]}], 
+   "\[RightAssociation]"}], "}"}]], "Output",
+ CellChangeTimes->{{3.780243913743971*^9, 3.780243935555578*^9}},
+ CellLabel->
+  "Out[550]=",ExpressionUUID->"0b9101d8-0cdc-457d-bf61-3e17991b5313"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"addHeader", "[", "data_", "]"}], ":=", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"header", "=", 
+       RowBox[{"First", "[", "data", "]"}]}], "}"}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"AssociationThread", "[", 
+        RowBox[{"header", "\[Rule]", "#"}], "]"}], "&"}], "/@", 
+      RowBox[{"Rest", "[", "data", "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"layers", "=", 
+   RowBox[{"Flatten", "@", 
+    RowBox[{"Table", "[", 
+     RowBox[{
+      RowBox[{"addHeader", "[", 
+       RowBox[{"Import", "[", "file", "]"}], "]"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"file", ",", 
+        RowBox[{"FileNames", "[", 
+         RowBox[{
+         "\"\<*.csv\>\"", ",", 
+          "\"\</Users/chengli/.gvm/pkgsets/go1.12/global/src/github.com/rai-\
+project/synthetic_benchmark/data/raw_mxnet_layer_info/local\>\""}], "]"}]}], 
+       "}"}]}], "]"}]}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.780243870419196*^9, 3.780243986478404*^9}, {
+  3.780244029221458*^9, 3.780244030092753*^9}},
+ CellLabel->
+  "In[557]:=",ExpressionUUID->"86a74edb-e493-4454-83ba-d05fb50a3174"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"modelTime", "=", 
+   RowBox[{
+    RowBox[{"model", "[", 
+     RowBox[{"[", "1", "]"}], "]"}], "[", "\"\<mean_time\>\"", "]"}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.780244052494152*^9, 3.7802440638910418`*^9}},
+ CellLabel->
+  "In[562]:=",ExpressionUUID->"ed9298aa-22be-4c3f-b748-b39266a9fa28"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"layersTime", "=", 
+   RowBox[{"1000000", 
+    RowBox[{"Total", "[", 
+     RowBox[{"Lookup", "[", 
+      RowBox[{"layers", ",", "\"\<mean_time\>\""}], "]"}], "]"}]}]}], 
+  ";"}]], "Input",
+ CellChangeTimes->{{3.7802439945170727`*^9, 3.7802440106611633`*^9}, {
+  3.7802440413187857`*^9, 3.780244079290627*^9}},
+ CellLabel->
+  "In[563]:=",ExpressionUUID->"34f773c9-300f-42b3-9250-356e0fed12ae"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"modelTime", "/", "layersTime"}]], "Input",
+ CellChangeTimes->{{3.7802440822828007`*^9, 3.780244083892589*^9}},
+ CellLabel->
+  "In[564]:=",ExpressionUUID->"e9bb7ddb-5daa-4680-b7ae-acbcdaf1dd97"],
+
+Cell[BoxData["0.6051293609713917`"], "Output",
+ CellChangeTimes->{3.7802440842382727`*^9},
+ CellLabel->
+  "Out[564]=",ExpressionUUID->"c9f9e42b-1315-447a-940d-23402eba2eb2"]
+}, Open  ]]
+},
+WindowSize->{808, 800},
+WindowMargins->{{316, Automatic}, {Automatic, 50}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 960, 25, 178, "Input",ExpressionUUID->"2b996cd7-e3e5-4a1b-bb5b-4233fab9602a"],
+Cell[1543, 49, 1178, 22, 186, "Output",ExpressionUUID->"0b9101d8-0cdc-457d-bf61-3e17991b5313"]
+}, Open  ]],
+Cell[2736, 74, 1241, 34, 178, "Input",ExpressionUUID->"86a74edb-e493-4454-83ba-d05fb50a3174"],
+Cell[3980, 110, 334, 9, 30, "Input",ExpressionUUID->"ed9298aa-22be-4c3f-b748-b39266a9fa28"],
+Cell[4317, 121, 426, 11, 30, "Input",ExpressionUUID->"34f773c9-300f-42b3-9250-356e0fed12ae"],
+Cell[CellGroupData[{
+Cell[4768, 136, 217, 4, 30, "Input",ExpressionUUID->"e9bb7ddb-5daa-4680-b7ae-acbcdaf1dd97"],
+Cell[4988, 142, 173, 3, 34, "Output",ExpressionUUID->"c9f9e42b-1315-447a-940d-23402eba2eb2"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
