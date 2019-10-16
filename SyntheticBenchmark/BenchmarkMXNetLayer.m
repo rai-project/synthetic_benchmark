@@ -30,8 +30,8 @@ Quiet[CreateDirectory[baseDir]]
 run[net_, m_] :=
     Module[{plan, ex, data, res, nres},
         NDArrayWaitForAll[];
-        plan = ToNetPlan[net];
-        ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
+        plan = ToNetPlan[net, TargetDevice -> targetDevice];
+        ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False, TargetDevice -> targetDevice];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[net];
         setter = If[ContainsVarSequenceQ[Inputs[net]],
@@ -71,7 +71,7 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
     xPrint["benchmarking .... " <> modelName <> "/" <> ToString[lyrIdx]];
     Check[
         CheckAbort[
-        model = NetChain[{lyr}, TargetDevice -> targetDevice];
+        model = NetChain[{lyr}];
         run[model, $NumWarmup],
         xPrint["abort. path .."];
         $Failed],
@@ -79,7 +79,7 @@ benchmarkModelLayer[modelName_, lyrIdx_, lyrName_, lyr_] :=
     ];
     time = Check[
         CheckAbort[
-        model = NetChain[{lyr}, TargetDevice -> targetDevice];
+        model = NetChain[{lyr}];
         run[model, $NumRuns],
         xPrint["abort. path .."];
         $Failed],
