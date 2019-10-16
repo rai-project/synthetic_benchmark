@@ -1,29 +1,63 @@
 #!/usr/bin/env wolframscript
 
-imageClassificationModelNames = {"Ademxapp Model A Trained on ImageNet Competition Data", "Age \
-Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data", \
-"Age Estimation VGG-16 Trained on IMDB-WIKI Data", "CapsNet Trained \
-on MNIST Data", "Gender Prediction VGG-16 Trained on IMDB-WIKI Data", \
-"Inception V1 Trained on Extended Salient Object Subitizing Data", \
-"Inception V1 Trained on ImageNet Competition Data", "Inception V1 \
-Trained on Places365 Data", "Inception V3 Trained on ImageNet \
-Competition Data", "LeNet Trained on MNIST Data", "MobileNet V2 \
-Trained on ImageNet Competition Data", "ResNet-101 Trained on \
-ImageNet Competition Data", "ResNet-101 Trained on YFCC100m Geotagged \
-Data", "ResNet-152 Trained on ImageNet Competition Data", "ResNet-50 \
-Trained on ImageNet Competition Data",  "SqueezeNet V1.1 Trained on ImageNet Competition \
-Data", "VGG-16 Trained on ImageNet Competition Data", "VGG-19 Trained \
-on ImageNet Competition Data", "Wide ResNet-50-2 Trained on ImageNet \
-Competition Data", "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW \
-Model V1"};
-nlpModelNames = {
- "BERT Trained on BookCorpus and English Wikipedia Data",
- "GPT-2 Transformer Trained on WebText Data", 
- "GPT Transformer Trained on BookCorpus Data"
-};
 
-modelNames = {"ResNet-101 Trained on ImageNet Competition Data"}
-(* modelNames = nlpModelNames; *)
+$ModelNames = {
+ "Ademxapp Model A Trained on ImageNet Competition Data",
+ "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
+ "Age Estimation VGG-16 Trained on IMDB-WIKI Data",
+ "CapsNet Trained on MNIST Data",
+ "Gender Prediction VGG-16 Trained on IMDB-WIKI Data",
+ "Inception V1 Trained on Extended Salient Object Subitizing Data",
+ "Inception V1 Trained on ImageNet Competition Data",
+ "Inception V1 Trained on Places365 Data",
+ "Inception V3 Trained on ImageNet Competition Data",
+ "MobileNet V2 Trained on ImageNet Competition Data",
+ "ResNet-101 Trained on ImageNet Competition Data",
+ "ResNet-101 Trained on YFCC100m Geotagged Data",
+ "ResNet-152 Trained on ImageNet Competition Data",
+ "ResNet-50 Trained on ImageNet Competition Data",
+ "Squeeze-and-Excitation Net Trained on ImageNet Competition Data",
+ "SqueezeNet V1.1 Trained on ImageNet Competition Data",
+ "VGG-16 Trained on ImageNet Competition Data",
+ "VGG-19 Trained on ImageNet Competition Data",
+ "Wide ResNet-50-2 Trained on ImageNet Competition Data",
+ "Wolfram ImageIdentify Net V1", "Yahoo Open NSFW Model V1",
+ "BERT Trained on BookCorpus and English Wikipedia Data",
+ "GPT Transformer Trained on BookCorpus Data",
+ "OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data",
+ "ResNet-101 Trained on Augmented CASIA-WebFace Data",
+ "AdaIN-Style Trained on MS-COCO and Painter by Numbers Data",
+ "Colorful Image Colorization Trained on ImageNet Competition Data",
+ "ColorNet Image Colorization Trained on ImageNet Competition Data",
+ "ColorNet Image Colorization Trained on Places Data",
+ "CycleGAN Apple-to-Orange Translation Trained on ImageNet Competition Data",
+ "CycleGAN Horse-to-Zebra Translation Trained on ImageNet Competition Data",
+ "CycleGAN Monet-to-Photo Translation",
+ "CycleGAN Orange-to-Apple Translation Trained on ImageNet Competition Data",
+ "CycleGAN Photo-to-Cezanne Translation",
+ "CycleGAN Photo-to-Monet Translation",
+ "CycleGAN Photo-to-Van Gogh Translation",
+ "CycleGAN Summer-to-Winter Translation",
+ "CycleGAN Winter-to-Summer Translation",
+ "CycleGAN Zebra-to-Horse Translation Trained on ImageNet Competition Data",
+ "Pix2pix Photo-to-Street-Map Translation",
+ "Pix2pix Street-Map-to-Photo Translation",
+ "Very Deep Net for Super-Resolution",
+ "GPT-2 Transformer Trained on WebText Data",
+ "Wolfram JavaScript Character-Level Language Model V1",
+ "SSD-VGG-300 Trained on PASCAL VOC Data",
+ "SSD-VGG-512 Trained on MS-COCO Data", "YOLO V2 Trained on MS-COCO Data",
+ "2D Face Alignment Net Trained on 300W Large Pose Data",
+ "3D Face Alignment Net Trained on 300W Large Pose Data",
+ "Single-Image Depth Perception Net Trained on Depth in the Wild Data", "Sing\
+le-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild \
+Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
+ "Unguided Volumetric Regression Net for 3D Face Reconstruction",
+ "Ademxapp Model A1 Trained on ADE20K Data",
+ "Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data",
+ "Multi-scale Context Aggregation Net Trained on CamVid Data",
+ "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a \
+ Polyacrylamide Substrate Data"};
 
 (*********************************************************************)
 (*********************************************************************)
@@ -58,9 +92,14 @@ run[net_, fstLyr_, n_] :=
         plan = ToNetPlan[net];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
-        data = synthesizeData /@ Inputs[lyr];
+        data = synthesizeData /@ Inputs[net];
+        setter = If[ContainsVarSequenceQ[Inputs[net]],
+          NDArraySetUnbatched[#1, #2, 1]&,
+          NDArraySet[#1, #2]&
+        ];
+        xPrint[Head[ex]];
         Table[
-            NDArraySet[ex["Arrays", "Inputs",  key], data[key]],
+            setter[ex["Arrays", "Inputs",  key], data[key]],
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
@@ -76,6 +115,7 @@ run[net_, fstLyr_, n_] :=
 
 invalidVal = ""
 $NumRuns = 50
+$NumWarmup = 10
 
 summarize[t_] := TrimmedMean[t, 0.2]
 
@@ -100,7 +140,7 @@ benchmarkModelLayers[modelName_String, sequenceLength0_] :=
     For[ii = 0, ii < end, ii++,
       endLayer = Min[startLayer + sequenceLength, Length[lyrs]];
       xPrint[">>> ", {startLayer,endLayer}];
-      seq=runSequence[startLayer, endLayer];
+      seq=runSequence[modelName,startLayer, endLayer];
       timings = Flatten[{timings, seq}];
       timings = Select[timings, Lookup[#, "failed", False]===False&];
       startLayer = Lookup[Last[timings], "end_index"]+1;
@@ -125,21 +165,22 @@ writeTistartLayergs[modelName_, timings_] :=
 
 
 runSequenceCache = <||>
-runSequence[startLayer_, endLayer_] :=
+runSequence[modelName_, startLayer_, endLayer_] :=
   Module[{r},
     r = Lookup[runSequenceCache, Key[{startLayer, endLayer}]];
     xPrint[Keys@runSequenceCache];
     If[MissingQ[r],
-      r = eRunSequence[startLayer, endLayer];
+      r = eRunSequence[modelName, startLayer, endLayer];
       AssociateTo[runSequenceCache, Key[{startLayer, endLayer}]->r];
     ];
     r
   ]
-eRunSequence[startLayer_, endLayer_] :=
+eRunSequence[modelName_, startLayer_, endLayer_] :=
   Module[{r, failure},
     xPrint[{startLayer, endLayer}];
     failure = <|
       "failed" -> True,
+      "model_name" -> modelName,
       "start_index" -> startLayer,
       "end_index" -> endLayer,
       "start_name" -> invalidVal,
@@ -167,7 +208,7 @@ eRunSequence[startLayer_, endLayer_] :=
     If[startLayer > endLayer,
       Return[{}]
     ];
-    r = iRunSequence[startLayer, endLayer];
+    r = iRunSequence[modelName, startLayer, endLayer];
     If[r =!= $Failed,
       Return[r]
     ];
@@ -175,9 +216,9 @@ eRunSequence[startLayer_, endLayer_] :=
       runSequence[startLayer, startLayer],
       runSequence[startLayer+1, endLayer+1]
     }]
-    
+
   ]
-(* 
+(*
 xrunSequence[startLayer_, endLayer_] :=
   Module[{r},
     xPrint[{startLayer, endLayer}];
@@ -218,7 +259,7 @@ xrunSequence[startLayer_, endLayer_] :=
     ]
   ] *)
 
-iRunSequence[startLayer_, endLayer_] :=
+iRunSequence[modelName_, startLayer_, endLayer_] :=
   Module[{r},
     Check[
       (* startLayerTime = Quiet@Check[
@@ -230,7 +271,7 @@ iRunSequence[startLayer_, endLayer_] :=
           $Failed],
           $Failed
       ]; *)
-(* 
+(*
       r = Lookup[runSequenceCache, Key[{startLayer, endLayer}]];
       If[!MissingQ[r],
         Return[r]
@@ -257,6 +298,7 @@ iRunSequence[startLayer_, endLayer_] :=
           $Failed
       ]; *)
       <|
+        "model_name" -> modelName,
         "failed" -> False,
         "start_index" -> startLayer,
         "end_index" -> endLayer,
@@ -289,7 +331,7 @@ iRunSequence[startLayer_, endLayer_] :=
         "start_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Min[pathTime], 0.0001]],
         "mean_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * summarize[pathTime], 0.0001]],
         "end_layer_path_time" -> If[pathTime === $Failed, invalidVal, Round[1000000 * Max[pathTime], 0.0001]],
-(*           
+(*
         "start_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Min[pathTime]-Min[startLayerTime]), 0.0001]],
         "mean_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (summarize[pathTime]-summarize[startLayerTime]), 0.0001]],
         "end_layer_path_start_layer_minus_start_time" -> If[startLayerTime === $Failed || pathTime === $Failed, invalidVal, Round[1000000 * (Max[pathTime]-Max[startLayerTime]), 0.0001]],
@@ -345,6 +387,7 @@ outputDims[lyr_[params_, ___]] :=
     PadRight[r, 3, ""]
  ]
 
+
 timeLimit = QuantityMagnitude[UnitConvert[Quantity[5, "Minutes"], "Seconds"]]
 
 benchmarkLayers[modelName_String, seqLen_] :=
@@ -375,17 +418,17 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
   ]
 
 
-benchmarkLayers[modelNames, 0];
-(* benchmarkLayers[modelNames, 1]; *)
-(* benchmarkLayers[modelNames, 2]; *)
-(* benchmarkLayers[modelNames, 3]; *)
-(* benchmarkLayers[modelNames, 4]; *)
-(* benchmarkLayers[modelNames, 5]; *)
-(* benchmarkLayers[modelNames, 6]; *)
-(* benchmarkLayers[modelNames, 7]; *)
-(* benchmarkLayers[modelNames, 8]; *)
-(* benchmarkLayers[modelNames, 9]; *)
-(* benchmarkLayers[modelNames, 10]; *)
+(* benchmarkLayers[modelNames, 0]; *)
+benchmarkLayers[modelNames, 1];
+benchmarkLayers[modelNames, 2];
+benchmarkLayers[modelNames, 3];
+benchmarkLayers[modelNames, 4];
+benchmarkLayers[modelNames, 5];
+benchmarkLayers[modelNames, 6];
+benchmarkLayers[modelNames, 7];
+benchmarkLayers[modelNames, 8];
+benchmarkLayers[modelNames, 9];
+benchmarkLayers[modelNames, 10];
 (* benchmarkLayers[modelNames, 11]; *)
 (* benchmarkLayers[modelNames, 12]; *)
 (* benchmarkLayers[modelNames, 13]; *)
