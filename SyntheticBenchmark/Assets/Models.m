@@ -19,7 +19,7 @@ If[FileExistsQ[modelsMXFile],
 ]
 
 
-$ModelNames = {,
+$ModelNames = {
  "Ademxapp Model A Trained on ImageNet Competition Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
  "Age Estimation VGG-16 Trained on IMDB-WIKI Data",
@@ -74,7 +74,7 @@ Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
  "Ademxapp Model A1 Trained on ADE20K Data",
  "Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data",
  "Multi-scale Context Aggregation Net Trained on CamVid Data",
- "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a \ 
+ "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a \
  Polyacrylamide Substrate Data"};
 
 ClearAll[proc, trimArraysConstant, inputs, inputs0];
