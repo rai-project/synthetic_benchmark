@@ -1,0 +1,282 @@
+{
+	"Ademxapp Model A Trained on ImageNet Competition Data":[
+		142,
+		58,
+		0.4084507042253521
+	],
+	"Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data":[
+		40,
+		26,
+		0.65
+	],
+	"Age Estimation VGG-16 Trained on IMDB-WIKI Data":[
+		40,
+		26,
+		0.65
+	],
+	"CapsNet Trained on MNIST Data":[
+		53,
+		40,
+		0.7547169811320755
+	],
+	"Gender Prediction VGG-16 Trained on IMDB-WIKI Data":[
+		40,
+		26,
+		0.65
+	],
+	"Inception V1 Trained on Extended Salient Object Subitizing Data":[
+		147,
+		112,
+		0.7619047619047619
+	],
+	"Inception V1 Trained on ImageNet Competition Data":[
+		147,
+		112,
+		0.7619047619047619
+	],
+	"Inception V1 Trained on Places365 Data":[
+		147,
+		112,
+		0.7619047619047619
+	],
+	"Inception V3 Trained on ImageNet Competition Data":[
+		311,
+		100,
+		0.3215434083601286
+	],
+	"MobileNet V2 Trained on ImageNet Competition Data":[
+		153,
+		70,
+		0.45751633986928103
+	],
+	"ResNet-101 Trained on ImageNet Competition Data":[
+		347,
+		48,
+		0.138328530259366
+	],
+	"ResNet-101 Trained on YFCC100m Geotagged Data":[
+		344,
+		56,
+		0.16279069767441862
+	],
+	"ResNet-152 Trained on ImageNet Competition Data":[
+		517,
+		48,
+		9.284332688588008e-2
+	],
+	"ResNet-50 Trained on ImageNet Competition Data":[
+		177,
+		48,
+		0.2711864406779661
+	],
+	"Squeeze-and-Excitation Net Trained on ImageNet Competition Data":[
+		874,
+		82,
+		9.382151029748284e-2
+	],
+	"SqueezeNet V1.1 Trained on ImageNet Competition Data":[
+		69,
+		41,
+		0.5942028985507246
+	],
+	"VGG-16 Trained on ImageNet Competition Data":[
+		40,
+		26,
+		0.65
+	],
+	"VGG-19 Trained on ImageNet Competition Data":[
+		46,
+		26,
+		0.5652173913043478
+	],
+	"Wide ResNet-50-2 Trained on ImageNet Competition Data":[
+		176,
+		51,
+		0.2897727272727273
+	],
+	"Wolfram ImageIdentify Net V1":[
+		232,
+		109,
+		0.4698275862068966
+	],
+	"Yahoo Open NSFW Model V1":[
+		177,
+		49,
+		0.2768361581920904
+	],
+	"BERT Trained on BookCorpus and English Wikipedia Data":[
+		862,
+		19,
+		2.2041763341067284e-2
+	],
+	"GPT Transformer Trained on BookCorpus Data":[
+		857,
+		15,
+		1.750291715285881e-2
+	],
+	"OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data":[
+		172,
+		130,
+		0.7558139534883721
+	],
+	"ResNet-101 Trained on Augmented CASIA-WebFace Data":[
+		345,
+		46,
+		0.13333333333333333
+	],
+	"AdaIN-Style Trained on MS-COCO and Painter by Numbers Data":[
+		109,
+		40,
+		0.3669724770642202
+	],
+	"Colorful Image Colorization Trained on ImageNet Competition Data":[
+		58,
+		29,
+		0.5
+	],
+	"ColorNet Image Colorization Trained on ImageNet Competition Data":[
+		62,
+		44,
+		0.7096774193548387
+	],
+	"ColorNet Image Colorization Trained on Places Data":[
+		62,
+		43,
+		0.6935483870967742
+	],
+	"CycleGAN Apple-to-Orange Translation Trained on ImageNet Competition Data":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Horse-to-Zebra Translation Trained on ImageNet Competition Data":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Monet-to-Photo Translation":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Orange-to-Apple Translation Trained on ImageNet Competition Data":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Photo-to-Cezanne Translation":[
+		96,
+		23,
+		0.23958333333333334
+	],
+	"CycleGAN Photo-to-Monet Translation":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Photo-to-Van Gogh Translation":[
+		96,
+		23,
+		0.23958333333333334
+	],
+	"CycleGAN Summer-to-Winter Translation":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Winter-to-Summer Translation":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"CycleGAN Zebra-to-Horse Translation Trained on ImageNet Competition Data":[
+		94,
+		21,
+		0.22340425531914893
+	],
+	"Pix2pix Photo-to-Street-Map Translation":[
+		56,
+		50,
+		0.8928571428571429
+	],
+	"Pix2pix Street-Map-to-Photo Translation":[
+		56,
+		50,
+		0.8928571428571429
+	],
+	"Very Deep Net for Super-Resolution":[
+		40,
+		5,
+		0.125
+	],
+	"GPT-2 Transformer Trained on WebText Data":[
+		832,
+		14,
+		1.6826923076923076e-2
+	],
+	"Wolfram JavaScript Character-Level Language Model V1":[
+		7,
+		7,
+		1.0
+	],
+	"SSD-VGG-300 Trained on PASCAL VOC Data":[
+		145,
+		123,
+		0.8482758620689655
+	],
+	"SSD-VGG-512 Trained on MS-COCO Data":[
+		157,
+		135,
+		0.8598726114649682
+	],
+	"YOLO V2 Trained on MS-COCO Data":[
+		106,
+		73,
+		0.6886792452830188
+	],
+	"2D Face Alignment Net Trained on 300W Large Pose Data":[
+		967,
+		112,
+		0.11582213029989659
+	],
+	"3D Face Alignment Net Trained on 300W Large Pose Data":[
+		967,
+		112,
+		0.11582213029989659
+	],
+	"Single-Image Depth Perception Net Trained on Depth in the Wild Data":[
+		501,
+		90,
+		0.17964071856287425
+	],
+	"Single-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild Data":[
+		501,
+		90,
+		0.17964071856287425
+	],
+	"Single-Image Depth Perception Net Trained on NYU Depth V2 Data":[
+		501,
+		90,
+		0.17964071856287425
+	],
+	"Unguided Volumetric Regression Net for 3D Face Reconstruction":[
+		1029,
+		40,
+		3.8872691933916424e-2
+	],
+	"Ademxapp Model A1 Trained on ADE20K Data":[
+		141,
+		45,
+		0.3191489361702128
+	],
+	"Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data":[
+		141,
+		45,
+		0.3191489361702128
+	],
+	"Multi-scale Context Aggregation Net Trained on CamVid Data":[
+		53,
+		43,
+		0.8113207547169812
+	]
+}
