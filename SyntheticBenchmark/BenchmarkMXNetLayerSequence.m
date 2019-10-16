@@ -441,6 +441,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     ]
   ]
 
+Print["$ScriptCommandLine = ", $ScriptCommandLine];
 benchmarkLayers[{$ScriptCommandLine[[2]]}, ToExpression[$ScriptCommandLine[[3]]]]
 
 (*
