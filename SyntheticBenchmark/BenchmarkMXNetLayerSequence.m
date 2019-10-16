@@ -395,7 +395,7 @@ outputDims[lyr_[params_, ___]] :=
  ]
 
 
-timeLimit = QuantityMagnitude[UnitConvert[Quantity[5, "Minutes"], "Seconds"]]
+timeLimit = QuantityMagnitude[UnitConvert[Quantity[10, "Minutes"], "Seconds"]]
 
 benchmarkLayers[modelName_String, seqLen_] :=
   Module[{r},
