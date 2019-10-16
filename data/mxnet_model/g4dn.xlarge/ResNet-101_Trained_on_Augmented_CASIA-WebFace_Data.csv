@@ -1,0 +1,2 @@
+"id","name","machine_name","min_time","mean_time","max_time","raw_time"
+25,"ResNet-101 Trained on Augmented CASIA-WebFace Data","g4dn.xlarge","","","",""

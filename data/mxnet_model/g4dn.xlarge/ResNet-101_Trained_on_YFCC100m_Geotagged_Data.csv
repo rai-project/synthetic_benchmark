@@ -1,0 +1,2 @@
+"id","name","machine_name","min_time","mean_time","max_time","raw_time"
+12,"ResNet-101 Trained on YFCC100m Geotagged Data","g4dn.xlarge","","","",""
