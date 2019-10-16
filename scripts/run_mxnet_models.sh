@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap "exit" EXIT
+
 declare -a models=(
     "Ademxapp Model A Trained on ImageNet Competition Data"
     "Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data"
