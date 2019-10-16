@@ -439,7 +439,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
 
 
 (* benchmarkLayers[modelNames, 0]; *)
-benchmarkLayers[modelNames, 1];
+(* benchmarkLayers[modelNames, 1]; *)
 benchmarkLayers[modelNames, 2];
 benchmarkLayers[modelNames, 3];
 benchmarkLayers[modelNames, 4];
