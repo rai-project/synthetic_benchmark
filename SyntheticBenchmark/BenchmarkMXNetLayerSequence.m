@@ -441,7 +441,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     ]
   ]
 
-benchmarkLayers[{$ScriptCommandLine[[1]]}, ToExpression[$ScriptCommandLine[[2]]]]
+benchmarkLayers[{$ScriptCommandLine[[2]]}, ToExpression[$ScriptCommandLine[[3]]]]
 
 (*
 If[Length[$ScriptCommandLine] >= 2,
