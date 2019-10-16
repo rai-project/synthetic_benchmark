@@ -64,6 +64,7 @@ Data", "Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
 (*********************************************************************)
 (*********************************************************************)
 
+ClearAll[n]
 
 << NeuralNetworks`
 << MXNetLink`
@@ -103,14 +104,18 @@ run[net_, fstLyr_, n_] :=
             {key, Keys[data]}
         ];
         NDArrayWaitForAll[];
-        Table[
+        res = Table[
             NDArrayWaitForAll[];
             First[AbsoluteTiming[
                 NetExecutorForward[ex, (* IsTraining= *) False];
                 NDArrayWaitForAll[];
             ]],
             {n}
-        ]
+        ];
+        ClearAll[plan];
+        ClearAll[ex];
+        ClearAll[data];
+        res
     ]
 
 invalidVal = ""
