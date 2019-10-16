@@ -440,7 +440,9 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
     ]
   ]
 
+benchmarkLayers[{$ScriptCommandLine[[1]]}, ToExpression[$ScriptCommandLine[[2]]]]
 
+(*
 If[Length[$ScriptCommandLine] >= 2,
   benchmarkLayers[modelNames, ToExpression[$ScriptCommandLine[[2]]]];
   Exit[]
@@ -448,7 +450,7 @@ If[Length[$ScriptCommandLine] >= 2,
 
 (* benchmarkLayers[modelNames, 0]; *)
 (* benchmarkLayers[modelNames, 1]; *)
-benchmarkLayers[modelNames, 2];
+(* benchmarkLayers[modelNames, 2];
 benchmarkLayers[modelNames, 3];
 benchmarkLayers[modelNames, 4];
 benchmarkLayers[modelNames, 5];
@@ -456,7 +458,7 @@ benchmarkLayers[modelNames, 6];
 benchmarkLayers[modelNames, 7];
 benchmarkLayers[modelNames, 8];
 benchmarkLayers[modelNames, 9];
-benchmarkLayers[modelNames, 10];
+benchmarkLayers[modelNames, 10]; *)
 (* benchmarkLayers[modelNames, 11]; *)
 (* benchmarkLayers[modelNames, 12]; *)
 (* benchmarkLayers[modelNames, 13]; *)
@@ -466,7 +468,7 @@ benchmarkLayers[modelNames, 10];
 (* benchmarkLayers[modelNames, 17]; *)
 (* benchmarkLayers[modelNames, 18]; *)
 (* benchmarkLayers[modelNames, 19]; *)
-(* benchmarkLayers[modelNames, 20]; *)
+benchmarkLayers[modelNames, 20]; *)
 
 
 Print["done benchmarking...."];
