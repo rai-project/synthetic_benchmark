@@ -105,7 +105,7 @@ benchmarkModel[modelName_, m_] :=
       Return[]
     ];
     Print["benchmarking .... " <> modelName];
-    model = NetModel[modelName, TargetDevice -> targetDevice];
+    model = NetModel[modelName];
     net = model;
     lyrs = NetInformation[model, "Layers"];
     time = Check[
