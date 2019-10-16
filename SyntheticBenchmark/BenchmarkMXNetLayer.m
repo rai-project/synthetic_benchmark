@@ -17,6 +17,8 @@ PrependTo[$ContextPath, "MXNetLink`PackageScope`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`"];
 PrependTo[$ContextPath, "NeuralNetworks`Private`Benchmarking`"];
 
+ResourceSystemClient`Private`$throttle = 1;
+
 batches = 1;
 batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;

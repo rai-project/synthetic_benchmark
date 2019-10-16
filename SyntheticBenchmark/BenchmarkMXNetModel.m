@@ -29,6 +29,7 @@ batchSize = 1;
 NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
+ResourceSystemClient`Private`$throttle = 1;
 
 
 getInstanceType[] := getInstanceType[]  =
