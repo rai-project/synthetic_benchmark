@@ -428,6 +428,7 @@ benchmarkLayers[models_?ListQ, sequenceLength_] :=
   Module[{cModelName},
     baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_layer_sequence", "seq_" <> ToString[sequenceLength], getInstanceType[]}];
     Quiet[CreateDirectory[baseDir]];
+    Print[models];
     Do[
       runSequenceCache = <||>;
       cModelName = StringReplace[modelName, " " -> "_"];
