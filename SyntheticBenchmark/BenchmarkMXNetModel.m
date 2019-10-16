@@ -90,7 +90,19 @@ NeuralNetworks`Private`Benchmarking`dataSize = batches*batchSize;
 sequenceLength = 1;
 
 
-baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model"}]
+
+getInstanceType[] := getInstanceType[]  = 
+If[$OperatingSystem === "MacOSX", "local",
+ Quiet@Module[{url,res},
+    url = "http://169.254.169.254/latest/meta-data/instance-type";
+    res = URLExecute[url];
+    If[StringQ[res],
+        res,
+        Throw["unable to determine instance type"]
+    ]
+]]
+
+baseDir = FileNameJoin[{rootDirectory, "..", "data", "mxnet_model", getInstanceType[]}]
 Quiet[CreateDirectory[baseDir]]
 
 run[name_, net_, n_] :=
@@ -164,6 +176,7 @@ benchmarkModel[modelName_, n_] :=
     time = <|
       "id" -> getModelId[modelName],
       "name" -> modelName,
+      "machine_name" -> getInstanceType[],
       "min_time" -> If[time === $Failed, invalidVal, Round[1000000 * Min[time], 0.0001]],
       "mean_time" -> If[time === $Failed, invalidVal, Round[1000000 * TrimmedMean[time, 0.2], 0.0001]],
       "max_time" -> If[time === $Failed, invalidVal, Round[1000000 * Max[time], 0.0001]],
@@ -188,7 +201,6 @@ writeTimings[modelName_, timings_] :=
 synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
 Inputs = NeuralNetworks`Private`Inputs;
 NetAttachLoss = NeuralNetworks`NetAttachLoss;
-
 
 
 paramsOf[lyr_[params_, ___]] := params
