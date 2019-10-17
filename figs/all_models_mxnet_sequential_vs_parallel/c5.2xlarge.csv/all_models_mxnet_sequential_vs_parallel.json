@@ -3,336 +3,312 @@
 		"modelName":"Ademxapp Model A Trained on ImageNet Competition Data",
 		"parallelTime":7.195660000000001e5,
 		"mxnetTime":7.574631000000001e5,
-		"seqentialTime":0.7332542999999999
+		"seqentialTime":7.332542999999999e5
 	},
 	{
 		"modelName":"Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data",
 		"parallelTime":1.47811e5,
 		"mxnetTime":1.551657667e5,
-		"seqentialTime":0.14967336666666667
+		"seqentialTime":1.4967336666666667e5
 	},
 	{
 		"modelName":"Age Estimation VGG-16 Trained on IMDB-WIKI Data",
 		"parallelTime":1.47527e5,
 		"mxnetTime":1.546895e5,
-		"seqentialTime":0.14959156666666668
+		"seqentialTime":1.4959156666666668e5
 	},
 	{
 		"modelName":"CapsNet Trained on MNIST Data",
 		"parallelTime":1.16774e5,
 		"mxnetTime":1.513055667e5,
-		"seqentialTime":0.13195553333333335
+		"seqentialTime":1.3195553333333335e5
 	},
 	{
 		"modelName":"Gender Prediction VGG-16 Trained on IMDB-WIKI Data",
 		"parallelTime":1.4804599999999997e5,
 		"mxnetTime":1.549795e5,
-		"seqentialTime":0.15002056666666666
+		"seqentialTime":1.5002056666666665e5
 	},
 	{
 		"modelName":"Inception V1 Trained on Extended Salient Object Subitizing Data",
 		"parallelTime":3.3638e4,
 		"mxnetTime":4.6074600000000006e4,
-		"seqentialTime":4.567323333333334e-2
+		"seqentialTime":4.567323333333334e4
 	},
 	{
 		"modelName":"Inception V1 Trained on ImageNet Competition Data",
 		"parallelTime":3.3661e4,
 		"mxnetTime":4.60263667e4,
-		"seqentialTime":4.574866666666667e-2
+		"seqentialTime":4.5748666666666664e4
 	},
 	{
 		"modelName":"Inception V1 Trained on Places365 Data",
 		"parallelTime":3.3707e4,
 		"mxnetTime":4.57460333e4,
-		"seqentialTime":4.577516666666667e-2
+		"seqentialTime":4.577516666666667e4
 	},
 	{
 		"modelName":"Inception V3 Trained on ImageNet Competition Data",
 		"parallelTime":5.1563e4,
 		"mxnetTime":9.34556333e4,
-		"seqentialTime":9.481116666666667e-2
+		"seqentialTime":9.481116666666667e4
 	},
 	{
 		"modelName":"MobileNet V2 Trained on ImageNet Competition Data",
 		"parallelTime":4.997199999999999e4,
 		"mxnetTime":5.2624933300000004e4,
-		"seqentialTime":5.070146666666667e-2
+		"seqentialTime":5.070146666666667e4
 	},
 	{
 		"modelName":"ResNet-101 Trained on ImageNet Competition Data",
 		"parallelTime":6.828e4,
 		"mxnetTime":7.588976670000001e4,
-		"seqentialTime":7.225093333333332e-2
+		"seqentialTime":7.225093333333332e4
 	},
 	{
 		"modelName":"ResNet-101 Trained on YFCC100m Geotagged Data",
 		"parallelTime":7.1406e4,
 		"mxnetTime":7.97392333e4,
-		"seqentialTime":7.58047e-2
+		"seqentialTime":7.58047e4
 	},
 	{
 		"modelName":"ResNet-152 Trained on ImageNet Competition Data",
 		"parallelTime":9.839700000000001e4,
 		"mxnetTime":1.079819333e5,
-		"seqentialTime":0.1033112
+		"seqentialTime":1.0331120000000001e5
 	},
 	{
 		"modelName":"ResNet-50 Trained on ImageNet Competition Data",
 		"parallelTime":4.016e4,
 		"mxnetTime":4.7057966700000004e4,
-		"seqentialTime":4.3715566666666664e-2
+		"seqentialTime":4.3715566666666666e4
 	},
 	{
 		"modelName":"Squeeze-and-Excitation Net Trained on ImageNet Competition Data",
 		"parallelTime":8.1629e5,
 		"mxnetTime":8.478593333e5,
-		"seqentialTime":0.8407785333333335
+		"seqentialTime":8.407785333333336e5
 	},
 	{
 		"modelName":"SqueezeNet V1.1 Trained on ImageNet Competition Data",
 		"parallelTime":1.3235999999999998e4,
 		"mxnetTime":1.41342667e4,
-		"seqentialTime":1.4623299999999999e-2
+		"seqentialTime":1.46233e4
 	},
 	{
 		"modelName":"VGG-16 Trained on ImageNet Competition Data",
 		"parallelTime":1.47861e5,
 		"mxnetTime":1.562324333e5,
-		"seqentialTime":0.14987293333333332
+		"seqentialTime":1.4987293333333332e5
 	},
 	{
 		"modelName":"VGG-19 Trained on ImageNet Competition Data",
 		"parallelTime":1.7285599999999997e5,
 		"mxnetTime":1.806772e5,
-		"seqentialTime":0.17514553333333333
+		"seqentialTime":1.7514553333333333e5
 	},
 	{
 		"modelName":"Wide ResNet-50-2 Trained on ImageNet Competition Data",
 		"parallelTime":7.9833e4,
 		"mxnetTime":8.99852e4,
-		"seqentialTime":8.426700000000001e-2
+		"seqentialTime":8.426700000000001e4
 	},
 	{
 		"modelName":"Wolfram ImageIdentify Net V1",
 		"parallelTime":2.1698000000000004e4,
 		"mxnetTime":3.76354e4,
-		"seqentialTime":3.9628333333333335e-2
+		"seqentialTime":3.9628333333333336e4
 	},
 	{
 		"modelName":"Yahoo Open NSFW Model V1",
 		"parallelTime":2.3215e4,
 		"mxnetTime":2.44204667e4,
-		"seqentialTime":2.5400566666666666e-2
-	},
-	{
-		"modelName":"BERT Trained on BookCorpus and English Wikipedia Data",
-		"parallelTime":1.1341e4,
-		"mxnetTime":2.28155667e4,
-		"seqentialTime":2.85853e-2
-	},
-	{
-		"modelName":"GPT Transformer Trained on BookCorpus Data",
-		"parallelTime":1.5085e4,
-		"mxnetTime":2.51932667e4,
-		"seqentialTime":3.241443333333333e-2
-	},
-	{
-		"modelName":"OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data",
-		"parallelTime":7.287e3,
-		"mxnetTime":7.4430667e3,
-		"seqentialTime":1.0464233333333333e-2
+		"seqentialTime":2.5400566666666666e4
 	},
 	{
 		"modelName":"ResNet-101 Trained on Augmented CASIA-WebFace Data",
 		"parallelTime":6.808900000000001e4,
 		"mxnetTime":7.55606333e4,
-		"seqentialTime":7.254023333333333e-2
+		"seqentialTime":7.254023333333332e4
 	},
 	{
 		"modelName":"AdaIN-Style Trained on MS-COCO and Painter by Numbers Data",
 		"parallelTime":2.118578e6,
 		"mxnetTime":3.3022507e6,
-		"seqentialTime":3.278445533333333
+		"seqentialTime":3.278445533333333e6
 	},
 	{
 		"modelName":"Colorful Image Colorization Trained on ImageNet Competition Data",
 		"parallelTime":4.1062899999999994e5,
 		"mxnetTime":4.277991667e5,
-		"seqentialTime":0.4143380333333333
+		"seqentialTime":4.143380333333333e5
 	},
 	{
 		"modelName":"ColorNet Image Colorization Trained on ImageNet Competition Data",
 		"parallelTime":7.7955e4,
 		"mxnetTime":1.2986253330000001e5,
-		"seqentialTime":0.12610459999999998
+		"seqentialTime":1.2610459999999998e5
 	},
 	{
 		"modelName":"ColorNet Image Colorization Trained on Places Data",
 		"parallelTime":8.3146e4,
 		"mxnetTime":1.361678333e5,
-		"seqentialTime":0.1309527
+		"seqentialTime":1.3095270000000001e5
 	},
 	{
 		"modelName":"CycleGAN Apple-to-Orange Translation Trained on ImageNet Competition Data",
 		"parallelTime":1.4392330000000002e6,
 		"mxnetTime":1.4474802333e6,
-		"seqentialTime":1.4445472000000001
+		"seqentialTime":1.4445472000000002e6
 	},
 	{
 		"modelName":"CycleGAN Horse-to-Zebra Translation Trained on ImageNet Competition Data",
 		"parallelTime":1.438729e6,
 		"mxnetTime":1.4473856333e6,
-		"seqentialTime":1.4440031999999996
+		"seqentialTime":1.4440031999999995e6
 	},
 	{
 		"modelName":"CycleGAN Monet-to-Photo Translation",
 		"parallelTime":1.439686e6,
 		"mxnetTime":1.4481814000000001e6,
-		"seqentialTime":1.4448081666666666
+		"seqentialTime":1.4448081666666665e6
 	},
 	{
 		"modelName":"CycleGAN Orange-to-Apple Translation Trained on ImageNet Competition Data",
 		"parallelTime":1.4383599999999998e6,
 		"mxnetTime":1.4479598333e6,
-		"seqentialTime":1.4437562333333334
+		"seqentialTime":1.4437562333333334e6
 	},
 	{
 		"modelName":"CycleGAN Photo-to-Cezanne Translation",
 		"parallelTime":1.44354e6,
 		"mxnetTime":1.4501082667e6,
-		"seqentialTime":1.4486911666666666
+		"seqentialTime":1.4486911666666667e6
 	},
 	{
 		"modelName":"CycleGAN Photo-to-Monet Translation",
 		"parallelTime":1.440429e6,
 		"mxnetTime":1.4473397333e6,
-		"seqentialTime":1.4455624
+		"seqentialTime":1.4455624000000001e6
 	},
 	{
 		"modelName":"CycleGAN Photo-to-Van Gogh Translation",
 		"parallelTime":1.44379e6,
 		"mxnetTime":1.4509315667e6,
-		"seqentialTime":1.4489858666666666
+		"seqentialTime":1.4489858666666667e6
 	},
 	{
 		"modelName":"CycleGAN Summer-to-Winter Translation",
 		"parallelTime":1.4387880000000002e6,
 		"mxnetTime":1.4475562e6,
-		"seqentialTime":1.4438944999999999
+		"seqentialTime":1.4438944999999998e6
 	},
 	{
 		"modelName":"CycleGAN Winter-to-Summer Translation",
 		"parallelTime":1.438978e6,
 		"mxnetTime":1.4475509333000001e6,
-		"seqentialTime":1.4440269000000001
+		"seqentialTime":1.4440269000000001e6
 	},
 	{
 		"modelName":"CycleGAN Zebra-to-Horse Translation Trained on ImageNet Competition Data",
 		"parallelTime":1.43823e6,
 		"mxnetTime":1.4520979000000001e6,
-		"seqentialTime":1.4435007333333334
+		"seqentialTime":1.4435007333333334e6
 	},
 	{
 		"modelName":"Pix2pix Photo-to-Street-Map Translation",
 		"parallelTime":8.07155e5,
 		"mxnetTime":8.145475e5,
-		"seqentialTime":0.8096284
+		"seqentialTime":8.096284e5
 	},
 	{
 		"modelName":"Pix2pix Street-Map-to-Photo Translation",
 		"parallelTime":8.06371e5,
 		"mxnetTime":8.151181667000001e5,
-		"seqentialTime":0.8089833333333334
+		"seqentialTime":8.089833333333334e5
 	},
 	{
 		"modelName":"Very Deep Net for Super-Resolution",
 		"parallelTime":8.09796e5,
 		"mxnetTime":8.354858667e5,
-		"seqentialTime":0.815559
-	},
-	{
-		"modelName":"GPT-2 Transformer Trained on WebText Data",
-		"parallelTime":1.4620000000000002e4,
-		"mxnetTime":2.5089e4,
-		"seqentialTime":3.18378e-2
+		"seqentialTime":8.15559e5
 	},
 	{
 		"modelName":"Wolfram JavaScript Character-Level Language Model V1",
 		"parallelTime":1.13e3,
 		"mxnetTime":1.4213e3,
-		"seqentialTime":1.3369999999999996e-3
+		"seqentialTime":1.3369999999999995e3
 	},
 	{
 		"modelName":"SSD-VGG-300 Trained on PASCAL VOC Data",
 		"parallelTime":2.8166800000000006e5,
 		"mxnetTime":3.4147260000000003e5,
-		"seqentialTime":0.3341201333333334
+		"seqentialTime":3.341201333333334e5
 	},
 	{
 		"modelName":"SSD-VGG-512 Trained on MS-COCO Data",
 		"parallelTime":8.52629e5,
 		"mxnetTime":1.0957043667000001e6,
-		"seqentialTime":1.0922640333333333
+		"seqentialTime":1.0922640333333334e6
 	},
 	{
 		"modelName":"YOLO V2 Trained on MS-COCO Data",
 		"parallelTime":1.61842e5,
 		"mxnetTime":1.6980663330000002e5,
-		"seqentialTime":0.1677173
+		"seqentialTime":1.6771730000000002e5
 	},
 	{
 		"modelName":"2D Face Alignment Net Trained on 300W Large Pose Data",
 		"parallelTime":2.8517499999999994e5,
 		"mxnetTime":4.347861667e5,
-		"seqentialTime":0.42589
+		"seqentialTime":4.2589e5
 	},
 	{
 		"modelName":"3D Face Alignment Net Trained on 300W Large Pose Data",
 		"parallelTime":2.8533200000000006e5,
 		"mxnetTime":4.325627e5,
-		"seqentialTime":0.4292375666666667
+		"seqentialTime":4.292375666666667e5
 	},
 	{
 		"modelName":"Single-Image Depth Perception Net Trained on Depth in the Wild Data",
 		"parallelTime":6.721119999999999e5,
 		"mxnetTime":1.9291512000000002e6,
-		"seqentialTime":1.8957454999999999
+		"seqentialTime":1.8957454999999998e6
 	},
 	{
 		"modelName":"Single-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild Data",
 		"parallelTime":6.69415e5,
 		"mxnetTime":1.9291292000000002e6,
-		"seqentialTime":1.8954989666666664
+		"seqentialTime":1.8954989666666663e6
 	},
 	{
 		"modelName":"Single-Image Depth Perception Net Trained on NYU Depth V2 Data",
 		"parallelTime":6.6951e5,
 		"mxnetTime":1.9228716333e6,
-		"seqentialTime":1.8968200666666668
+		"seqentialTime":1.896820066666667e6
 	},
 	{
 		"modelName":"Unguided Volumetric Regression Net for 3D Face Reconstruction",
 		"parallelTime":3.62094e5,
 		"mxnetTime":5.0762063330000004e5,
-		"seqentialTime":0.5011840666666667
+		"seqentialTime":5.011840666666667e5
 	},
 	{
 		"modelName":"Ademxapp Model A1 Trained on ADE20K Data",
 		"parallelTime":2.91442e6,
 		"mxnetTime":3.0845584000000004e6,
-		"seqentialTime":3.0707478999999998
+		"seqentialTime":3.0707479e6
 	},
 	{
 		"modelName":"Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data",
 		"parallelTime":2.891735e6,
 		"mxnetTime":3.0681178333e6,
-		"seqentialTime":3.0478475333333335
+		"seqentialTime":3.0478475333333337e6
 	},
 	{
 		"modelName":"Multi-scale Context Aggregation Net Trained on CamVid Data",
 		"parallelTime":5.216110000000001e6,
 		"mxnetTime":5.2599200667e6,
-		"seqentialTime":5.2304444666666665
+		"seqentialTime":5.230444466666667e6
 	}
 ]
