@@ -1,2 +1,10 @@
 "model_name","instance_type","start_index","end_index","sequence_length","num_runs","start_name","end_name","sequence_name","start_layer_kind","end_layer_kind","sequence_layer_kind","start_layer_path_time","mean_path_time","end_layer_path_time","raw_path_time"
+<<<<<<< HEAD
 "Wolfram JavaScript Character-Level Language Model V1","c5.2xlarge",1,7,6,50,"1","7","1-2-3-4-5-6-7","Embedding","Softmax","Embedding-Dropout-GatedRecurrent-GatedRecurrent-SequenceLast-Linear-Softmax",1266.,1284.1000000000001,5138.,"{5138., 1364., 1287., 1317., 1323., 1316., 1292., 1304., 1275., 1272., 1295., 1270., 1272., 1337., 1275., 1266., 1292., 1271., 1274., 1306., 1319., 1302., 1299., 1271., 1268., 1295., 1267., 1274., 1342., 1286., 1272., 1285., 1270., 1271., 1292., 1281., 1297., 1267., 1266., 1274., 1270., 1287., 1273., 1318., 1337., 1278., 1272., 1291., 1279., 1270.}"
+=======
+<<<<<<< HEAD
+"Wolfram JavaScript Character-Level Language Model V1","c5.2xlarge",1,7,6,50,"1","7","1-2-3-4-5-6-7","Embedding","Softmax","Embedding-Dropout-GatedRecurrent-GatedRecurrent-SequenceLast-Linear-Softmax",1606.,1650.4667000000002,4937.,"{4937., 1715., 1700., 1658., 1668., 1626., 1631., 1667., 1620., 1632., 1606., 1623., 1609., 1639., 1661., 1637., 1659., 1622., 1668., 1645., 1637., 1702., 1637., 1665., 1634., 1618., 1651., 1624., 1674., 1656., 1644., 1652., 1647., 1676., 1650., 1676., 1654., 1670., 1702., 1629., 1686., 1642., 1671., 1667., 1620., 1650., 1620., 1656., 1643., 1665.}"
+=======
+"Wolfram JavaScript Character-Level Language Model V1","c5.2xlarge",1,7,6,50,"1","7","1-2-3-4-5-6-7","Embedding","Softmax","Embedding-Dropout-GatedRecurrent-GatedRecurrent-SequenceLast-Linear-Softmax",906.,1354.8,133736.,"{133736., 1411., 1434., 1366., 1359., 1356., 1423., 1432., 1353., 1397., 1360., 1383., 1356., 1438., 1406., 1357., 1387., 1352., 1355., 1357., 1405., 1449., 1358., 1395., 1357., 1355., 1356., 1358., 1493., 1377., 1356., 1385., 1368., 1355., 1354., 1497., 1357., 1352., 1400., 984., 935., 935., 943., 963., 1018., 928., 926., 927., 906., 937.}"
+>>>>>>> 60eeb6c965000a53c17ce408e5566e3492072393
+>>>>>>> e0731e2154b6f28a2a11c3a8ef084e8d0d54a48d
