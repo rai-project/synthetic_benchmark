@@ -104,21 +104,6 @@
 		49,
 		0.2768361581920904
 	],
-	"BERT Trained on BookCorpus and English Wikipedia Data":[
-		862,
-		19,
-		2.2041763341067284e-2
-	],
-	"GPT Transformer Trained on BookCorpus Data":[
-		857,
-		15,
-		1.750291715285881e-2
-	],
-	"OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data":[
-		172,
-		130,
-		0.7558139534883721
-	],
 	"ResNet-101 Trained on Augmented CASIA-WebFace Data":[
 		345,
 		46,
@@ -208,11 +193,6 @@
 		40,
 		5,
 		0.125
-	],
-	"GPT-2 Transformer Trained on WebText Data":[
-		832,
-		14,
-		1.6826923076923076e-2
 	],
 	"Wolfram JavaScript Character-Level Language Model V1":[
 		7,

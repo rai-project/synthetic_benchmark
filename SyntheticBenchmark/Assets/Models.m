@@ -41,9 +41,6 @@ $ModelNames = {
 "Wide ResNet-50-2 Trained on ImageNet Competition Data",
 "Wolfram ImageIdentify Net V1",
 "Yahoo Open NSFW Model V1",
-(* "BERT Trained on BookCorpus and English Wikipedia Data", *)
-"GPT Transformer Trained on BookCorpus Data",
-"OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data",
 "ResNet-101 Trained on Augmented CASIA-WebFace Data",
 "AdaIN-Style Trained on MS-COCO and Painter by Numbers Data",
 "Colorful Image Colorization Trained on ImageNet Competition Data",
@@ -62,7 +59,6 @@ $ModelNames = {
 "Pix2pix Photo-to-Street-Map Translation",
 "Pix2pix Street-Map-to-Photo Translation",
 "Very Deep Net for Super-Resolution",
-"GPT-2 Transformer Trained on WebText Data",
 "Wolfram JavaScript Character-Level Language Model V1",
 "SSD-VGG-300 Trained on PASCAL VOC Data",
 "SSD-VGG-512 Trained on MS-COCO Data",

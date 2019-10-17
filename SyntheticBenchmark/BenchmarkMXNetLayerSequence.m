@@ -95,7 +95,7 @@ targetDevice := targetDevice = If[getInstanceType[] === "DISABLED___g4dn.xlarge"
 run[net_, fstLyr_, n_] :=
     Module[{plan, ex, data, res},
         NDArrayWaitForAll[];
-        plan = ToNetPlan[net, TargetDevice -> targetDevice];
+        plan = ToNetPlan[net(*, TargetDevice -> targetDevice*)];
         ex = ToNetExecutor[plan, 1, "ArrayCaching" -> False];
         SeedRandom[1];
         data = synthesizeData /@ Inputs[net];
