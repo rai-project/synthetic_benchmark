@@ -1,0 +1,318 @@
+{
+	"Ademxapp Model A Trained on ImageNet Competition Data":{
+		"BatchNorm":7,
+		"Elementwise":7,
+		"Convolution":7,
+		"Threading":4
+	},
+	"Age Estimation VGG-16 Trained on IMDB-WIKI and Looking at People Data":{
+		"Elementwise":6,
+		"Convolution":3,
+		"Dropout":1
+	},
+	"Age Estimation VGG-16 Trained on IMDB-WIKI Data":{
+		"Elementwise":6,
+		"Convolution":3,
+		"Dropout":1
+	},
+	"CapsNet Trained on MNIST Data":{
+		"Reshape":1,
+		"Softmax":1,
+		"Replicate":2,
+		"Threading":2,
+		"Aggregation":2,
+		"Elementwise":2
+	},
+	"Gender Prediction VGG-16 Trained on IMDB-WIKI Data":{
+		"Elementwise":6,
+		"Convolution":3,
+		"Dropout":1
+	},
+	"Inception V1 Trained on Extended Salient Object Subitizing Data":{
+		"Elementwise":13,
+		"Convolution":7,
+		"Pooling":2
+	},
+	"Inception V1 Trained on ImageNet Competition Data":{
+		"Elementwise":13,
+		"Convolution":7,
+		"Pooling":2
+	},
+	"Inception V1 Trained on Places365 Data":{
+		"Elementwise":13,
+		"Convolution":7,
+		"Pooling":2
+	},
+	"Inception V3 Trained on ImageNet Competition Data":{
+		"Convolution":20,
+		"BatchNorm":10,
+		"Elementwise":10,
+		"Catenate":3,
+		"Pooling":1
+	},
+	"MobileNet V2 Trained on ImageNet Competition Data":{
+		"BatchNorm":11,
+		"Elementwise":6,
+		"Convolution":13,
+		"Threading":4
+	},
+	"ResNet-101 Trained on ImageNet Competition Data":{
+		"Convolution":12,
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Total":4
+	},
+	"ResNet-101 Trained on YFCC100m Geotagged Data":{
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Convolution":12,
+		"Threading":4
+	},
+	"ResNet-152 Trained on ImageNet Competition Data":{
+		"Convolution":12,
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Total":4
+	},
+	"ResNet-50 Trained on ImageNet Competition Data":{
+		"Convolution":12,
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Total":4
+	},
+	"Squeeze-and-Excitation Net Trained on ImageNet Competition Data":{
+		"BatchNorm":9,
+		"Elementwise":17,
+		"Convolution":12,
+		"Aggregation":4,
+		"Linear":8,
+		"Replicate":4,
+		"Threading":4,
+		"Total":4
+	},
+	"SqueezeNet V1.1 Trained on ImageNet Competition Data":{
+		"Elementwise":8,
+		"Convolution":8,
+		"Catenate":4
+	},
+	"VGG-16 Trained on ImageNet Competition Data":{
+		"Elementwise":6,
+		"Convolution":3,
+		"Dropout":1
+	},
+	"VGG-19 Trained on ImageNet Competition Data":{
+		"Elementwise":6,
+		"Convolution":3,
+		"Dropout":1
+	},
+	"Wide ResNet-50-2 Trained on ImageNet Competition Data":{
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Convolution":12,
+		"Total":4
+	},
+	"Wolfram ImageIdentify Net V1":{
+		"Convolution":13,
+		"BatchNorm":11,
+		"Elementwise":11,
+		"Pooling":1,
+		"Catenate":1
+	},
+	"Yahoo Open NSFW Model V1":{
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Convolution":12,
+		"Total":4
+	},
+	"ResNet-101 Trained on Augmented CASIA-WebFace Data":{
+		"Convolution":12,
+		"BatchNorm":8,
+		"Elementwise":8,
+		"Total":4
+	},
+	"AdaIN-Style Trained on MS-COCO and Painter by Numbers Data":{
+		"Padding":7,
+		"Convolution":7,
+		"Elementwise":5,
+		"Pooling":3,
+		"Aggregation":1,
+		"Replicate":1,
+		"Threading":1
+	},
+	"Colorful Image Colorization Trained on ImageNet Competition Data":{
+		"Elementwise":2,
+		"Convolution":3,
+		"BatchNorm":1
+	},
+	"ColorNet Image Colorization Trained on ImageNet Competition Data":{
+		"Convolution":6,
+		"Elementwise":9
+	},
+	"ColorNet Image Colorization Trained on Places Data":{
+		"Convolution":7,
+		"Elementwise":9
+	},
+	"CycleGAN Apple-to-Orange Translation Trained on ImageNet Competition Data":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Horse-to-Zebra Translation Trained on ImageNet Competition Data":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Monet-to-Photo Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Orange-to-Apple Translation Trained on ImageNet Competition Data":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Photo-to-Cezanne Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Photo-to-Monet Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Photo-to-Van Gogh Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Summer-to-Winter Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Winter-to-Summer Translation":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"CycleGAN Zebra-to-Horse Translation Trained on ImageNet Competition Data":{
+		"Norm":3,
+		"Elementwise":3,
+		"Padding":1,
+		"Convolution":1,
+		"Total":1
+	},
+	"Pix2pix Photo-to-Street-Map Translation":{
+		"Norm":6
+	},
+	"Pix2pix Street-Map-to-Photo Translation":{
+		"Norm":6
+	},
+	"Very Deep Net for Super-Resolution":{
+		"Elementwise":1,
+		"Convolution":1
+	},
+	"Wolfram JavaScript Character-Level Language Model V1":{},
+	"SSD-VGG-300 Trained on PASCAL VOC Data":{
+		"Elementwise":8,
+		"Convolution":3,
+		"ConstTimes":1,
+		"ConstPlus":1,
+		"Threading":2
+	},
+	"SSD-VGG-512 Trained on MS-COCO Data":{
+		"Elementwise":8,
+		"Convolution":3,
+		"ConstTimes":1,
+		"ConstPlus":1,
+		"Threading":2
+	},
+	"YOLO V2 Trained on MS-COCO Data":{
+		"Convolution":7,
+		"BatchNorm":6,
+		"Elementwise":6,
+		"Catenate":1,
+		"ConstantArray":1
+	},
+	"2D Face Alignment Net Trained on 300W Large Pose Data":{
+		"BatchNorm":16,
+		"Elementwise":31,
+		"Convolution":18,
+		"Catenate":10,
+		"Total":6,
+		"Pooling":4,
+		"Resize":4
+	},
+	"3D Face Alignment Net Trained on 300W Large Pose Data":{
+		"BatchNorm":16,
+		"Elementwise":31,
+		"Convolution":18,
+		"Catenate":10,
+		"Total":6,
+		"Pooling":4,
+		"Resize":4
+	},
+	"Single-Image Depth Perception Net Trained on Depth in the Wild Data":{
+		"Convolution":27,
+		"BatchNorm":11,
+		"Elementwise":11,
+		"Catenate":5
+	},
+	"Single-Image Depth Perception Net Trained on NYU Depth V2 and Depth in the Wild Data":{
+		"Convolution":27,
+		"BatchNorm":11,
+		"Elementwise":11,
+		"Catenate":5
+	},
+	"Single-Image Depth Perception Net Trained on NYU Depth V2 Data":{
+		"Convolution":27,
+		"BatchNorm":11,
+		"Elementwise":11,
+		"Catenate":5
+	},
+	"Unguided Volumetric Regression Net for 3D Face Reconstruction":{
+		"BatchNorm":6,
+		"Elementwise":8,
+		"Convolution":8,
+		"Total":2,
+		"Pooling":1,
+		"Resize":1
+	},
+	"Ademxapp Model A1 Trained on ADE20K Data":{
+		"BatchNorm":5,
+		"Elementwise":5,
+		"Convolution":7,
+		"Threading":4
+	},
+	"Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data":{
+		"BatchNorm":5,
+		"Elementwise":5,
+		"Convolution":7,
+		"Threading":4
+	},
+	"Multi-scale Context Aggregation Net Trained on CamVid Data":{
+		"Elementwise":2,
+		"Dropout":1,
+		"Convolution":1
+	}
+}
