@@ -146,7 +146,7 @@ synthesizeData = NeuralNetworks`Private`Benchmarking`synthesizeData;
 Inputs = NeuralNetworks`Private`Inputs;
 NetAttachLoss = NeuralNetworks`NetAttachLoss;
 
-targetDevice := targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
+targetDevice := targetDevice = If[getInstanceType[] === "DISABLED___g4dn.xlarge",  "GPU", "CPU"]
 
 
 paramsOf[lyr_[params_, ___]] := params

@@ -88,7 +88,7 @@ sequenceLength = 1;
 
 ResourceSystemClient`Private`$throttle = 1;
 
-targetDevice := targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
+targetDevice := targetDevice = If[getInstanceType[] === "DISABLED___g4dn.xlarge",  "GPU", "CPU"]
 
 
 

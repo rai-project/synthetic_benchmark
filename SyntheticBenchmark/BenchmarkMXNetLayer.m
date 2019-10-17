@@ -199,7 +199,7 @@ getInstanceType[] := getInstanceType[] = If[isLocal,
 ]
 
 
-targetDevice = If[getInstanceType[] === "g4dn.xlarge",  "GPU", "CPU"]
+targetDevice = If[getInstanceType[] === "DISABLED___g4dn.xlarge",  "GPU", "CPU"]
 
 outputDir = FileNameJoin[{dataDir, "raw_mxnet_layer_info", getInstanceType[]}]
 Quiet[CreateDirectory[outputDir]];
