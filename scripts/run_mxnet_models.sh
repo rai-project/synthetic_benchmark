@@ -56,9 +56,6 @@ declare -a models=(
     "Ademxapp Model A1 Trained on PASCAL VOC2012 and MS-COCO Data"
     "Multi-scale Context Aggregation Net Trained on CamVid Data"
     "U-Net Trained on Glioblastoma-Astrocytoma U373 Cells on a Polyacrylamide Substrate Data"
-    "GPT Transformer Trained on BookCorpus Data"
-    "GPT-2 Transformer Trained on WebText Data"
-    "OpenFace Face Recognition Net Trained on CASIA-WebFace and FaceScrub Data"
 )
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
