@@ -104,11 +104,6 @@
 		49,
 		0.2768361581920904
 	],
-	"ResNet-101 Trained on Augmented CASIA-WebFace Data":[
-		345,
-		46,
-		0.13333333333333333
-	],
 	"AdaIN-Style Trained on MS-COCO and Painter by Numbers Data":[
 		109,
 		40,
@@ -193,11 +188,6 @@
 		40,
 		5,
 		0.125
-	],
-	"Wolfram JavaScript Character-Level Language Model V1":[
-		7,
-		7,
-		1.0
 	],
 	"SSD-VGG-300 Trained on PASCAL VOC Data":[
 		145,

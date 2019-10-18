@@ -124,12 +124,6 @@
 		"Convolution":12,
 		"Total":4
 	},
-	"ResNet-101 Trained on Augmented CASIA-WebFace Data":{
-		"Convolution":12,
-		"BatchNorm":8,
-		"Elementwise":8,
-		"Total":4
-	},
 	"AdaIN-Style Trained on MS-COCO and Painter by Numbers Data":{
 		"Padding":7,
 		"Convolution":7,
@@ -232,7 +226,6 @@
 		"Elementwise":1,
 		"Convolution":1
 	},
-	"Wolfram JavaScript Character-Level Language Model V1":{},
 	"SSD-VGG-300 Trained on PASCAL VOC Data":{
 		"Elementwise":8,
 		"Convolution":3,
