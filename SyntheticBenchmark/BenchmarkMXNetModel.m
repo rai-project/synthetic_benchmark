@@ -102,7 +102,7 @@ benchmarkModel[modelName_] :=
     benchmarkModel[modelName, $NumRuns]
 benchmarkModel[modelName_, m_] :=
   Module[{model, time},
-    If[FileExistsQ[FileNameJoin[{baseDir, StringReplace[modelName, " " -> "_"] <> ".csv"}]],
+    If[False && FileExistsQ[FileNameJoin[{baseDir, StringReplace[modelName, " " -> "_"] <> ".csv"}]],
       Return[]
     ];
     Print["benchmarking .... " <> modelName];
